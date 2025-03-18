@@ -1,0 +1,1699 @@
+---
+import skinTestData from "../data/skintest.json";
+
+const userId = 39;
+
+const userAnswers = await fetch(
+  "http://localhost:8080/skinTest/answers/" + userId
+);
+const userAnswersJson = await userAnswers.json();
+console.log(userAnswersJson);
+---
+
+<div id="app">
+  <div id="IntroPages"></div>
+  <div id="categoryQuestions"></div>
+  <div id="finishPage" class="page" style="display: none;">
+    <div class="content">
+      <h1>Your Results</h1>
+      <div class="result-container">
+        <h2>Your Skin Size</h2>
+        <div class="skin-size-number"></div>
+        <p class="result-description">Based on your answers, we have calculated your unique skin size. This number helps us understand your skin's specific needs and characteristics.</p>
+      </div>
+    </div>
+  </div>
+  <script src="script.js" defer></script>
+</div>
+
+<style is:inline>
+  @font-face {
+    font-family: "Monaco";
+    src: url("/src/fonts/Monaco.ttf") format("truetype");
+    font-weight: normal;
+    font-style: normal;
+  }
+
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Times New Roman", Times, serif;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  /* Base styles with mobile-first approach */
+  body {
+    color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    transition: background-color 0.3s ease;
+  }
+
+  body.white-bg {
+    background-color: #fff;
+    color: #000;
+  }
+
+  body.black-bg {
+    background-color: #000;
+  }
+
+  #app {
+    width: 100%;
+    max-width: 800px;
+    height: 100vh;
+    position: relative;
+  }
+
+  .page {
+    flex-direction: column;
+    justify-content: space-between;
+    min-height: 100vh;
+    padding-top: 40px;
+    text-align: center;
+  }
+
+  /* Content styles */
+  .content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    width: 100%;
+  }
+
+  h1 {
+    font-size: 28px;
+    margin-bottom: 10px;
+    letter-spacing: 2px;
+    font-style: italic;
+  }
+
+  h2 {
+    font-size: 18px; /* Smaller base size for mobile */
+    margin-bottom: 15px;
+    max-width: 100%;
+    padding: 0 10px;
+    font-family: "Inter";
+  }
+
+  p {
+    font-size: 13px;
+    line-height: 1.4;
+    max-width: 100%;
+    font-weight: 100;
+    font-family: "Monaco";
+  }
+
+  .black-bg p {
+    color: rgba(255, 255, 255, 0.8);
+  }
+
+  .progress {
+    margin-bottom: 15px;
+    font-size: 14px;
+    font-family: "Monaco";
+    margin-top: 15px;
+  }
+
+  .white-bg .progress {
+    color: #666;
+  }
+
+  .navigation {
+    display: flex;
+    justify-content: center;
+    gap: 80px; /* Reduced from 150px for mobile */
+    width: 100%;
+  }
+
+  .nav-button {
+    width: 45px; /* Slightly smaller for mobile */
+    height: 32px;
+    background-color: transparent;
+    font-size: 18px; /* Smaller font for mobile */
+    cursor: pointer;
+    transition: background-color 0.3s;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: 300;
+  }
+
+  .white-bg .nav-button {
+    border: 1px solid #000;
+    color: #000;
+  }
+
+  .black-bg .nav-button {
+    border: 1px solid #fff;
+    color: #fff;
+  }
+
+  .nav-button.next {
+    background-color: #fff;
+    color: #000;
+  }
+
+  .white-bg .nav-button.next {
+    background-color: #000;
+    color: #fff;
+    border: 1px solid #000;
+  }
+
+  .white-bg .nav-button.prev {
+    background-color: #fff;
+    color: #000;
+  }
+
+  .black-bg .nav-button.prev {
+    background-color: #000;
+    color: #fff;
+  }
+
+  .options {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    width: 100%;
+    max-width: 90%; /* Changed from fixed 400px to be more responsive */
+    margin: 15px 0;
+  }
+
+  .option-button {
+    padding: 12px; /* Slightly smaller padding for mobile */
+    background-color: #f0f0f0;
+    border: none;
+    color: #000;
+    font-size: 14px; /* Smaller font for mobile */
+    cursor: pointer;
+    transition: background-color 0.3s;
+    width: 100%;
+    position: relative;
+    font-family: "Inter";
+  }
+
+  .option-button:hover {
+    background-color: #ddd;
+  }
+
+  .option-button.selected {
+    background-color: #000;
+    color: #fff;
+  }
+
+  /* Checkmark for selected option */
+  .option-button.selected::after {
+    content: "";
+    position: absolute;
+    right: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 18px;
+    height: 18px;
+    background-color: white;
+    border-radius: 50%;
+  }
+
+  .option-button.selected::before {
+    content: "";
+    position: absolute;
+    right: 21px;
+    top: 46%;
+    transform: translateY(-40%) rotate(45deg);
+    width: 3px;
+    height: 7px;
+    border-right: 2px solid black;
+    border-bottom: 2px solid black;
+    z-index: 1;
+  }
+
+  .option-button:hover {
+    background-color: #000;
+    color: #fff;
+  }
+
+  /* Responsive adjustments for checkmark */
+  @media screen and (max-width: 576px) {
+    .option-button.selected::after {
+      width: 16px;
+      height: 16px;
+      right: 12px;
+    }
+
+    .option-button.selected::before {
+      width: 4px;
+      height: 8px;
+      right: 17px;
+    }
+  }
+
+  .error-message {
+    color: #ff0000;
+    font-size: 14px;
+    margin-top: 2px;
+    display: none;
+  }
+
+  /* Start button for welcome page */
+  .start-button {
+    width: 300px;
+    padding: 12px;
+    margin: 0 auto;
+    border: 1px solid #fff;
+    background-color: transparent;
+    color: #fff;
+    text-decoration: none;
+    text-align: center;
+    font-family: "Inter";
+    font-size: 16px;
+    cursor: pointer;
+    transition:
+      background-color 0.3s,
+      color 0.3s;
+  }
+
+  .start-button:hover {
+    background-color: #fff;
+    color: #000;
+  }
+
+  .start-button-container {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+    width: 100%;
+  }
+
+  /* Calculate Results button for last page */
+  .calculate-results-button {
+    min-width: 135px;
+    padding: 12px 20px;
+    margin: 0;
+    background-color: #000;
+    color: #fff;
+    border: none;
+    text-decoration: none;
+    text-align: center;
+    font-family: "Times New Roman", Times, serif;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+
+  /* Save Progress button */
+  .save-progress-button {
+    background: none;
+    border: none;
+    color: inherit;
+    font-family: "Monaco";
+    font-size: 14px;
+    cursor: pointer;
+    padding: 0;
+    margin: 0;
+    text-align: center;
+    text-decoration: underline;
+  }
+
+  .save-progress-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0;
+    flex: 1;
+    text-align: center;
+  }
+
+  .navigation-with-save {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 90%;
+    max-width: 380px;
+    margin: 0 auto 20px;
+  }
+
+  .navigation-buttons {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+  }
+
+  .calculate-results-container {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+    width: 100%;
+  }
+
+  /* Specific adjustments for page 5 */
+  #page5 h2 {
+    font-size: 18px; /* Smaller for mobile */
+  }
+
+  .image-container {
+    width: 80px; /* Smaller for mobile */
+    height: 80px;
+    border-radius: 50%;
+    overflow: visible;
+    cursor: pointer;
+    position: relative;
+  }
+
+  .image-container .comparison-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 50%;
+  }
+
+  .selection-arrow {
+    position: absolute;
+    width: 14px; /* Smaller for mobile */
+    height: 14px;
+    background-color: black;
+    border-radius: 50%;
+    top: 0px;
+    right: 7px;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    display: none;
+  }
+
+  .selection-arrow::after {
+    content: "";
+    position: absolute;
+    width: 7px; /* Smaller for mobile */
+    height: 3px;
+    border: 2px solid rgb(247, 247, 247);
+    border-top: none;
+    border-right: none;
+    top: 45%;
+    left: 50%;
+    transform: translate(-50%, -50%) rotate(-45deg);
+  }
+
+  .image-container.selected .selection-arrow {
+    display: block;
+    opacity: 1;
+  }
+
+  .image-container.selected {
+    border: 1px solid #000;
+    overflow: visible;
+    padding: 2px;
+  }
+
+  .image-container img {
+    max-width: 100%;
+    height: auto;
+    flex: 1;
+  }
+
+  .image-comparison-container {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 10px;
+    padding: 10px;
+    width: 100%;
+  }
+
+  /* Media Queries for different screen sizes */
+
+  /* Small phones (up to 375px) */
+  @media screen and (max-width: 375px) {
+    h1 {
+      font-size: 24px;
+    }
+
+    h2 {
+      font-size: 16px;
+    }
+
+    p {
+      font-size: 12px;
+    }
+
+    .navigation {
+      gap: 60px;
+    }
+
+    .nav-button {
+      width: 40px;
+      height: 30px;
+      font-size: 16px;
+    }
+
+    .skin-tone {
+      width: 50px;
+      height: 50px;
+    }
+
+    .image-options img {
+      width: 90px;
+      height: 90px;
+    }
+
+    .image-option img {
+      width: 120px;
+      height: 120px;
+    }
+
+    .comparison-option {
+      width: 130px;
+      height: 130px;
+    }
+
+    #contentid {
+      margin-bottom: 100px;
+    }
+  }
+
+  /* Medium phones (376px - 576px) */
+  @media screen and (min-width: 376px) and (max-width: 576px) {
+    h1 {
+      font-size: 26px;
+    }
+
+    h2 {
+      font-size: 17px;
+    }
+
+    .navigation {
+      gap: 70px;
+    }
+
+    .skin-tone {
+      width: 55px;
+      height: 55px;
+    }
+
+    .image-container {
+      width: 80px;
+      height: 80px;
+    }
+
+    .selection-arrow {
+      width: 14px;
+      height: 14px;
+      top: -7px;
+      right: 7px;
+    }
+
+    .image-comparison-container {
+      gap: 20px;
+    }
+
+    .comparison-option {
+      width: 140px;
+      height: 140px;
+    }
+
+    #contentid {
+      margin-bottom: 120px;
+    }
+  }
+
+  /* Tablets (577px - 768px) */
+  @media screen and (min-width: 577px) and (max-width: 768px) {
+    h1 {
+      font-size: 30px;
+    }
+
+    h2 {
+      font-size: 20px;
+    }
+
+    p {
+      font-size: 14px;
+      max-width: 90%;
+      color: #646464;
+    }
+
+    .navigation {
+      gap: 100px;
+    }
+
+    .nav-button {
+      width: 45px;
+      height: 35px;
+      font-size: 20px;
+    }
+
+    .skin-tone {
+      width: 65px;
+      height: 65px;
+    }
+
+    .image-options img {
+      width: 110px;
+      height: 110px;
+    }
+
+    .image-option img {
+      width: 160px;
+      height: 160px;
+    }
+
+    .comparison-option {
+      width: 170px;
+      height: 170px;
+    }
+
+    .image-container {
+      width: 90px;
+      height: 90px;
+    }
+
+    #contentid {
+      margin-bottom: 180px;
+    }
+  }
+
+  /* Larger tablets and small desktops (769px - 992px) */
+  @media screen and (min-width: 769px) and (max-width: 992px) {
+    h1 {
+      font-size: 32px;
+    }
+
+    h2 {
+      font-size: 21px;
+    }
+
+    p {
+      font-size: 14px;
+      max-width: 80%;
+    }
+
+    .navigation {
+      gap: 120px;
+    }
+
+    .nav-button {
+      width: 48px;
+      height: 35px;
+      font-size: 22px;
+    }
+
+    .skin-tone {
+      width: 68px;
+      height: 68px;
+    }
+
+    .image-options img {
+      width: 115px;
+      height: 115px;
+    }
+
+    .image-option img {
+      width: 170px;
+      height: 170px;
+    }
+
+    .comparison-option {
+      width: 180px;
+      height: 180px;
+    }
+
+    .image-container {
+      width: 95px;
+      height: 95px;
+    }
+
+    #contentid {
+      margin-bottom: 220px;
+    }
+  }
+
+  /* Desktops (993px and above) */
+  @media screen and (min-width: 993px) {
+    h1 {
+      font-size: 36px;
+    }
+
+    h2 {
+      font-size: 19px;
+    }
+
+    p {
+      font-size: 15px;
+      max-width: 400px;
+    }
+
+    .navigation {
+      gap: 150px;
+    }
+
+    .nav-button {
+      width: 50px;
+      height: 40px;
+      font-size: 22px;
+    }
+
+    .skin-tone {
+      width: 70px;
+      height: 70px;
+    }
+
+    .image-options img {
+      width: 120px;
+      height: 120px;
+    }
+
+    .image-option img {
+      width: 180px;
+      height: 180px;
+    }
+
+    .comparison-option {
+      width: 200px;
+      height: 200px;
+    }
+
+    .image-container {
+      width: 100px;
+      height: 100px;
+    }
+
+    #contentid {
+      margin-bottom: 275px;
+    }
+
+    .options {
+      max-width: 400px;
+    }
+  }
+
+  /* Fix for landscape orientation on mobile devices */
+  @media screen and (max-height: 500px) and (orientation: landscape) {
+    #app {
+      height: auto;
+      min-height: 100vh;
+    }
+
+    #contentid {
+      margin-bottom: 50px;
+    }
+
+    .skin-tones,
+    .image-options,
+    .image-comparison {
+      margin: 10px 0;
+    }
+
+    h1 {
+      font-size: 24px;
+      margin-bottom: 5px;
+    }
+
+    h2 {
+      font-size: 16px;
+      margin-bottom: 10px;
+    }
+
+    .navigation {
+      margin-bottom: 10px;
+    }
+  }
+
+  /* Finish page styles */
+  .result-container {
+    text-align: center;
+    padding: 20px;
+    max-width: 600px;
+    margin: 0 auto;
+  }
+
+  .skin-size-number {
+    font-size: 72px;
+    font-weight: bold;
+    margin: 30px 0;
+    font-family: "Monaco";
+    color: #000;
+  }
+
+  .white-bg .skin-size-number {
+    color: #000;
+  }
+
+  .black-bg .skin-size-number {
+    color: #fff;
+  }
+
+  .result-description {
+    font-size: 16px;
+    line-height: 1.6;
+    margin-top: 20px;
+    color: #666;
+  }
+
+  @media screen and (max-width: 576px) {
+    .skin-size-number {
+      font-size: 56px;
+    }
+    
+    .result-description {
+      font-size: 14px;
+      padding: 0 20px;
+    }
+  }
+</style>
+
+<script define:vars={{ skinTestData, userAnswersJson, userId }}>
+  let currentPage = 1;
+  if (userAnswersJson) {
+    skinTestData?.questionaireObject.forEach((category) => {
+      category.questionaire.forEach((question) => {
+        if (
+          question?.number ===
+          userAnswersJson?.data?.answers?.at(-1)?.questionId
+        ) {
+          currentPage = question.pageNumber + 1;
+          // currentPage = 36;
+        }
+      });
+    });
+    console.log(userAnswersJson);
+  }
+
+  async function saveAnswer(answer) {
+    try {
+      const response = await fetch(`http://localhost:8080/skinTest/answer`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ ...answer, userId }),
+      });
+      const responseData = await response.json();
+      console.log(responseData);
+      return responseData;
+    } catch (error) {
+      console.error("Error saving answer:", error);
+    }
+  }
+
+  async function calCulateResults() {
+    try {
+      const response = await fetch(
+        `http://localhost:8080/skinTest/testScore/${userId}`,
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      const responseCalculateData = await response.json();
+      console.log(responseCalculateData);
+      return responseCalculateData;
+    } catch (error) {
+      console.error("Error calculating results:", error);
+    }
+  }
+
+  async function sendUserData(userId, question, answer) {
+    try {
+      const userData = {
+        userId,
+        question,
+        answer,
+      };
+      const response = await fetch(`http://localhost:8080/skinTest/userData`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(userData),
+      });
+      const responseCalculateData = await response.json();
+      console.log(responseCalculateData);
+      return responseCalculateData;
+    } catch (error) {
+      console.error("Error calculating results:", error);
+    }
+  }
+
+  buildIntroPages();
+  buildQuestionaire();
+  showPage(currentPage);
+
+  document.addEventListener("keydown", handleKeyNavigation);
+  function handleKeyNavigation(event) {
+    const currentPageElement = document.getElementById(`page${currentPage}`);
+
+    if (event.key === "ArrowLeft") {
+      const prevButton = currentPageElement.querySelector(".nav-button.prev");
+      if (prevButton) {
+        prevButton.click();
+      }
+    }
+
+    if (event.key === "ArrowRight") {
+      if (currentPage === 1) {
+        const startButton = currentPageElement.querySelector(".start-button");
+        if (startButton) {
+          startButton.click();
+        }
+        return;
+      }
+
+      if (currentPage === 59) {
+        const calculateButton = currentPageElement.querySelector(
+          ".calculate-results-button"
+        );
+        if (calculateButton) {
+          calculateButton.click();
+        }
+        return;
+      }
+
+      const nextButton = currentPageElement.querySelector(".nav-button.next");
+      if (nextButton) {
+        nextButton.click();
+      }
+    }
+
+    if (event.key === "ArrowUp" || event.key === "ArrowDown") {
+      const options = currentPageElement.querySelectorAll(".option-button");
+      const imageOptions =
+        currentPageElement.querySelectorAll(".image-container");
+
+      if (options.length > 0) {
+        const selectedOption = currentPageElement.querySelector(
+          ".option-button.selected"
+        );
+        let nextIndex = 0;
+
+        if (selectedOption) {
+          const currentIndex = Array.from(options).indexOf(selectedOption);
+          if (event.key === "ArrowUp") {
+            nextIndex = (currentIndex - 1 + options.length) % options.length;
+          } else {
+            nextIndex = (currentIndex + 1) % options.length;
+          }
+        } else {
+          nextIndex = event.key === "ArrowUp" ? options.length - 1 : 0;
+        }
+
+        options[nextIndex].click();
+      } else if (imageOptions.length > 0) {
+        const selectedImage = currentPageElement.querySelector(
+          ".image-container.selected"
+        );
+        let nextIndex = 0;
+
+        if (selectedImage) {
+          const currentIndex = Array.from(imageOptions).indexOf(selectedImage);
+          if (event.key === "ArrowUp") {
+            nextIndex =
+              (currentIndex - 1 + imageOptions.length) % imageOptions.length;
+          } else {
+            nextIndex = (currentIndex + 1) % imageOptions.length;
+          }
+        } else {
+          nextIndex = event.key === "ArrowUp" ? imageOptions.length - 1 : 0;
+        }
+
+        imageOptions[nextIndex].click();
+      }
+    }
+  }
+
+  function buildIntroPages() {
+    const introContainer = document.getElementById("IntroPages");
+
+    skinTestData.introPages.forEach((page) => {
+      const pageDiv = document.createElement("div");
+      pageDiv.classList.add("page");
+      pageDiv.id = `page${page.id}`;
+
+      const contentDiv = document.createElement("div");
+      contentDiv.classList.add("content");
+
+      if (page.type === "welcome") {
+        const title = document.createElement("h1");
+        title.textContent = page.title;
+        contentDiv.appendChild(title);
+
+        const paragraph = document.createElement("p");
+        paragraph.textContent = page.content;
+        contentDiv.appendChild(paragraph);
+      } else {
+        const title = document.createElement("h2");
+        title.textContent = page.title;
+        contentDiv.appendChild(title);
+
+        if (page.type === "options") {
+          const optionsDiv = document.createElement("div");
+          optionsDiv.classList.add("options");
+
+          page.options.forEach((option) => {
+            const optionButton = document.createElement("button");
+            optionButton.classList.add("option-button");
+            optionButton.textContent = option?.value;
+            optionButton.dataset.optionId = option?.optionId;
+            if (
+              userAnswersJson?.data?.gender?.toLowerCase() ===
+              option?.value?.toLowerCase()
+            ) {
+              optionButton.classList.add("selected");
+            }
+
+            optionButton.addEventListener("click", function () {
+              const parentOptions = this.closest(".options");
+              if (parentOptions) {
+                parentOptions
+                  .querySelectorAll(".option-button")
+                  .forEach((btn) => {
+                    btn.classList.remove("selected");
+                  });
+              }
+
+              this.classList.add("selected");
+
+              const errorMessage =
+                this.closest(".content").querySelector(".error-message");
+              if (errorMessage) {
+                errorMessage.style.display = "none";
+              }
+            });
+
+            optionsDiv.appendChild(optionButton);
+          });
+
+          contentDiv.appendChild(optionsDiv);
+
+          // Add error message
+          const errorMessage = document.createElement("p");
+          errorMessage.classList.add("error-message");
+          errorMessage.textContent = "Please give your answer";
+          contentDiv.appendChild(errorMessage);
+        } else if (page.type === "images") {
+          const imageContainer = document.createElement("div");
+          imageContainer.classList.add("image-comparison-container");
+
+          page.images.forEach((image) => {
+            const imgContainer = document.createElement("div");
+            imgContainer.classList.add("image-container");
+            imgContainer.dataset.optionId = image?.typeId;
+            const img = document.createElement("img");
+            img.src = image.src;
+            img.alt = image.alt;
+            img.classList.add("comparison-image");
+
+            const selectionArrow = document.createElement("div");
+            selectionArrow.classList.add("selection-arrow");
+
+            imgContainer.appendChild(img);
+            imgContainer.appendChild(selectionArrow);
+
+            if (image?.typeId === userAnswersJson?.data?.skinTypeId) {
+              imgContainer.classList.add("selected");
+            }
+
+            imgContainer.addEventListener("click", function () {
+              const parentContainer = this.closest(
+                ".image-comparison-container"
+              );
+              if (parentContainer) {
+                parentContainer
+                  .querySelectorAll(".image-container")
+                  .forEach((opt) => {
+                    opt.classList.remove("selected");
+                  });
+              }
+
+              this.classList.add("selected");
+
+              const errorMessage =
+                this.closest(".content").querySelector(".error-message");
+              if (errorMessage) {
+                errorMessage.style.display = "none";
+              }
+            });
+
+            imageContainer.appendChild(imgContainer);
+          });
+
+          contentDiv.appendChild(imageContainer);
+
+          // Add error message for image selection
+          const errorMessage = document.createElement("p");
+          errorMessage.classList.add("error-message");
+          errorMessage.textContent = "Please give your answer";
+          contentDiv.appendChild(errorMessage);
+        }
+      }
+
+      pageDiv.appendChild(contentDiv);
+
+      // Create navigation buttons or start button
+      if (page.id === 1) {
+        // For the welcome page, create a start button instead of navigation
+        const startButtonContainer = document.createElement("div");
+        startButtonContainer.classList.add("start-button-container");
+
+        const startButton = document.createElement("button");
+        startButton.classList.add("start-button");
+        startButton.textContent = "Start";
+        startButton.onclick = () => showPage(page.id + 1);
+
+        startButtonContainer.appendChild(startButton);
+        pageDiv.appendChild(startButtonContainer);
+      } else {
+        // For pages 2 and 3, create navigation with Save Progress button
+        if (page.id === 2 || page.id === 3) {
+          const navigationWithSave = document.createElement("div");
+          navigationWithSave.classList.add("navigation-with-save");
+
+          const prevButton = document.createElement("button");
+          prevButton.classList.add("nav-button", "prev");
+          prevButton.textContent = "←";
+          prevButton.onclick = () => showPage(page.id - 1);
+
+          // Create the Save Progress button
+          const saveProgressContainer = document.createElement("div");
+          saveProgressContainer.classList.add("save-progress-container");
+
+          const saveProgressButton = document.createElement("button");
+          saveProgressButton.classList.add("save-progress-button");
+          saveProgressButton.textContent = "Save Progress";
+          saveProgressButton.onclick = async () => {
+            // Get the current page data
+            const currentPageElement = document.getElementById(
+              `page${currentPage}`
+            );
+            const selectedOption =
+              currentPageElement.querySelector(".option-button.selected") ||
+              currentPageElement.querySelector(".image-container.selected");
+
+            if (selectedOption) {
+              try {
+                await saveAnswer({
+                  questionId: page.title,
+                  optionId: selectedOption.dataset.optionId,
+                });
+                alert("Progress saved successfully!");
+              } catch (error) {
+                console.error("Error saving progress:", error);
+                alert("Failed to save progress. Please try again.");
+              }
+            } else {
+              alert("Progress saved successfully!");
+            }
+          };
+
+          saveProgressContainer.appendChild(saveProgressButton);
+
+          const nextButton = document.createElement("button");
+          nextButton.classList.add("nav-button", "next");
+          nextButton.textContent = "→";
+          nextButton.onclick = async () => {
+            // Check if an option is selected
+            const selectedOption =
+              pageDiv.querySelector(".option-button.selected") ||
+              pageDiv.querySelector(".image-container.selected");
+
+            if (!selectedOption) {
+              const errorMessage = pageDiv.querySelector(".error-message");
+              if (errorMessage) {
+                errorMessage.style.display = "block";
+              }
+            } else {
+              if (page.title.includes("gender")) {
+                answer =
+                  selectedOption.dataset.optionId == 1 ? "Male" : "Female";
+                question = "gender";
+              } else {
+                question = "skinType";
+                answer = selectedOption.dataset.optionId;
+              }
+              await sendUserData(userId, question, answer);
+              showPage(page.id + 1);
+            }
+          };
+
+          navigationWithSave.appendChild(prevButton);
+          navigationWithSave.appendChild(saveProgressContainer);
+          navigationWithSave.appendChild(nextButton);
+
+          pageDiv.appendChild(navigationWithSave);
+        }
+      }
+
+      introContainer.appendChild(pageDiv);
+    });
+  }
+
+  function buildQuestionaire() {
+    const questionaire = document.getElementById("categoryQuestions");
+    skinTestData.questionaireObject.forEach((category) => {
+      const categoryDiv = document.createElement("div");
+      categoryDiv.classList.add("page");
+      categoryDiv.id = `page${category.pageNumber}`;
+      questionaire.appendChild(categoryDiv);
+
+      const titleContent = document.createElement("div");
+      titleContent.classList.add("content");
+
+      const title = document.createElement("h1");
+      title.textContent = category.title;
+      titleContent.appendChild(title);
+
+      const description = document.createElement("p");
+      description.textContent = category.description;
+      titleContent.appendChild(description);
+
+      // Create a navigation with Save Progress button
+      const navigationWithSave = document.createElement("div");
+      navigationWithSave.classList.add("navigation-with-save");
+
+      const prevButton = document.createElement("button");
+      prevButton.classList.add("nav-button", "prev");
+      prevButton.textContent = "←";
+      prevButton.onclick = () => {
+        //Category_Previous_Button
+        if (category.pageNumber === 16) {
+          page14 = document.getElementById("page14");
+          const selectedOption = page14.querySelector(
+            ".option-button.selected"
+          );
+          if (
+            selectedOption.dataset.optionId == "1" ||
+            selectedOption.dataset.optionId == "2"
+          ) {
+            showPage(14);
+          } else {
+            showPage(15);
+          }
+        } else {
+          showPage(category.pageNumber - 1);
+        }
+      };
+
+      // Create the Save Progress button
+      const saveProgressContainer = document.createElement("div");
+      saveProgressContainer.classList.add("save-progress-container");
+
+      const saveProgressButton = document.createElement("button");
+      saveProgressButton.classList.add("save-progress-button");
+      saveProgressButton.textContent = "Save Progress";
+      saveProgressButton.onclick = async () => {
+        // Get the current page data
+        const currentPageElement = document.getElementById(
+          `page${currentPage}`
+        );
+        const selectedOption =
+          currentPageElement.querySelector(".option-button.selected") ||
+          currentPageElement.querySelector(".image-container.selected");
+
+        if (selectedOption) {
+          try {
+            await saveAnswer({
+              questionId: category.title,
+              optionId: selectedOption.dataset.optionId,
+            });
+            alert("Progress saved successfully!");
+          } catch (error) {
+            console.error("Error saving progress:", error);
+            alert("Failed to save progress. Please try again.");
+          }
+        } else {
+          alert("Progress saved successfully!");
+        }
+      };
+
+      saveProgressContainer.appendChild(saveProgressButton);
+
+      const nextButton = document.createElement("button");
+      nextButton.classList.add("nav-button", "next");
+      nextButton.textContent = "→";
+      nextButton.onclick = () => showPage(category.pageNumber + 1);
+
+      navigationWithSave.appendChild(prevButton);
+      navigationWithSave.appendChild(saveProgressContainer);
+      navigationWithSave.appendChild(nextButton);
+
+      categoryDiv.appendChild(titleContent);
+      categoryDiv.appendChild(navigationWithSave);
+
+      category.questionaire.forEach((question) => {
+        const questionPage = document.createElement("div");
+        questionPage.classList.add("page");
+        questionPage.id = `page${question.pageNumber}`;
+        questionaire.appendChild(questionPage);
+
+        const questionPageContent = document.createElement("div");
+        questionPageContent.classList.add("content");
+
+        const questionProgress = document.createElement("div");
+        questionProgress.classList.add("progress");
+
+        questionProgress.textContent = `${question.number}/50`;
+        questionPageContent.appendChild(questionProgress);
+
+        const questionTitle = document.createElement("h2");
+        questionTitle.textContent = question.question;
+        questionPageContent.appendChild(questionTitle);
+
+        if (question?.hint) {
+          const hintElement = document.createElement("p");
+          hintElement.textContent = question.hint;
+          questionPageContent.appendChild(hintElement);
+        }
+
+        if (question.imagesPresent) {
+          const imageComparisonContainer = document.createElement("div");
+          imageComparisonContainer.classList.add("image-comparison-container");
+          questionPageContent.appendChild(imageComparisonContainer);
+
+          question.images.forEach((image) => {
+            const comparisonOption = document.createElement("div");
+            comparisonOption.classList.add("image-container");
+            comparisonOption.dataset.optionId = image?.optionId;
+
+            const imageElement = document.createElement("img");
+            imageElement.src = image.src;
+            imageElement.alt = image.alt;
+            imageElement.classList.add("comparison-image");
+
+            comparisonOption.appendChild(imageElement);
+
+            imageComparisonContainer.appendChild(comparisonOption);
+
+            if (question?.optionsType === "image") {
+              const selectionArrow = document.createElement("div");
+              selectionArrow.classList.add("selection-arrow");
+              comparisonOption.appendChild(selectionArrow);
+
+              userAnswersJson?.data?.answers?.forEach((answer) => {
+                if (
+                  answer?.questionId === question?.number &&
+                  answer?.optionId === image?.optionId
+                ) {
+                  comparisonOption.classList.add("selected");
+                }
+              });
+
+              comparisonOption.addEventListener("click", function () {
+                imageComparisonContainer
+                  .querySelectorAll(".image-container")
+                  .forEach((opt) => {
+                    opt.classList.remove("selected");
+                  });
+
+                this.classList.add("selected");
+
+                const errorMessage =
+                  questionPageContent.querySelector(".error-message");
+                if (errorMessage) {
+                  errorMessage.style.display = "none";
+                }
+              });
+            }
+          });
+
+          // Only add error message here if this is NOT page 11, 33, or 36
+          if (
+            question.pageNumber !== 11 &&
+            question.pageNumber !== 33 &&
+            question.pageNumber !== 36
+          ) {
+            const errorMessage = document.createElement("p");
+            errorMessage.classList.add("error-message");
+            errorMessage.textContent = "Please give your answer";
+            questionPageContent.appendChild(errorMessage);
+          }
+        }
+
+        if (question.optionsPresent) {
+          const questionOptions = document.createElement("div");
+          questionOptions.classList.add("options");
+
+          question.options.forEach((option) => {
+            const optionButton = document.createElement("button");
+            optionButton.classList.add("option-button");
+
+            optionButton.textContent = option.text;
+            optionButton.dataset.optionId = option?.optionId;
+            questionOptions.appendChild(optionButton);
+
+            userAnswersJson?.data?.answers?.forEach((answer) => {
+              if (
+                answer?.questionId === question?.number &&
+                answer?.optionId === option?.optionId
+              ) {
+                optionButton.classList.add("selected");
+              }
+            });
+
+            optionButton.addEventListener("click", function () {
+              const parentOptions = this.closest(".options");
+              if (parentOptions) {
+                parentOptions
+                  .querySelectorAll(".option-button")
+                  .forEach((btn) => {
+                    btn.classList.remove("selected");
+                  });
+              }
+
+              this.classList.add("selected");
+
+              const errorMessage =
+                questionPageContent.querySelector(".error-message");
+              if (errorMessage) {
+                errorMessage.style.display = "none";
+              }
+            });
+          });
+          questionPageContent.appendChild(questionOptions);
+
+          // Always add error message after options
+          // For pages 11, 33, and 36, this will be the only error message
+          const errorMessage = document.createElement("p");
+          errorMessage.classList.add("error-message");
+          errorMessage.textContent = "Please give your answer";
+          questionPageContent.appendChild(errorMessage);
+        }
+
+        questionPage.appendChild(questionPageContent);
+
+        const questionNavigation = document.createElement("div");
+        questionNavigation.classList.add("navigation");
+
+        const questionPrevButton = document.createElement("button");
+        questionPrevButton.classList.add("nav-button");
+        questionPrevButton.classList.add("prev");
+
+        questionPrevButton.onclick = () => {
+          const genderPage = document.getElementById("page2");
+          const maleOption = genderPage?.querySelector(
+            ".option-button.selected"
+          );
+          const gender = maleOption?.textContent?.toLowerCase();
+
+          const prevPageElement = document.getElementById(
+            `page${question.pageNumber - 2}`
+          );
+          const prevSelectedOption =
+            prevPageElement?.querySelector(".option-button.selected") ||
+            prevPageElement?.querySelector(".image-container.selected");
+
+          //Barrier Page 10a Handling
+
+          if (question.pageNumber === 19) {
+            tenAOption = document
+              .getElementById("page17")
+              .querySelector(".option-button.selected");
+            if (
+              tenAOption?.dataset.optionId === "1" ||
+              tenAOption?.dataset.optionId === "2"
+            ) {
+              showPage(question.pageNumber - 2);
+            } else {
+              showPage(question.pageNumber - 1);
+            }
+          }
+
+          // If previous page had option 1 or 2 selected, go back 2 pages
+          if (question.pageNumber === 36) {
+            if (gender === "male") {
+              showPage(question.pageNumber - 2);
+            } else {
+              showPage(question.pageNumber - 1);
+            }
+          }
+
+          if (!(question.pageNumber === 36 || question.pageNumber === 19)) {
+            showPage(question.pageNumber - 1);
+          }
+        };
+        questionPrevButton.textContent = "←";
+
+        const questionNextButton = document.createElement("button");
+        questionNextButton.classList.add("nav-button");
+        questionNextButton.classList.add("next");
+
+        if (question.pageNumber === 59) {
+          // For the last page, create a Calculate Results button
+          const calculateResultsButton = document.createElement("button");
+          calculateResultsButton.classList.add("calculate-results-button");
+          calculateResultsButton.textContent = "Calculate Results";
+          calculateResultsButton.onclick = async () => {
+            // Check if an option is selected
+            const selectedOption =
+              questionPage.querySelector(".option-button.selected") ||
+              questionPage.querySelector(".image-container.selected");
+
+            if (selectedOption) {
+              try {
+                const result = await saveAnswer({
+                  questionId: question.number,
+                  optionId: selectedOption.dataset.optionId,
+                });
+                console.log(result);
+              } catch (error) {
+                console.error("Error saving answer:", error);
+                alert("Failed to save answer. Please try again.");
+              }
+            }
+
+            if (
+              !selectedOption &&
+              (question.optionsPresent || question.imagesPresent)
+            ) {
+              const errorMessage = questionPage.querySelector(".error-message");
+              if (errorMessage) {
+                errorMessage.style.display = "block";
+              }
+            } else {
+              try {
+                const responseCalculateData = await calCulateResults();
+                if (responseCalculateData.success) {
+                  // Hide all pages
+                  const pages = document.querySelectorAll(".page");
+                  pages.forEach((page) => {
+                    page.style.display = "none";
+                  });
+
+                  // Show finish page and update skin size
+                  const finishPage = document.getElementById("finishPage");
+                  const skinSizeNumber = finishPage.querySelector(".skin-size-number");
+                  skinSizeNumber.textContent = responseCalculateData.data.finalScore;
+                  finishPage.style.display = "flex";
+
+                  // Set background to white for finish page
+                  document.body.classList.remove("black-bg");
+                  document.body.classList.add("white-bg");
+                } else {
+                  alert("Failed to calculate results. Please try again.");
+                }
+              } catch (error) {
+                console.error("Error calculating results:", error);
+                alert(
+                  "An error occurred while calculating results. Please try again."
+                );
+              }
+            }
+          };
+
+          // Create a navigation with Save Progress button (using the same structure as other pages)
+          const navigationWithSave = document.createElement("div");
+          navigationWithSave.classList.add("navigation-with-save");
+
+          // Add Save Progress button to the last page
+          const saveProgressContainer = document.createElement("div");
+          saveProgressContainer.classList.add("save-progress-container");
+
+          const saveProgressButton = document.createElement("button");
+          saveProgressButton.classList.add("save-progress-button");
+          saveProgressButton.textContent = "Save Progress";
+          saveProgressButton.onclick = async () => {
+            // Get the selected option
+            const selectedOption =
+              questionPage.querySelector(".option-button.selected") ||
+              questionPage.querySelector(".image-container.selected");
+
+            if (selectedOption) {
+              try {
+                await saveAnswer({
+                  questionId: question.number,
+                  optionId: selectedOption.dataset.optionId,
+                });
+                alert("Progress saved successfully!");
+              } catch (error) {
+                console.error("Error saving progress:", error);
+                alert("Failed to save progress. Please try again.");
+              }
+            } else {
+              alert("Progress saved successfully!");
+            }
+          };
+
+          saveProgressContainer.appendChild(saveProgressButton);
+
+          navigationWithSave.appendChild(questionPrevButton);
+          navigationWithSave.appendChild(saveProgressContainer);
+          navigationWithSave.appendChild(calculateResultsButton);
+
+          questionNavigation.appendChild(navigationWithSave);
+        } else {
+          // Create a navigation with Save Progress button
+          const navigationWithSave = document.createElement("div");
+          navigationWithSave.classList.add("navigation-with-save");
+
+          // Create the Save Progress button
+          const saveProgressContainer = document.createElement("div");
+          saveProgressContainer.classList.add("save-progress-container");
+
+          const saveProgressButton = document.createElement("button");
+          saveProgressButton.classList.add("save-progress-button");
+          saveProgressButton.textContent = "Save Progress";
+          saveProgressButton.onclick = async () => {
+            // Get the selected option
+            const selectedOption =
+              questionPage.querySelector(".option-button.selected") ||
+              questionPage.querySelector(".image-container.selected");
+
+            if (selectedOption) {
+              try {
+                await saveAnswer({
+                  questionId: question.number,
+                  optionId: selectedOption.dataset.optionId,
+                });
+                alert("Progress saved successfully!");
+              } catch (error) {
+                console.error("Error saving progress:", error);
+                alert("Failed to save progress. Please try again.");
+              }
+            } else {
+              alert("Progress saved successfully!");
+            }
+          };
+
+          saveProgressContainer.appendChild(saveProgressButton);
+
+          questionNextButton.onclick = async () => {
+            // Check if an option is selected
+            const selectedOption =
+              questionPage.querySelector(".option-button.selected") ||
+              questionPage.querySelector(".image-container.selected");
+
+            if (
+              !selectedOption &&
+              (question.optionsPresent || question.imagesPresent)
+            ) {
+              const errorMessage = questionPage.querySelector(".error-message");
+              if (errorMessage) {
+                errorMessage.style.display = "block";
+              }
+            } else {
+              await saveAnswer({
+                questionId: question.number,
+                optionId: selectedOption.dataset.optionId,
+              });
+
+              const genderPage = document.getElementById("page2");
+              const maleOption = genderPage?.querySelector(
+                ".option-button.selected"
+              );
+              const gender = maleOption?.textContent?.toLowerCase();
+
+              if (question.pageNumber === 14) {
+                tenAOption = document
+                  .getElementById("page14")
+                  .querySelector(".option-button.selected");
+                if (
+                  tenAOption?.dataset.optionId === "1" ||
+                  tenAOption?.dataset.optionId === "2"
+                ) {
+                  showPage(question.pageNumber + 2);
+                } else {
+                  showPage(question.pageNumber + 1);
+                }
+              }
+
+              if (question.pageNumber === 17) {
+                tenAOption = document
+                  .getElementById("page17")
+                  .querySelector(".option-button.selected");
+                if (
+                  tenAOption?.dataset.optionId === "1" ||
+                  tenAOption?.dataset.optionId === "2"
+                ) {
+                  showPage(question.pageNumber + 2);
+                } else {
+                  showPage(question.pageNumber + 1);
+                }
+              }
+
+              if (question.pageNumber === 34) {
+                if (gender === "male") {
+                  showPage(question.pageNumber + 2);
+                } else {
+                  showPage(question.pageNumber + 1);
+                }
+              }
+
+              if (
+                !(
+                  question.pageNumber === 14 ||
+                  question.pageNumber === 34 ||
+                  question.pageNumber === 17
+                )
+              ) {
+                {
+                  showPage(question.pageNumber + 1);
+                }
+              }
+            }
+          };
+          questionNextButton.textContent = "→";
+
+          navigationWithSave.appendChild(questionPrevButton);
+          navigationWithSave.appendChild(saveProgressContainer);
+          navigationWithSave.appendChild(questionNextButton);
+
+          questionNavigation.appendChild(navigationWithSave);
+        }
+
+        questionPage.appendChild(questionNavigation);
+      });
+    });
+  }
+
+  function showPage(pageNumber) {
+    const pages = document.querySelectorAll(".page");
+    pages.forEach((page) => {
+      page.style.display = "none";
+    });
+
+    document.getElementById(`page${pageNumber}`).style.display = "flex";
+
+    currentPage = pageNumber;
+
+    if (
+      pageNumber === 1 ||
+      pageNumber === 4 ||
+      pageNumber === 16 ||
+      pageNumber === 32 ||
+      pageNumber === 44
+    ) {
+      document.body.classList.remove("white-bg");
+      document.body.classList.add("black-bg");
+    } else {
+      document.body.classList.remove("black-bg");
+      document.body.classList.add("white-bg");
+    }
+
+    window.scrollTo(0, 0);
+  }
+</script>
