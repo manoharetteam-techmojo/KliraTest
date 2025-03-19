@@ -1,67 +1,69 @@
 {
-  "introPages": [
-    {
-      "id": 1,
-      "title": "WELCOME",
-      "content": "The SkinSize™ diagnostic will help us decode your skin, curate your ideal routine, and prescribe your Klira Special formula.",
-      "type": "welcome"
-    },
-    {
-      "id": 2,
-      "title": "What's your gender?",
-      "type": "options",
-      "options": [
-        {
-          "selected": false,
-          "value": "Male",
-          "optionId": 1
-        },
-        {
-          "value": "Female",
-          "selected": false,
-          "optionId": 2
-        }
-      ]
-    },
-    {
-      "id": 3,
-      "title": "What is your natural skin colour without tanning or self tanners? Select from the colours below.",
-      "type": "images",
-      "images": [
-        {
-          "typeId": 1,
-          "src": ".//assets/1.png",
-          "alt": "Image 1"
-        },
-        {
-          "typeId": 2,
-          "src": ".//assets/2.png",
-          "alt": "Image 2"
-        },
-        {
-          "typeId": 3,
-          "src": ".//assets/3.png",
-          "alt": "Image 3"
-        },
-        {
-          "typeId": 4,
-          "src": ".//assets/4.png",
-          "alt": "Image 4"
-        },
-        {
-          "typeId": 5,
-          "src": ".//assets/5.png",
-          "alt": "Image 5"
-        },
-        {
-          "typeId": 6,
-          "src": ".//assets/6.png",
-          "alt": "Image 6"
-        }
-      ]
-    }
-  ],
   "questionaireObject": [
+    {
+      "title": "WELCOME",
+      "pageNumber": 1,
+      "description":"The SkinSize™ diagnostic will help us decode your skin, curate your ideal routine, and prescribe your Klira Special formula.",
+      "questionaire": [
+        {
+          "pageNumber": 2,
+          "question": "What's your gender?",
+          "options": [
+            {
+              "text": "Male",
+              "letter": "a",
+              "optionId": 1
+            },
+            {
+              "text": "Female",
+              "letter": "b",
+              "optionId": 2
+            }
+          ],
+          "optionsPresent": true
+        },
+        {
+          "pageNumber": 3,
+          "question": "What is your natural skin colour without tanning or self tanners? Select from the colours below.",
+          "optionsType":"image",
+          "options": [],
+          "images": [
+            {
+             "src": "./assets/1.png",
+          "alt": "Image 1",
+              "optionId": 1
+            },
+            {
+                "src": "./assets/2.png",
+          "alt": "Image 2",
+              "optionId": 2
+            },
+            {
+              "src": "./assets/3.png",
+          "alt": "Image 3",
+              "optionId": 3
+            },
+            {
+              "src": "./assets/4.png",
+          "alt": "Image 3",
+              "optionId": 4
+            },
+            {
+             "src": "./assets/5.png",
+          "alt": "Image 5",
+              "optionId": 5
+            },
+            {
+             "src": "./assets/6.png",
+          "alt": "Image 6",
+              "optionId": 6
+            }
+          ],
+          "imagesPresent": true,
+          "optionsPresent": true
+        }
+        ]
+    },
     {
       "title": "SEBUM",
       "pageNumber": 4,
@@ -75,47 +77,27 @@
             {
               "text": "Very rough, flakey or ashy",
               "letter": "a",
-              "scoring": -2,
-              "showImages": true,
               "optionId": 1
             },
             {
               "text": "Tight",
               "letter": "b",
-              "scoring": -1,
-              "showImages": true,
               "optionId": 2
             },
             {
               "text": "Well hydrated with minimal reflection of light",
               "letter": "c",
-              "scoring": 0,
-              "showImages": true,
               "optionId": 3
             },
             {
               "text": "Shiny and reflecting bright light",
               "letter": "d",
-              "scoring": 1,
-              "showImages": true,
               "optionId": 4
             },
             {
               "text": "Wet and shiny with a lot of reflection",
               "letter": "e",
-              "scoring": 3,
-              "showImages": false,
               "optionId": 5
-            }
-          ],
-          "images": [
-            {
-              "src": "",
-              "alt": ""
-            },
-            {
-              "src": "",
-              "alt": ""
             }
           ],
           "imagesPresent": false,
@@ -129,47 +111,27 @@
             {
               "text": "Flakey or in wrinkles",
               "letter": "a",
-              "scoring": -2,
-              "showImages": true,
               "optionId": 1
             },
             {
               "text": "Smooth and still in place",
               "letter": "b",
-              "scoring": -1,
-              "showImages": true,
               "optionId": 2
             },
             {
               "text": "Shiny and needing powder",
               "letter": "c",
-              "scoring": 0,
-              "showImages": true,
               "optionId": 3
             },
             {
               "text": "Streaked and shiny",
               "letter": "d",
-              "scoring": 1,
-              "showImages": true,
               "optionId": 4
             },
             {
               "text": "I don't wear foundation",
               "letter": "e",
-              "scoring": 3,
-              "showImages": false,
               "optionId": 5
-            }
-          ],
-          "images": [
-            {
-              "src": "",
-              "alt": ""
-            },
-            {
-              "src": "",
-              "alt": ""
             }
           ],
           "imagesPresent": false,
@@ -183,40 +145,22 @@
             {
               "text": "Dry or cracked",
               "letter": "a",
-              "scoring": -2,
-              "showImages": true,
               "optionId": 1
             },
             {
               "text": "Tight",
               "letter": "b",
-              "scoring": -1,
-              "showImages": true,
               "optionId": 2
             },
             {
               "text": "Comfortable",
               "letter": "c",
-              "scoring": 0,
-              "showImages": true,
               "optionId": 3
             },
             {
               "text": "Shiny",
               "letter": "d",
-              "scoring": 1,
-              "showImages": true,
               "optionId": 4
-            }
-          ],
-          "images": [
-            {
-              "src": "",
-              "alt": ""
-            },
-            {
-              "src": "",
-              "alt": ""
             }
           ],
           "imagesPresent": false,
@@ -230,40 +174,22 @@
             {
               "text": "None",
               "letter": "a",
-              "scoring": -2,
-              "showImages": true,
               "optionId": 1
             },
             {
               "text": "A few in the T-zone (forehead and nose) only",
               "letter": "b",
-              "scoring": -1,
-              "showImages": true,
               "optionId": 2
             },
             {
               "text": "Many",
               "letter": "c",
-              "scoring": 0,
-              "showImages": true,
               "optionId": 3
             },
             {
               "text": "Tons",
               "letter": "d",
-              "scoring": 1,
-              "showImages": true,
               "optionId": 4
-            }
-          ],
-          "images": [
-            {
-              "src": "",
-              "alt": ""
-            },
-            {
-              "src": "",
-              "alt": ""
             }
           ],
           "imagesPresent": false,
@@ -277,40 +203,22 @@
             {
               "text": "Dry and cracked",
               "letter": "a",
-              "scoring": -2,
-              "showImages": true,
               "optionId": 1
             },
             {
               "text": "Dry",
               "letter": "b",
-              "scoring": -1,
-              "showImages": true,
               "optionId": 2
             },
             {
               "text": "Comfortable",
               "letter": "c",
-              "scoring": 0,
-              "showImages": true,
               "optionId": 3
             },
             {
               "text": "Oily",
               "letter": "d",
-              "scoring": 1,
-              "showImages": true,
               "optionId": 4
-            }
-          ],
-          "images": [
-            {
-              "src": "",
-              "alt": ""
-            },
-            {
-              "src": "",
-              "alt": ""
             }
           ],
           "imagesPresent": false,
@@ -324,33 +232,17 @@
             {
               "text": "Always",
               "letter": "a",
-              "scoring": -2,
-              "showImages": true,
               "optionId": 1
             },
             {
               "text": "Sometimes",
               "letter": "b",
-              "scoring": -1,
-              "showImages": true,
               "optionId": 2
             },
             {
               "text": "Rarely",
               "letter": "c",
-              "scoring": 0,
-              "showImages": true,
               "optionId": 3
-            }
-          ],
-          "images": [
-            {
-              "src": "",
-              "alt": ""
-            },
-            {
-              "src": "",
-              "alt": ""
             }
           ],
           "imagesPresent": false,
@@ -366,29 +258,21 @@
             {
               "text": "Never",
               "letter": "a",
-              "scoring": -2,
-              "showImages": true,
               "optionId": 1
             },
             {
               "text": "Rarely",
               "letter": "b",
-              "scoring": -1,
-              "showImages": true,
               "optionId": 2
             },
             {
               "text": "Sometimes",
               "letter": "c",
-              "scoring": 0,
-              "showImages": true,
               "optionId": 3
             },
             {
               "text": "Always",
               "letter": "d",
-              "scoring": 1,
-              "showImages": true,
               "optionId": 4
             }
           ],
@@ -413,40 +297,22 @@
             {
               "text": "Never",
               "letter": "a",
-              "scoring": -2,
-              "showImages": true,
               "optionId": 1
             },
             {
               "text": "Sometimes",
               "letter": "b",
-              "scoring": -1,
-              "showImages": true,
               "optionId": 2
             },
             {
               "text": "Frequently",
               "letter": "c",
-              "scoring": 0,
-              "showImages": true,
               "optionId": 3
             },
             {
               "text": "Always",
-              "letter": "c",
-              "scoring": 0,
-              "showImages": true,
+              "letter": "d",
               "optionId": 4
-            }
-          ],
-          "images": [
-            {
-              "src": "",
-              "alt": ""
-            },
-            {
-              "src": "",
-              "alt": ""
             }
           ],
           "imagesPresent": false,
@@ -460,40 +326,22 @@
             {
               "text": "Rough",
               "letter": "a",
-              "scoring": -2,
-              "showImages": true,
               "optionId": 1
             },
             {
               "text": "Smooth",
               "letter": "b",
-              "scoring": -1,
-              "showImages": true,
               "optionId": 2
             },
             {
               "text": "Slightly shiny",
               "letter": "c",
-              "scoring": 0,
-              "showImages": true,
               "optionId": 3
             },
             {
               "text": "Shiny and slick",
-              "letter": "c",
-              "scoring": 0,
-              "showImages": true,
+              "letter": "d",
               "optionId": 4
-            }
-          ],
-          "images": [
-            {
-              "src": "",
-              "alt": ""
-            },
-            {
-              "src": "",
-              "alt": ""
             }
           ],
           "imagesPresent": false,
@@ -507,40 +355,22 @@
             {
               "text": "Never",
               "letter": "a",
-              "scoring": -2,
-              "showImages": true,
               "optionId": 1
             },
             {
               "text": "Rarely",
               "letter": "b",
-              "scoring": -1,
-              "showImages": true,
               "optionId": 2
             },
             {
               "text": "More than once a month",
               "letter": "c",
-              "scoring": 0,
-              "showImages": true,
               "optionId": 3
             },
             {
               "text": "More than once a week",
-              "letter": "c",
-              "scoring": 0,
-              "showImages": true,
+              "letter": "d",
               "optionId": 4
-            }
-          ],
-          "images": [
-            {
-              "src": "",
-              "alt": ""
-            },
-            {
-              "src": "",
-              "alt": ""
             }
           ],
           "imagesPresent": false,
@@ -583,40 +413,22 @@
             {
               "text": "Never",
               "letter": "a",
-              "scoring": -2,
-              "showImages": true,
               "optionId": 1
             },
             {
               "text": "Rarely",
               "letter": "b",
-              "scoring": -1,
-              "showImages": true,
               "optionId": 2
             },
             {
               "text": "More than once a month",
               "letter": "c",
-              "scoring": 0,
-              "showImages": true,
               "optionId": 3
             },
             {
               "text": "More than once a week",
-              "letter": "c",
-              "scoring": 0,
-              "showImages": true,
+              "letter": "d",
               "optionId": 4
-            }
-          ],
-          "images": [
-            {
-              "src": "",
-              "alt": ""
-            },
-            {
-              "src": "",
-              "alt": ""
             }
           ],
           "imagesPresent": false,
@@ -651,40 +463,22 @@
             {
               "text": "Never",
               "letter": "a",
-              "scoring": -2,
-              "showImages": true,
               "optionId": 1
             },
             {
               "text": "Rarely",
               "letter": "b",
-              "scoring": -1,
-              "showImages": true,
               "optionId": 2
             },
             {
               "text": "Often",
               "letter": "c",
-              "scoring": 0,
-              "showImages": true,
               "optionId": 3
             },
             {
               "text": "Always ",
-              "letter": "c",
-              "scoring": 0,
-              "showImages": true,
+              "letter": "d",
               "optionId": 4
-            }
-          ],
-          "images": [
-            {
-              "src": "",
-              "alt": ""
-            },
-            {
-              "src": "",
-              "alt": ""
             }
           ],
           "imagesPresent": false,
@@ -698,40 +492,22 @@
             {
               "text": "No",
               "letter": "a",
-              "scoring": -2,
-              "showImages": true,
               "optionId": 1
             },
             {
               "text": "Friends/family tell me I have it",
               "letter": "b",
-              "scoring": -1,
-              "showImages": true,
               "optionId": 2
             },
             {
               "text": "Yes",
               "letter": "c",
-              "scoring": 0,
-              "showImages": true,
               "optionId": 3
             },
             {
               "text": "Yes, a severe case",
-              "letter": "c",
-              "scoring": 0,
-              "showImages": true,
+              "letter": "d",
               "optionId": 4
-            }
-          ],
-          "images": [
-            {
-              "src": "",
-              "alt": ""
-            },
-            {
-              "src": "",
-              "alt": ""
             }
           ],
           "imagesPresent": false,
@@ -745,40 +521,22 @@
             {
               "text": "Never",
               "letter": "a",
-              "scoring": -2,
-              "showImages": true,
               "optionId": 1
             },
             {
               "text": "Rarely",
               "letter": "b",
-              "scoring": -1,
-              "showImages": true,
               "optionId": 2
             },
             {
               "text": "Often",
               "letter": "c",
-              "scoring": 0,
-              "showImages": true,
               "optionId": 3
             },
             {
               "text": "Always",
-              "letter": "c",
-              "scoring": 0,
-              "showImages": true,
+              "letter": "d",
               "optionId": 4
-            }
-          ],
-          "images": [
-            {
-              "src": "",
-              "alt": ""
-            },
-            {
-              "src": "",
-              "alt": ""
             }
           ],
           "imagesPresent": false,
@@ -792,47 +550,27 @@
             {
               "text": "Never",
               "letter": "a",
-              "scoring": -2,
-              "showImages": true,
               "optionId": 1
             },
             {
               "text": "Rarely",
               "letter": "b",
-              "scoring": -1,
-              "showImages": true,
               "optionId": 2
             },
             {
               "text": "Often",
               "letter": "c",
-              "scoring": 0,
-              "showImages": true,
               "optionId": 3
             },
             {
               "text": "Always",
-              "letter": "c",
-              "scoring": 0,
-              "showImages": true,
+              "letter": "d",
               "optionId": 4
             },
             {
               "text": "I never wear sunscreen",
-              "letter": "c",
-              "scoring": 0,
-              "showImages": true,
+              "letter": "e",
               "optionId": 5
-            }
-          ],
-          "images": [
-            {
-              "src": "",
-              "alt": ""
-            },
-            {
-              "src": "",
-              "alt": ""
             }
           ],
           "imagesPresent": false,
@@ -846,40 +584,22 @@
             {
               "text": "No",
               "letter": "a",
-              "scoring": -2,
-              "showImages": true,
               "optionId": 1
             },
             {
               "text": "Friends/family tell me I have it",
               "letter": "b",
-              "scoring": -1,
-              "showImages": true,
               "optionId": 2
             },
             {
               "text": "Yes",
               "letter": "c",
-              "scoring": 0,
-              "showImages": true,
               "optionId": 3
             },
             {
               "text": "Yes, a severe case",
-              "letter": "c",
-              "scoring": 0,
-              "showImages": true,
+              "letter": "d",
               "optionId": 4
-            }
-          ],
-          "images": [
-            {
-              "src": "",
-              "alt": ""
-            },
-            {
-              "src": "",
-              "alt": ""
             }
           ],
           "imagesPresent": false,
@@ -893,40 +613,22 @@
             {
               "text": "Yes",
               "letter": "a",
-              "scoring": -2,
-              "showImages": true,
               "optionId": 1
             },
             {
               "text": "Most of the time",
               "letter": "b",
-              "scoring": -1,
-              "showImages": true,
               "optionId": 2
             },
             {
               "text": "No, my skin itches, turns red or breaks out",
               "letter": "c",
-              "scoring": 0,
-              "showImages": true,
               "optionId": 3
             },
             {
               "text": "I wouldn't use it because of past problems",
-              "letter": "c",
-              "scoring": 0,
-              "showImages": true,
+              "letter": "d",
               "optionId": 4
-            }
-          ],
-          "images": [
-            {
-              "src": "",
-              "alt": ""
-            },
-            {
-              "src": "",
-              "alt": ""
             }
           ],
           "imagesPresent": false,
@@ -940,40 +642,22 @@
             {
               "text": "Yes, I have",
               "letter": "a",
-              "scoring": -2,
-              "showImages": true,
               "optionId": 1
             },
             {
               "text": "No",
               "letter": "b",
-              "scoring": -1,
-              "showImages": true,
               "optionId": 2
             },
             {
               "text": "No, but one family member",
               "letter": "c",
-              "scoring": 0,
-              "showImages": true,
               "optionId": 3
             },
             {
               "text": "No, but many of my family members",
-              "letter": "c",
-              "scoring": 0,
-              "showImages": true,
+              "letter": "d",
               "optionId": 4
-            }
-          ],
-          "images": [
-            {
-              "src": "",
-              "alt": ""
-            },
-            {
-              "src": "",
-              "alt": ""
             }
           ],
           "imagesPresent": false,
@@ -987,40 +671,22 @@
             {
               "text": "Never",
               "letter": "a",
-              "scoring": -2,
-              "showImages": true,
               "optionId": 1
             },
             {
               "text": "Sometimes",
               "letter": "b",
-              "scoring": -1,
-              "showImages": true,
               "optionId": 2
             },
             {
               "text": "Frequently",
               "letter": "c",
-              "scoring": 0,
-              "showImages": true,
               "optionId": 3
             },
             {
               "text": "Always",
-              "letter": "c",
-              "scoring": 0,
-              "showImages": true,
+              "letter": "d",
               "optionId": 4
-            }
-          ],
-          "images": [
-            {
-              "src": "",
-              "alt": ""
-            },
-            {
-              "src": "",
-              "alt": ""
             }
           ],
           "imagesPresent": false,
@@ -1034,47 +700,27 @@
             {
               "text": "Never",
               "letter": "a",
-              "scoring": -2,
-              "showImages": true,
               "optionId": 1
             },
             {
               "text": "Sometimes",
               "letter": "b",
-              "scoring": -1,
-              "showImages": true,
               "optionId": 2
             },
             {
               "text": "Frequently",
               "letter": "c",
-              "scoring": 0,
-              "showImages": true,
               "optionId": 3
             },
             {
               "text": "Always, or I don't drink because of this",
-              "letter": "c",
-              "scoring": 0,
-              "showImages": true,
+              "letter": "d",
               "optionId": 4
             },
             {
               "text": "I don't drink alcohol",
-              "letter": "c",
-              "scoring": 0,
-              "showImages": true,
+              "letter": "e",
               "optionId": 5
-            }
-          ],
-          "images": [
-            {
-              "src": "",
-              "alt": ""
-            },
-            {
-              "src": "",
-              "alt": ""
             }
           ],
           "imagesPresent": false,
@@ -1088,40 +734,22 @@
             {
               "text": "Never",
               "letter": "a",
-              "scoring": -2,
-              "showImages": true,
               "optionId": 1
             },
             {
               "text": "Sometimes",
               "letter": "b",
-              "scoring": -1,
-              "showImages": true,
               "optionId": 2
             },
             {
               "text": "Frequently",
               "letter": "c",
-              "scoring": 0,
-              "showImages": true,
               "optionId": 3
             },
             {
               "text": "Always",
-              "letter": "c",
-              "scoring": 0,
-              "showImages": true,
+              "letter": "d",
               "optionId": 4
-            }
-          ],
-          "images": [
-            {
-              "src": "",
-              "alt": ""
-            },
-            {
-              "src": "",
-              "alt": ""
             }
           ],
           "imagesPresent": false,
@@ -1142,12 +770,12 @@
             {
               "src": "/assets/22Image2.png",
               "alt": "age4",
-              "optionId": 4
+              "optionId": 2
             },
             {
               "src": "/assets/22Image3.png",
               "alt": "age1",
-              "optionId": 1
+              "optionId": 3
             },
             {
               "src": "/assets/22Image4.png",
@@ -1166,40 +794,22 @@
             {
               "text": "Never",
               "letter": "a",
-              "scoring": -2,
-              "showImages": true,
               "optionId": 1
             },
             {
               "text": "Sometimes",
               "letter": "b",
-              "scoring": -1,
-              "showImages": true,
               "optionId": 2
             },
             {
               "text": "Frequently",
               "letter": "c",
-              "scoring": 0,
-              "showImages": true,
               "optionId": 3
             },
             {
               "text": "Always",
-              "letter": "c",
-              "scoring": 0,
-              "showImages": true,
+              "letter": "d",
               "optionId": 4
-            }
-          ],
-          "images": [
-            {
-              "src": "",
-              "alt": ""
-            },
-            {
-              "src": "",
-              "alt": ""
             }
           ],
           "imagesPresent": false,
@@ -1213,40 +823,22 @@
             {
               "text": "Never",
               "letter": "a",
-              "scoring": -2,
-              "showImages": true,
               "optionId": 1
             },
             {
               "text": "Sometimes",
               "letter": "b",
-              "scoring": -1,
-              "showImages": true,
               "optionId": 2
             },
             {
               "text": "Frequently",
               "letter": "c",
-              "scoring": 0,
-              "showImages": true,
               "optionId": 3
             },
             {
               "text": "Always",
-              "letter": "c",
-              "scoring": 0,
-              "showImages": true,
+              "letter": "d",
               "optionId": 4
-            }
-          ],
-          "images": [
-            {
-              "src": "",
-              "alt": ""
-            },
-            {
-              "src": "",
-              "alt": ""
             }
           ],
           "imagesPresent": false,
@@ -1268,37 +860,28 @@
             {
               "text": "Never",
               "letter": "a",
-              "scoring": -2,
-              "showImages": true,
               "optionId": 1
             },
             {
               "text": "Sometimes",
               "letter": "b",
-              "scoring": -1,
-              "showImages": true,
               "optionId": 2
             },
             {
               "text": "Frequently",
               "letter": "c",
-              "scoring": 0,
-              "showImages": true,
               "optionId": 3
             },
             {
               "text": "Always",
               "letter": "d",
-              "scoring": 1,
-              "showImages": true,
               "optionId": 4
             }
           ],
           "images": [
             {
               "src": "/assets/25Image.png",
-              "alt": "Whiteheads",
-              "optionId": 1
+              "alt": "Whiteheads"
             }
           ],
           "imagesPresent": true,
@@ -1312,29 +895,21 @@
             {
               "text": "I don't get a brown mark",
               "letter": "a",
-              "scoring": -2,
-              "showImages": true,
               "optionId": 1
             },
             {
               "text": "A week",
               "letter": "b",
-              "scoring": -1,
-              "showImages": true,
               "optionId": 2
             },
             {
               "text": "A few weeks",
               "letter": "c",
-              "scoring": 0,
-              "showImages": true,
               "optionId": 3
             },
             {
               "text": "Months",
               "letter": "d",
-              "scoring": 1,
-              "showImages": true,
               "optionId": 4
             }
           ],
@@ -1349,29 +924,21 @@
             {
               "text": "I don't get a brown mark",
               "letter": "a",
-              "scoring": -2,
-              "showImages": true,
               "optionId": 1
             },
             {
               "text": "A week",
               "letter": "b",
-              "scoring": -1,
-              "showImages": true,
               "optionId": 2
             },
             {
               "text": "A few weeks",
               "letter": "c",
-              "scoring": 0,
-              "showImages": true,
               "optionId": 3
             },
             {
               "text": "Months",
               "letter": "d",
-              "scoring": 1,
-              "showImages": true,
               "optionId": 4
             }
           ],
@@ -1387,29 +954,21 @@
             {
               "text": "No",
               "letter": "a",
-              "scoring": -2,
-              "showImages": true,
               "optionId": 1
             },
             {
               "text": "I'm not sure",
               "letter": "b",
-              "scoring": -1,
-              "showImages": true,
               "optionId": 2
             },
             {
               "text": "Yes, they're slightly noticeable",
               "letter": "c",
-              "scoring": 0,
-              "showImages": true,
               "optionId": 3
             },
             {
               "text": "Yes, they're very noticeable",
               "letter": "d",
-              "scoring": 1,
-              "showImages": true,
               "optionId": 4
             }
           ],
@@ -1436,29 +995,21 @@
             {
               "text": "I don't have dark spots",
               "letter": "a",
-              "scoring": -2,
-              "showImages": true,
               "optionId": 1
             },
             {
               "text": "Unsure",
               "letter": "b",
-              "scoring": -1,
-              "showImages": true,
               "optionId": 2
             },
             {
               "text": "A little",
               "letter": "c",
-              "scoring": 0,
-              "showImages": true,
               "optionId": 3
             },
             {
               "text": "A lot",
               "letter": "d",
-              "scoring": 1,
-              "showImages": true,
               "optionId": 4
             }
           ],
@@ -1473,29 +1024,21 @@
             {
               "text": "None at all",
               "letter": "a",
-              "scoring": -2,
-              "showImages": true,
               "optionId": 1
             },
             {
               "text": "Yes, a few (1-5) on my face",
               "letter": "b",
-              "scoring": -1,
-              "showImages": true,
               "optionId": 2
             },
             {
               "text": "Yes, many (6-15) all over",
               "letter": "c",
-              "scoring": 0,
-              "showImages": true,
               "optionId": 3
             },
             {
               "text": "Yes, lots (more than 16)",
               "letter": "d",
-              "scoring": 1,
-              "showImages": true,
               "optionId": 4
             }
           ],
@@ -1510,29 +1053,21 @@
             {
               "text": "Burn only",
               "letter": "a",
-              "scoring": -2,
-              "showImages": true,
               "optionId": 1
             },
             {
               "text": "Burns, then gets darker",
               "letter": "b",
-              "scoring": -1,
-              "showImages": true,
               "optionId": 2
             },
             {
               "text": "Gets darker",
               "letter": "c",
-              "scoring": 0,
-              "showImages": true,
               "optionId": 3
             },
             {
               "text": "It is hard to see as I already have dark skin",
               "letter": "d",
-              "scoring": 1,
-              "showImages": true,
               "optionId": 4
             }
           ],
@@ -1547,29 +1082,21 @@
             {
               "text": "I sunburn and blister, but my skin does not change colour",
               "letter": "a",
-              "scoring": -2,
-              "showImages": true,
               "optionId": 1
             },
             {
               "text": "My skin becomes slightly darker",
               "letter": "b",
-              "scoring": -1,
-              "showImages": true,
               "optionId": 2
             },
             {
               "text": "My skin becomes much darker",
               "letter": "c",
-              "scoring": 0,
-              "showImages": true,
               "optionId": 3
             },
             {
               "text": "It is hard to see as I already have dark skin",
               "letter": "d",
-              "scoring": 1,
-              "showImages": true,
               "optionId": 4
             }
           ],
@@ -1584,29 +1111,21 @@
             {
               "text": "No",
               "letter": "a",
-              "scoring": -2,
-              "showImages": true,
               "optionId": 1
             },
             {
               "text": "A few small freckles each year",
               "letter": "b",
-              "scoring": -1,
-              "showImages": true,
               "optionId": 2
             },
             {
               "text": "Often",
               "letter": "c",
-              "scoring": 0,
-              "showImages": true,
               "optionId": 3
             },
             {
               "text": "It's hard to see as my skin is dark",
               "letter": "d",
-              "scoring": 1,
-              "showImages": true,
               "optionId": 4
             }
           ],
@@ -1622,29 +1141,21 @@
             {
               "text": "Blonde",
               "letter": "a",
-              "scoring": -2,
-              "showImages": true,
               "optionId": 1
             },
             {
               "text": "Brown",
               "letter": "b",
-              "scoring": -1,
-              "showImages": true,
               "optionId": 2
             },
             {
               "text": "Black",
               "letter": "c",
-              "scoring": 0,
-              "showImages": true,
               "optionId": 3
             },
             {
               "text": "Red",
               "letter": "d",
-              "scoring": 1,
-              "showImages": true,
               "optionId": 4
             }
           ],
@@ -1659,29 +1170,21 @@
             {
               "text": "No",
               "letter": "a",
-              "scoring": -2,
-              "showImages": true,
               "optionId": 1
             },
             {
               "text": "One person in my family",
               "letter": "b",
-              "scoring": -1,
-              "showImages": true,
               "optionId": 2
             },
             {
               "text": "More than one person in my family",
               "letter": "c",
-              "scoring": 0,
-              "showImages": true,
               "optionId": 3
             },
             {
               "text": "I have a history of melanoma",
               "letter": "d",
-              "scoring": 1,
-              "showImages": true,
               "optionId": 4
             }
           ],
@@ -1710,12 +1213,12 @@
             {
               "src": "/assets/36Image2.png",
               "alt": "age4",
-              "optionId": 4
+              "optionId": 2
             },
             {
               "src": "/assets/36Image3.png",
               "alt": "age1",
-              "optionId": 1
+              "optionId": 3
             },
             {
               "src": "/assets/36Image4.png",
@@ -1734,36 +1237,26 @@
             {
               "text": "5-10 years younger",
               "letter": "a",
-              "scoring": -2,
-              "showImages": true,
               "optionId": 1
             },
             {
               "text": "Her age",
               "letter": "b",
-              "scoring": -1,
-              "showImages": true,
               "optionId": 2
             },
             {
               "text": "5 years older",
               "letter": "c",
-              "scoring": 0,
-              "showImages": true,
               "optionId": 3
             },
             {
               "text": "More than 5 years older",
               "letter": "d",
-              "scoring": 1,
-              "showImages": true,
               "optionId": 4
             },
             {
               "text": "I can't answer that",
-              "letter": "d",
-              "scoring": 1,
-              "showImages": true,
+              "letter": "e",
               "optionId": 5
             }
           ],
@@ -1778,36 +1271,26 @@
             {
               "text": "5-10 years younger",
               "letter": "a",
-              "scoring": -2,
-              "showImages": true,
               "optionId": 1
             },
             {
               "text": "Her age",
               "letter": "b",
-              "scoring": -1,
-              "showImages": true,
               "optionId": 2
             },
             {
               "text": "5 years older",
               "letter": "c",
-              "scoring": 0,
-              "showImages": true,
               "optionId": 3
             },
             {
               "text": "More than 5 years older",
               "letter": "d",
-              "scoring": 1,
-              "showImages": true,
               "optionId": 4
             },
             {
               "text": "I can't answer that",
-              "letter": "d",
-              "scoring": 1,
-              "showImages": true,
+              "letter": "e",
               "optionId": 5
             }
           ],
@@ -1823,29 +1306,21 @@
             {
               "text": "Never",
               "letter": "a",
-              "scoring": -2,
-              "showImages": true,
               "optionId": 1
             },
             {
               "text": "1-5 years",
               "letter": "b",
-              "scoring": -1,
-              "showImages": true,
               "optionId": 2
             },
             {
               "text": "5-10 years",
               "letter": "c",
-              "scoring": 0,
-              "showImages": true,
               "optionId": 3
             },
             {
               "text": "More than 10 years",
               "letter": "d",
-              "scoring": 1,
-              "showImages": true,
               "optionId": 4
             }
           ],
@@ -1860,29 +1335,21 @@
             {
               "text": "Never",
               "letter": "a",
-              "scoring": -2,
-              "showImages": true,
               "optionId": 1
             },
             {
               "text": "1-5 years",
               "letter": "b",
-              "scoring": -1,
-              "showImages": true,
               "optionId": 2
             },
             {
               "text": "5-10 years",
               "letter": "c",
-              "scoring": 0,
-              "showImages": true,
               "optionId": 3
             },
             {
               "text": "More than 10 years",
               "letter": "d",
-              "scoring": 1,
-              "showImages": true,
               "optionId": 4
             }
           ],
@@ -1897,29 +1364,21 @@
             {
               "text": "Little; I've mostly lived in places that are grey and overcast",
               "letter": "a",
-              "scoring": -2,
-              "showImages": true,
               "optionId": 1
             },
             {
               "text": "Some; I've lived in less sunny climes at times, but also places with regular sun",
               "letter": "b",
-              "scoring": -1,
-              "showImages": true,
               "optionId": 2
             },
             {
               "text": "Moderate; I've lived in places with a fair amount of sun exposure",
               "letter": "c",
-              "scoring": 0,
-              "showImages": true,
               "optionId": 3
             },
             {
               "text": "A lot; I've lived in tropical, southern, or very sunny places",
               "letter": "d",
-              "scoring": 1,
-              "showImages": true,
               "optionId": 4
             }
           ],
@@ -1934,29 +1393,21 @@
             {
               "text": "1-5 years younger than my age",
               "letter": "a",
-              "scoring": -2,
-              "showImages": true,
               "optionId": 1
             },
             {
               "text": "My age",
               "letter": "b",
-              "scoring": -1,
-              "showImages": true,
               "optionId": 2
             },
             {
               "text": "5 years older than my age",
               "letter": "c",
-              "scoring": 0,
-              "showImages": true,
               "optionId": 3
             },
             {
               "text": "More than 5 years older than my age",
               "letter": "d",
-              "scoring": 1,
-              "showImages": true,
               "optionId": 4
             }
           ],
@@ -1971,29 +1422,21 @@
             {
               "text": "Never",
               "letter": "a",
-              "scoring": -2,
-              "showImages": true,
               "optionId": 1
             },
             {
               "text": "A few times a year",
               "letter": "b",
-              "scoring": -1,
-              "showImages": true,
               "optionId": 2
             },
             {
               "text": "Monthly",
               "letter": "c",
-              "scoring": 0,
-              "showImages": true,
               "optionId": 3
             },
             {
               "text": "Every week",
               "letter": "d",
-              "scoring": 1,
-              "showImages": true,
               "optionId": 4
             }
           ],
@@ -2008,29 +1451,21 @@
             {
               "text": "Never",
               "letter": "a",
-              "scoring": -2,
-              "showImages": true,
               "optionId": 1
             },
             {
               "text": "1-5 times",
               "letter": "b",
-              "scoring": -1,
-              "showImages": true,
               "optionId": 2
             },
             {
               "text": "5-10 times",
               "letter": "c",
-              "scoring": 0,
-              "showImages": true,
               "optionId": 3
             },
             {
               "text": "Many times",
               "letter": "d",
-              "scoring": 1,
-              "showImages": true,
               "optionId": 4
             }
           ],
@@ -2045,36 +1480,26 @@
             {
               "text": "None",
               "letter": "a",
-              "scoring": -2,
-              "showImages": true,
               "optionId": 1
             },
             {
               "text": "A few packs",
               "letter": "b",
-              "scoring": -1,
-              "showImages": true,
               "optionId": 2
             },
             {
               "text": "Many packs",
               "letter": "c",
-              "scoring": 0,
-              "showImages": true,
               "optionId": 3
             },
             {
               "text": "I smoke every day",
               "letter": "d",
-              "scoring": 1,
-              "showImages": true,
               "optionId": 4
             },
             {
               "text": "I've never smoked, but have been surrounded by people who regularly smoked in my presence",
-              "letter": "d",
-              "scoring": 1,
-              "showImages": true,
+              "letter": "e",
               "optionId": 5
             }
           ],
@@ -2089,29 +1514,21 @@
             {
               "text": "Fresh and clean",
               "letter": "a",
-              "scoring": -2,
-              "showImages": true,
               "optionId": 1
             },
             {
               "text": "Sometimes I live where the air is fresh and clean",
               "letter": "b",
-              "scoring": -1,
-              "showImages": true,
               "optionId": 2
             },
             {
               "text": "Slightly polluted",
               "letter": "c",
-              "scoring": 0,
-              "showImages": true,
               "optionId": 3
             },
             {
               "text": "Very polluted",
               "letter": "d",
-              "scoring": 1,
-              "showImages": true,
               "optionId": 4
             }
           ],
@@ -2126,29 +1543,21 @@
             {
               "text": "Yes, for many years",
               "letter": "a",
-              "scoring": -2,
-              "showImages": true,
               "optionId": 1
             },
             {
               "text": "Yes, occasionally",
               "letter": "b",
-              "scoring": -1,
-              "showImages": true,
               "optionId": 2
             },
             {
               "text": "Once for acne when I was younger",
               "letter": "c",
-              "scoring": 0,
-              "showImages": true,
               "optionId": 3
             },
             {
               "text": "Never",
               "letter": "d",
-              "scoring": 1,
-              "showImages": true,
               "optionId": 4
             }
           ],
@@ -2163,36 +1572,26 @@
             {
               "text": "At every meal",
               "letter": "a",
-              "scoring": -2,
-              "showImages": true,
               "optionId": 1
             },
             {
               "text": "Once a day",
               "letter": "b",
-              "scoring": -1,
-              "showImages": true,
               "optionId": 2
             },
             {
               "text": "Occasionally",
               "letter": "c",
-              "scoring": 0,
-              "showImages": true,
               "optionId": 3
             },
             {
               "text": "Never",
               "letter": "d",
-              "scoring": 1,
-              "showImages": true,
               "optionId": 4
             },
             {
               "text": "I'm vegan",
-              "letter": "d",
-              "scoring": 1,
-              "showImages": true,
+              "letter": "e",
               "optionId": 5
             }
           ],
@@ -2207,29 +1606,21 @@
             {
               "text": "75-100%",
               "letter": "a",
-              "scoring": -2,
-              "showImages": true,
               "optionId": 1
             },
             {
               "text": "25-74%",
               "letter": "b",
-              "scoring": -1,
-              "showImages": true,
               "optionId": 2
             },
             {
               "text": "10-24%",
               "letter": "c",
-              "scoring": 0,
-              "showImages": true,
               "optionId": 3
             },
             {
               "text": "Less than 10%",
               "letter": "d",
-              "scoring": 1,
-              "showImages": true,
               "optionId": 4
             }
           ],
@@ -2244,29 +1635,21 @@
             {
               "text": "Over 65",
               "letter": "a",
-              "scoring": -2,
-              "showImages": true,
               "optionId": 1
             },
             {
               "text": "40-65",
               "letter": "b",
-              "scoring": -1,
-              "showImages": true,
               "optionId": 2
             },
             {
               "text": "30-39",
               "letter": "c",
-              "scoring": 0,
-              "showImages": true,
               "optionId": 3
             },
             {
               "text": "Under 30",
               "letter": "d",
-              "scoring": 1,
-              "showImages": true,
               "optionId": 4
             }
           ],
