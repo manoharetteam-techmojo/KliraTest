@@ -1,17 +1,16 @@
 ---
 import skinTestData from "../data/skintest.json";
 
-const userId = 39;
+const userId = 93;
 
 const userAnswers = await fetch(
-  "http://localhost:8080/skinTest/answers/" + userId
+"http://localhost:8080/skinTest/answers/" + userId
 );
 const userAnswersJson = await userAnswers.json();
 console.log(userAnswersJson);
 ---
 
 <div id="app">
-  <div id="IntroPages"></div>
   <div id="categoryQuestions"></div>
   <div id="finishPage" class="page" style="display: none;">
     <div class="content">
@@ -838,9 +837,8 @@ console.log(userAnswersJson);
       console.error("Error calculating results:", error);
     }
   }
-
-  buildIntroPages();
   buildQuestionaire();
+  
   showPage(currentPage);
 
   document.addEventListener("keydown", handleKeyNavigation);
@@ -925,232 +923,6 @@ console.log(userAnswersJson);
     }
   }
 
-  function buildIntroPages() {
-    const introContainer = document.getElementById("IntroPages");
-
-    skinTestData.introPages.forEach((page) => {
-      const pageDiv = document.createElement("div");
-      pageDiv.classList.add("page");
-      pageDiv.id = `page${page.id}`;
-
-      const contentDiv = document.createElement("div");
-      contentDiv.classList.add("content");
-
-      if (page.type === "welcome") {
-        const title = document.createElement("h1");
-        title.textContent = page.title;
-        contentDiv.appendChild(title);
-
-        const paragraph = document.createElement("p");
-        paragraph.textContent = page.content;
-        contentDiv.appendChild(paragraph);
-      } else {
-        const title = document.createElement("h2");
-        title.textContent = page.title;
-        contentDiv.appendChild(title);
-
-        if (page.type === "options") {
-          const optionsDiv = document.createElement("div");
-          optionsDiv.classList.add("options");
-
-          page.options.forEach((option) => {
-            const optionButton = document.createElement("button");
-            optionButton.classList.add("option-button");
-            optionButton.textContent = option?.value;
-            optionButton.dataset.optionId = option?.optionId;
-            if (
-              userAnswersJson?.data?.gender?.toLowerCase() ===
-              option?.value?.toLowerCase()
-            ) {
-              optionButton.classList.add("selected");
-            }
-
-            optionButton.addEventListener("click", function () {
-              const parentOptions = this.closest(".options");
-              if (parentOptions) {
-                parentOptions
-                  .querySelectorAll(".option-button")
-                  .forEach((btn) => {
-                    btn.classList.remove("selected");
-                  });
-              }
-
-              this.classList.add("selected");
-
-              const errorMessage =
-                this.closest(".content").querySelector(".error-message");
-              if (errorMessage) {
-                errorMessage.style.display = "none";
-              }
-            });
-
-            optionsDiv.appendChild(optionButton);
-          });
-
-          contentDiv.appendChild(optionsDiv);
-
-          // Add error message
-          const errorMessage = document.createElement("p");
-          errorMessage.classList.add("error-message");
-          errorMessage.textContent = "Please give your answer";
-          contentDiv.appendChild(errorMessage);
-        } else if (page.type === "images") {
-          const imageContainer = document.createElement("div");
-          imageContainer.classList.add("image-comparison-container");
-
-          page.images.forEach((image) => {
-            const imgContainer = document.createElement("div");
-            imgContainer.classList.add("image-container");
-            imgContainer.dataset.optionId = image?.typeId;
-            const img = document.createElement("img");
-            img.src = image.src;
-            img.alt = image.alt;
-            img.classList.add("comparison-image");
-
-            const selectionArrow = document.createElement("div");
-            selectionArrow.classList.add("selection-arrow");
-
-            imgContainer.appendChild(img);
-            imgContainer.appendChild(selectionArrow);
-
-            if (image?.typeId === userAnswersJson?.data?.skinTypeId) {
-              imgContainer.classList.add("selected");
-            }
-
-            imgContainer.addEventListener("click", function () {
-              const parentContainer = this.closest(
-                ".image-comparison-container"
-              );
-              if (parentContainer) {
-                parentContainer
-                  .querySelectorAll(".image-container")
-                  .forEach((opt) => {
-                    opt.classList.remove("selected");
-                  });
-              }
-
-              this.classList.add("selected");
-
-              const errorMessage =
-                this.closest(".content").querySelector(".error-message");
-              if (errorMessage) {
-                errorMessage.style.display = "none";
-              }
-            });
-
-            imageContainer.appendChild(imgContainer);
-          });
-
-          contentDiv.appendChild(imageContainer);
-
-          // Add error message for image selection
-          const errorMessage = document.createElement("p");
-          errorMessage.classList.add("error-message");
-          errorMessage.textContent = "Please give your answer";
-          contentDiv.appendChild(errorMessage);
-        }
-      }
-
-      pageDiv.appendChild(contentDiv);
-
-      // Create navigation buttons or start button
-      if (page.id === 1) {
-        // For the welcome page, create a start button instead of navigation
-        const startButtonContainer = document.createElement("div");
-        startButtonContainer.classList.add("start-button-container");
-
-        const startButton = document.createElement("button");
-        startButton.classList.add("start-button");
-        startButton.textContent = "Start";
-        startButton.onclick = () => showPage(page.id + 1);
-
-        startButtonContainer.appendChild(startButton);
-        pageDiv.appendChild(startButtonContainer);
-      } else {
-        // For pages 2 and 3, create navigation with Save Progress button
-        if (page.id === 2 || page.id === 3) {
-          const navigationWithSave = document.createElement("div");
-          navigationWithSave.classList.add("navigation-with-save");
-
-          const prevButton = document.createElement("button");
-          prevButton.classList.add("nav-button", "prev");
-          prevButton.textContent = "←";
-          prevButton.onclick = () => showPage(page.id - 1);
-
-          // Create the Save Progress button
-          const saveProgressContainer = document.createElement("div");
-          saveProgressContainer.classList.add("save-progress-container");
-
-          const saveProgressButton = document.createElement("button");
-          saveProgressButton.classList.add("save-progress-button");
-          saveProgressButton.textContent = "Save Progress";
-          saveProgressButton.onclick = async () => {
-            // Get the current page data
-            const currentPageElement = document.getElementById(
-              `page${currentPage}`
-            );
-            const selectedOption =
-              currentPageElement.querySelector(".option-button.selected") ||
-              currentPageElement.querySelector(".image-container.selected");
-
-            if (selectedOption) {
-              try {
-                await saveAnswer({
-                  questionId: page.title,
-                  optionId: selectedOption.dataset.optionId,
-                });
-                alert("Progress saved successfully!");
-              } catch (error) {
-                console.error("Error saving progress:", error);
-                alert("Failed to save progress. Please try again.");
-              }
-            } else {
-              alert("Progress saved successfully!");
-            }
-          };
-
-          saveProgressContainer.appendChild(saveProgressButton);
-
-          const nextButton = document.createElement("button");
-          nextButton.classList.add("nav-button", "next");
-          nextButton.textContent = "→";
-          nextButton.onclick = async () => {
-            // Check if an option is selected
-            const selectedOption =
-              pageDiv.querySelector(".option-button.selected") ||
-              pageDiv.querySelector(".image-container.selected");
-
-            if (!selectedOption) {
-              const errorMessage = pageDiv.querySelector(".error-message");
-              if (errorMessage) {
-                errorMessage.style.display = "block";
-              }
-            } else {
-              if (page.title.includes("gender")) {
-                answer =
-                  selectedOption.dataset.optionId == 1 ? "Male" : "Female";
-                question = "gender";
-              } else {
-                question = "skinType";
-                answer = selectedOption.dataset.optionId;
-              }
-              await sendUserData(userId, question, answer);
-              showPage(page.id + 1);
-            }
-          };
-
-          navigationWithSave.appendChild(prevButton);
-          navigationWithSave.appendChild(saveProgressContainer);
-          navigationWithSave.appendChild(nextButton);
-
-          pageDiv.appendChild(navigationWithSave);
-        }
-      }
-
-      introContainer.appendChild(pageDiv);
-    });
-  }
-
   function buildQuestionaire() {
     const questionaire = document.getElementById("categoryQuestions");
     skinTestData.questionaireObject.forEach((category) => {
@@ -1170,78 +942,95 @@ console.log(userAnswersJson);
       description.textContent = category.description;
       titleContent.appendChild(description);
 
-      // Create a navigation with Save Progress button
-      const navigationWithSave = document.createElement("div");
-      navigationWithSave.classList.add("navigation-with-save");
-
-      const prevButton = document.createElement("button");
-      prevButton.classList.add("nav-button", "prev");
-      prevButton.textContent = "←";
-      prevButton.onclick = () => {
-        //Category_Previous_Button
-        if (category.pageNumber === 16) {
-          page14 = document.getElementById("page14");
-          const selectedOption = page14.querySelector(
-            ".option-button.selected"
-          );
-          if (
-            selectedOption.dataset.optionId == "1" ||
-            selectedOption.dataset.optionId == "2"
-          ) {
-            showPage(14);
-          } else {
-            showPage(15);
-          }
-        } else {
-          showPage(category.pageNumber - 1);
-        }
-      };
-
-      // Create the Save Progress button
-      const saveProgressContainer = document.createElement("div");
-      saveProgressContainer.classList.add("save-progress-container");
-
-      const saveProgressButton = document.createElement("button");
-      saveProgressButton.classList.add("save-progress-button");
-      saveProgressButton.textContent = "Save Progress";
-      saveProgressButton.onclick = async () => {
-        // Get the current page data
-        const currentPageElement = document.getElementById(
-          `page${currentPage}`
-        );
-        const selectedOption =
-          currentPageElement.querySelector(".option-button.selected") ||
-          currentPageElement.querySelector(".image-container.selected");
-
-        if (selectedOption) {
-          try {
-            await saveAnswer({
-              questionId: category.title,
-              optionId: selectedOption.dataset.optionId,
-            });
-            alert("Progress saved successfully!");
-          } catch (error) {
-            console.error("Error saving progress:", error);
-            alert("Failed to save progress. Please try again.");
-          }
-        } else {
-          alert("Progress saved successfully!");
-        }
-      };
-
-      saveProgressContainer.appendChild(saveProgressButton);
-
-      const nextButton = document.createElement("button");
-      nextButton.classList.add("nav-button", "next");
-      nextButton.textContent = "→";
-      nextButton.onclick = () => showPage(category.pageNumber + 1);
-
-      navigationWithSave.appendChild(prevButton);
-      navigationWithSave.appendChild(saveProgressContainer);
-      navigationWithSave.appendChild(nextButton);
-
+      // Add title content for all pages
       categoryDiv.appendChild(titleContent);
-      categoryDiv.appendChild(navigationWithSave);
+
+      if(category.title === "WELCOME"){
+        const startButtonContainer = document.createElement("div");
+        startButtonContainer.classList.add("start-button-container");
+
+        const startButton = document.createElement("button");
+        startButton.classList.add("start-button");
+        startButton.textContent = "Start";
+        startButton.onclick = () => showPage(category.pageNumber + 1);
+
+        startButtonContainer.appendChild(startButton);
+        categoryDiv.appendChild(startButtonContainer);
+      } else {
+        // Create a navigation with Save Progress button
+        const navigationWithSave = document.createElement("div");
+        navigationWithSave.classList.add("navigation-with-save");
+
+        const prevButton = document.createElement("button");
+        prevButton.classList.add("nav-button", "prev");
+        prevButton.textContent = "←";
+        prevButton.onclick = () => {
+          //Category_Previous_Button
+          if (category.pageNumber === 16) {
+            page14 = document.getElementById("page14");
+            const selectedOption = page14.querySelector(
+              ".option-button.selected"
+            );
+            if (
+              selectedOption.dataset.optionId == "1" ||
+              selectedOption.dataset.optionId == "2"
+            ) {
+              showPage(14);
+            } else {
+              showPage(15);
+            }
+          } else {
+            showPage(category.pageNumber - 1);
+          }
+        };
+
+        // Create the Save Progress button
+        const saveProgressContainer = document.createElement("div");
+        saveProgressContainer.classList.add("save-progress-container");
+
+        const saveProgressButton = document.createElement("button");
+        saveProgressButton.classList.add("save-progress-button");
+        saveProgressButton.textContent = "Save Progress";
+        saveProgressButton.onclick = async () => {
+          // Get the current page data
+          const currentPageElement = document.getElementById(
+            `page${currentPage}`
+          );
+          const selectedOption =
+            currentPageElement.querySelector(".option-button.selected") ||
+            currentPageElement.querySelector(".image-container.selected");
+
+          if (selectedOption) {
+            try {
+              await saveAnswer({
+                questionId: category.title,
+                optionId: selectedOption.dataset.optionId,
+              });
+              alert("Progress saved successfully!");
+            } catch (error) {
+              console.error("Error saving progress:", error);
+              alert("Failed to save progress. Please try again.");
+            }
+          } else {
+            alert("Progress saved successfully!");
+          }
+        };
+
+        saveProgressContainer.appendChild(saveProgressButton);
+
+        const nextButton = document.createElement("button");
+        nextButton.classList.add("nav-button", "next");
+        nextButton.textContent = "→";
+        nextButton.onclick = () => {
+          showPage(category.pageNumber + 1);
+        }
+
+        navigationWithSave.appendChild(prevButton);
+        navigationWithSave.appendChild(saveProgressContainer);
+        navigationWithSave.appendChild(nextButton);
+      
+        categoryDiv.appendChild(navigationWithSave);
+      }
 
       category.questionaire.forEach((question) => {
         const questionPage = document.createElement("div");
@@ -1255,9 +1044,11 @@ console.log(userAnswersJson);
         const questionProgress = document.createElement("div");
         questionProgress.classList.add("progress");
 
-        questionProgress.textContent = `${question.number}/50`;
+        if(!(question.pageNumber == 2 || question.pageNumber ==3) ){
+          questionProgress.textContent = `${question.number}/50`;
         questionPageContent.appendChild(questionProgress);
-
+        }
+    
         const questionTitle = document.createElement("h2");
         questionTitle.textContent = question.question;
         questionPageContent.appendChild(questionTitle);
@@ -1676,14 +1467,14 @@ console.log(userAnswersJson);
 
     document.getElementById(`page${pageNumber}`).style.display = "flex";
 
-    currentPage = pageNumber;
+      currentPage = pageNumber;
 
     if (
-      pageNumber === 1 ||
-      pageNumber === 4 ||
-      pageNumber === 16 ||
-      pageNumber === 32 ||
-      pageNumber === 44
+      currentPage === 1 ||
+      currentPage === 4 ||
+      currentPage === 16 ||
+      currentPage === 32 ||
+      currentPage === 44
     ) {
       document.body.classList.remove("white-bg");
       document.body.classList.add("black-bg");
