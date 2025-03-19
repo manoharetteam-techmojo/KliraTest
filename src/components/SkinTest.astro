@@ -69,7 +69,45 @@ console.log(userAnswersJson);
     height: 100vh;
     position: relative;
   }
+  
+  .category-tabs {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 40px 0;
+  }
 
+  .category-tab {
+    color: #777;
+    font-size: 14px;
+    opacity: 0.5;
+    cursor: pointer;
+    padding: 0 1px;
+  }
+
+  .separator {
+    color: #555;
+    margin: 0 4px;
+  }
+
+  .category-tab.active {
+    color: #fff;
+    opacity: 1;
+  }
+
+  .question-count {
+    margin-top: 25px;
+    font-size: 14px;
+    font-family: "Monaco";
+    color: rgba(255, 255, 255, 0.8);
+  }
+
+  .arrow-img {
+    width: 16px;
+    height: 16px;
+    object-fit: contain;
+    display: block;
+  }
   .page {
     flex-direction: column;
     justify-content: space-between;
@@ -144,7 +182,7 @@ console.log(userAnswersJson);
     display: flex;
     justify-content: center;
     align-items: center;
-    font-weight: 300;
+    border: 1px solid #fff;
   }
 
   .white-bg .nav-button {
@@ -765,24 +803,63 @@ console.log(userAnswersJson);
       padding: 0 20px;
     }
   }
+ 
+  .category-tabs {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 30px 0;
+  }
+
+  .category-tab {
+    color: #777;
+    text-decoration: none;
+    padding: 0 2px;
+    font-size: 14px;
+    opacity: 0.5;
+  }
+
+  .separator {
+    color: #555;
+    margin: 0 5px;
+  }
+
+  .category-tab.active {
+    color: #fff;
+    opacity: 1;
+  }
+
+  .question-count {
+    margin-top: 25px;
+    font-size: 14px;
+    font-family: "Monaco";
+    color: rgba(255, 255, 255, 0.8);
+  }
+
+  .arrow-img {
+    width: 16px;
+    height: 16px;
+    object-fit: contain;
+    display: block;
+  }
 </style>
 
 <script define:vars={{ skinTestData, userAnswersJson, userId }}>
   let currentPage = 1;
-  // if (userAnswersJson) {
-  //   skinTestData?.questionaireObject.forEach((category) => {
-  //     category.questionaire.forEach((question) => {
-  //       if (
-  //         question?.number ===
-  //         userAnswersJson?.data?.answers?.at(-1)?.questionId
-  //       ) {
-  //         currentPage = question.pageNumber + 1;
-  //         // currentPage = 36;
-  //       }
-  //     });
-  //   });
-  //   console.log(userAnswersJson);
-  // }
+  if (userAnswersJson) {
+    skinTestData?.questionaireObject.forEach((category) => {
+      category.questionaire.forEach((question) => {
+        if (
+          question?.number ===
+          userAnswersJson?.data?.answers?.at(-1)?.questionId
+        ) {
+          currentPage = question.pageNumber + 1;
+          // currentPage = 36;
+        }
+      });
+    });
+    console.log(userAnswersJson);
+  }
 
   async function saveAnswer(answer) {
     try {
@@ -935,6 +1012,43 @@ console.log(userAnswersJson);
       categoryDiv.id = `page${category.pageNumber}`;
       questionaire.appendChild(categoryDiv);
 
+      // Add header with KLIRA logo for main category pages in the flow
+      if (category.title === "SEBUM" || category.title === "BARRIER" || 
+          category.title === "MELANIN" || category.title === "COLLAGEN") {
+          
+        
+        // Add category tabs at the top of each category page
+        const categoryTabs = document.createElement("div");
+        categoryTabs.classList.add("category-tabs");
+        
+        // Create the tabs
+        const categories = ["Sebum", "Barrier", "Melanin", "Collagen"];
+        categories.forEach((tabName, index) => {
+          // Add tab
+          const tab = document.createElement("span");
+          tab.classList.add("category-tab");
+          tab.textContent = tabName;
+          
+          // Make the tab active if it matches current category title
+          if (tabName.toUpperCase() === category.title) {
+            tab.classList.add("active");
+          }
+          
+          // Add the tab (non-clickable)
+          categoryTabs.appendChild(tab);
+          
+          // Add separator after each tab except the last one
+          if (index < categories.length - 1) {
+            const separator = document.createElement("span");
+            separator.classList.add("separator");
+            separator.textContent = "—";
+            categoryTabs.appendChild(separator);
+          }
+        });
+        
+        categoryDiv.appendChild(categoryTabs);
+      }
+
       const titleContent = document.createElement("div");
       titleContent.classList.add("content");
 
@@ -945,6 +1059,25 @@ console.log(userAnswersJson);
       const description = document.createElement("p");
       description.textContent = category.description;
       titleContent.appendChild(description);
+      
+      // Add question count indicator based on the category
+      if (category.title === "SEBUM" || category.title === "BARRIER" || 
+          category.title === "MELANIN" || category.title === "COLLAGEN") {
+        // Apply specific styling for category pages
+        
+        const questionCount = document.createElement("div");
+        questionCount.classList.add("question-count");
+        
+        let count = 0;
+        if (category.title === "SEBUM") count = 10;
+        if (category.title === "BARRIER") count = 14;
+        if (category.title === "MELANIN") count = 11;
+        if (category.title === "COLLAGEN") count = 15;
+        
+        questionCount.textContent = `● ${count} Questions`;
+        
+        titleContent.appendChild(questionCount);
+      }
 
       // Add title content for all pages
       categoryDiv.appendChild(titleContent);
@@ -967,7 +1100,7 @@ console.log(userAnswersJson);
 
         const prevButton = document.createElement("button");
         prevButton.classList.add("nav-button", "prev");
-        prevButton.textContent = "←";
+        prevButton.innerHTML = '<img src="/assets/white-leftarrow.png" alt="Previous" class="arrow-img">';
         prevButton.onclick = () => {
           //Category_Previous_Button
           if (category.pageNumber === 16) {
@@ -1024,10 +1157,10 @@ console.log(userAnswersJson);
 
         const nextButton = document.createElement("button");
         nextButton.classList.add("nav-button", "next");
-        nextButton.textContent = "→";
         nextButton.onclick = () => {
           showPage(category.pageNumber + 1);
         };
+        nextButton.innerHTML = '<img src="/assets/black-rightarrow.png" alt="Next" class="arrow-img">';
 
         navigationWithSave.appendChild(prevButton);
         navigationWithSave.appendChild(saveProgressContainer);
@@ -1240,7 +1373,7 @@ console.log(userAnswersJson);
             showPage(question.pageNumber - 1);
           }
         };
-        questionPrevButton.textContent = "←";
+        questionPrevButton.innerHTML = '<img src="/assets/black-leftarrow.png" alt="Previous" class="arrow-img">';
 
         const questionNextButton = document.createElement("button");
         questionNextButton.classList.add("nav-button");
@@ -1462,7 +1595,7 @@ console.log(userAnswersJson);
               }
             }
           };
-          questionNextButton.textContent = "→";
+          questionNextButton.innerHTML = '<img src="/assets/white-rightarrow.png" alt="Next" class="arrow-img">';
 
           navigationWithSave.appendChild(questionPrevButton);
           navigationWithSave.appendChild(saveProgressContainer);
