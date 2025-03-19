@@ -4,7 +4,7 @@ import skinTestData from "../data/skintest.json";
 const userId = 93;
 
 const userAnswers = await fetch(
-"http://localhost:8080/skinTest/answers/" + userId
+  "http://localhost:8080/skinTest/answers/" + userId
 );
 const userAnswersJson = await userAnswers.json();
 console.log(userAnswersJson);
@@ -18,7 +18,11 @@ console.log(userAnswersJson);
       <div class="result-container">
         <h2>Your Skin Size</h2>
         <div class="skin-size-number"></div>
-        <p class="result-description">Based on your answers, we have calculated your unique skin size. This number helps us understand your skin's specific needs and characteristics.</p>
+        <p class="result-description">
+          Based on your answers, we have calculated your unique skin size. This
+          number helps us understand your skin's specific needs and
+          characteristics.
+        </p>
       </div>
     </div>
   </div>
@@ -755,7 +759,7 @@ console.log(userAnswersJson);
     .skin-size-number {
       font-size: 56px;
     }
-    
+
     .result-description {
       font-size: 14px;
       padding: 0 20px;
@@ -765,20 +769,20 @@ console.log(userAnswersJson);
 
 <script define:vars={{ skinTestData, userAnswersJson, userId }}>
   let currentPage = 1;
-  if (userAnswersJson) {
-    skinTestData?.questionaireObject.forEach((category) => {
-      category.questionaire.forEach((question) => {
-        if (
-          question?.number ===
-          userAnswersJson?.data?.answers?.at(-1)?.questionId
-        ) {
-          currentPage = question.pageNumber + 1;
-          // currentPage = 36;
-        }
-      });
-    });
-    console.log(userAnswersJson);
-  }
+  // if (userAnswersJson) {
+  //   skinTestData?.questionaireObject.forEach((category) => {
+  //     category.questionaire.forEach((question) => {
+  //       if (
+  //         question?.number ===
+  //         userAnswersJson?.data?.answers?.at(-1)?.questionId
+  //       ) {
+  //         currentPage = question.pageNumber + 1;
+  //         // currentPage = 36;
+  //       }
+  //     });
+  //   });
+  //   console.log(userAnswersJson);
+  // }
 
   async function saveAnswer(answer) {
     try {
@@ -837,8 +841,8 @@ console.log(userAnswersJson);
       console.error("Error calculating results:", error);
     }
   }
+
   buildQuestionaire();
-  
   showPage(currentPage);
 
   document.addEventListener("keydown", handleKeyNavigation);
@@ -945,7 +949,7 @@ console.log(userAnswersJson);
       // Add title content for all pages
       categoryDiv.appendChild(titleContent);
 
-      if(category.title === "WELCOME"){
+      if (category.title === "WELCOME") {
         const startButtonContainer = document.createElement("div");
         startButtonContainer.classList.add("start-button-container");
 
@@ -1023,12 +1027,12 @@ console.log(userAnswersJson);
         nextButton.textContent = "→";
         nextButton.onclick = () => {
           showPage(category.pageNumber + 1);
-        }
+        };
 
         navigationWithSave.appendChild(prevButton);
         navigationWithSave.appendChild(saveProgressContainer);
         navigationWithSave.appendChild(nextButton);
-      
+
         categoryDiv.appendChild(navigationWithSave);
       }
 
@@ -1044,11 +1048,22 @@ console.log(userAnswersJson);
         const questionProgress = document.createElement("div");
         questionProgress.classList.add("progress");
 
-        if(!(question.pageNumber == 2 || question.pageNumber ==3) ){
-          questionProgress.textContent = `${question.number}/50`;
-        questionPageContent.appendChild(questionProgress);
+        if (!(question.pageNumber == 2 || question.pageNumber == 3)) {
+          if(category.title=="SEBUM"){
+            questionProgress.textContent = `${question.number}/10`;
+          }
+          if(category.title=="BARRIER"){
+            questionProgress.textContent = `${question.number}/14`;
+          }
+          if(category.title=="MELANIN"){
+            questionProgress.textContent = `${question.number}/11`;
+          }
+          if(category.title=="COLLAGEN"){
+            questionProgress.textContent = `${question.number}/15`;
+          }
+          questionPageContent.appendChild(questionProgress);
         }
-    
+
         const questionTitle = document.createElement("h2");
         questionTitle.textContent = question.question;
         questionPageContent.appendChild(questionTitle);
@@ -1275,8 +1290,10 @@ console.log(userAnswersJson);
 
                   // Show finish page and update skin size
                   const finishPage = document.getElementById("finishPage");
-                  const skinSizeNumber = finishPage.querySelector(".skin-size-number");
-                  skinSizeNumber.textContent = responseCalculateData.data.finalScore;
+                  const skinSizeNumber =
+                    finishPage.querySelector(".skin-size-number");
+                  skinSizeNumber.textContent =
+                    responseCalculateData.data.finalScore;
                   finishPage.style.display = "flex";
 
                   // Set background to white for finish page
@@ -1467,7 +1484,7 @@ console.log(userAnswersJson);
 
     document.getElementById(`page${pageNumber}`).style.display = "flex";
 
-      currentPage = pageNumber;
+    currentPage = pageNumber;
 
     if (
       currentPage === 1 ||
@@ -1485,4 +1502,5 @@ console.log(userAnswersJson);
 
     window.scrollTo(0, 0);
   }
+
 </script>
