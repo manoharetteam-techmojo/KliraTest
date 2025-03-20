@@ -1205,16 +1205,16 @@ console.log(userAnswersJson);
 
         if (!(question.pageNumber == 2 || question.pageNumber == 3)) {
           if(category.title=="SEBUM"){
-            questionProgress.textContent = `${formatedNumber(question.number)}/10`;
+            questionProgress.textContent = `${formatedNumber(question.number)}/50`;
           }
           if(category.title=="BARRIER"){
             questionProgress.textContent = `${formatedNumber(question.number)}/50`;
           }
           if(category.title=="MELANIN"){
-            questionProgress.textContent = `${formatedNumber(question.number)}/11`;
+            questionProgress.textContent = `${formatedNumber(question.number)}/50`;
           }
           if(category.title=="COLLAGEN"){
-            questionProgress.textContent = `${formatedNumber(question.number)}/15`;
+            questionProgress.textContent = `${formatedNumber(question.number)}/50`;
           }
           questionPageContent.appendChild(questionProgress);
         }
@@ -1538,15 +1538,23 @@ console.log(userAnswersJson);
 
             if (selectedOption) {
               try {
-                await saveAnswer({
-                  questionId: question.number,
-                  optionId: selectedOption.dataset.optionId,
-                });
-                await saveAnswer({
-                  questionId: question.title,
-                  optionId: selectedOption.dataset.optionId,
-                });
-                alert("Progress saved successfully!");
+                if(question.pageNumber === 2 || question.pageNumber === 3){
+                      if (question.question === "What's your gender?" )  {
+                      answer1 =
+                            selectedOption.dataset.optionId == 1 ? "Male" : "Female";
+                      question1 = "gender";
+                    } else {
+                        question1 = "skinType";
+                        answer1 = selectedOption.dataset.optionId;
+                      }
+                    await sendUserData(userId, question1, answer1);
+                 } else{
+                      await saveAnswer({
+                      questionId: question.number,
+                      optionId: selectedOption.dataset.optionId,
+                 });
+               }
+            alert("Progress saved successfully!");
               } catch (error) {
                 console.error("Error saving progress:", error);
                 alert("Failed to save progress. Please try again.");
@@ -1573,20 +1581,20 @@ console.log(userAnswersJson);
                 errorMessage.style.display = "block";
               }
             } else {
-if(question.pageNumber === 2 || question.pageNumber === 3){
+          if(question.pageNumber === 2 || question.pageNumber === 3){
               if (question.question === "What's your gender?")  {
-                answer =
+                answer1 =
                   selectedOption.dataset.optionId == 1 ? "Male" : "Female";
-                question = "gender";
+                question1 = "gender";
               } else {
-                question = "skinType";
-                answer = selectedOption.dataset.optionId;
+                question1 = "skinType";
+                answer1 = selectedOption.dataset.optionId;
               }
-              await sendUserData(userId, question, answer);
-            } else{
-              await saveAnswer({
-                questionId: question.number,
-                optionId: selectedOption.dataset.optionId,
+                await sendUserData(userId, question1, answer1);
+              } else{
+                  await saveAnswer({
+                  questionId: question.number,
+                  optionId: selectedOption.dataset.optionId,
               });
             }
               const genderPage = document.getElementById("page2");
@@ -1669,7 +1677,7 @@ if(question.pageNumber === 2 || question.pageNumber === 3){
     });
 
     document.getElementById(`page${pageNumber}`).style.display = "flex";
-
+   
     currentPage = pageNumber;
 
     if (
