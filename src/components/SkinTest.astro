@@ -1,16 +1,17 @@
 ---
 import skinTestData from "../data/skintest.json";
 
-const userId = 93;
+// Generate a random user ID if none exists in session storage
+const userId = '1'; // This will be set on the client side using sessionStorage
 
 const userAnswers = await fetch(
-  "http://localhost:8080/skinTest/answers/" + userId
+  "http://localhost:8080/skinTest/answers/" + (userId)
 );
 const userAnswersJson = await userAnswers.json();
 console.log(userAnswersJson);
 ---
 
-<div id="app">
+<div id="app"> 
   <div id="categoryQuestions"></div>
   <div id="finishPage" class="page" style="display: none;">
     <div class="content">
@@ -81,7 +82,6 @@ console.log(userAnswersJson);
     color: #777;
     font-size: 14px;
     opacity: 0.5;
-    cursor: pointer;
     padding: 0 1px;
   }
 
@@ -848,6 +848,22 @@ console.log(userAnswersJson);
   let currentPage = 1;
   if (userAnswersJson) {
     skinTestData?.questionaireObject.forEach((category) => {
+
+      if (category.title === "WELCOME") {
+        //logic for male and fem
+        if (userAnswersJson?.data?.gender) {
+            currentPage = 3;
+        } else {
+          return;
+        }
+        if (userAnswersJson?.data?.skinTypeId != -1) {
+          currentPage = 4;
+        } else {
+          return;
+        }
+
+      } else {
+
       category.questionaire.forEach((question) => {
         if (
           question?.number ===
@@ -857,6 +873,8 @@ console.log(userAnswersJson);
           // currentPage = 36;
         }
       });
+    }
+
     });
     console.log(userAnswersJson);
   }
@@ -1109,8 +1127,8 @@ console.log(userAnswersJson);
               ".option-button.selected"
             );
             if (
-              selectedOption.dataset.optionId == "1" ||
-              selectedOption.dataset.optionId == "2"
+              selectedOption?.dataset.optionId == "1" ||
+              selectedOption?.dataset.optionId == "2"
             ) {
               showPage(14);
             } else {
@@ -1186,13 +1204,13 @@ console.log(userAnswersJson);
             questionProgress.textContent = `${question.number}/10`;
           }
           if(category.title=="BARRIER"){
-            questionProgress.textContent = `${question.number}/14`;
+            questionProgress.textContent = `${question.number}/50`;
           }
           if(category.title=="MELANIN"){
-            questionProgress.textContent = `${question.number}/11`;
+            questionProgress.textContent = `${question.number}/50`;
           }
           if(category.title=="COLLAGEN"){
-            questionProgress.textContent = `${question.number}/15`;
+            questionProgress.textContent = `${question.number}/50`;
           }
           questionPageContent.appendChild(questionProgress);
         }
@@ -1230,6 +1248,9 @@ console.log(userAnswersJson);
               const selectionArrow = document.createElement("div");
               selectionArrow.classList.add("selection-arrow");
               comparisonOption.appendChild(selectionArrow);
+              if (image?.optionId === userAnswersJson?.data?.skinTypeId) {
+                comparisonOption.classList.add("selected");
+            }
 
               userAnswersJson?.data?.answers?.forEach((answer) => {
                 if (
@@ -1283,7 +1304,15 @@ console.log(userAnswersJson);
             optionButton.dataset.optionId = option?.optionId;
             questionOptions.appendChild(optionButton);
 
+            if (
+              userAnswersJson?.data?.gender?.toLowerCase() ===
+              option?.text?.toLowerCase()
+            ) {
+              optionButton.classList.add("selected");
+            }
+
             userAnswersJson?.data?.answers?.forEach((answer) => {
+              
               if (
                 answer?.questionId === question?.number &&
                 answer?.optionId === option?.optionId
@@ -1345,6 +1374,7 @@ console.log(userAnswersJson);
             prevPageElement?.querySelector(".image-container.selected");
 
           //Barrier Page 10a Handling
+
 
           if (question.pageNumber === 19) {
             tenAOption = document
@@ -1508,6 +1538,10 @@ console.log(userAnswersJson);
                   questionId: question.number,
                   optionId: selectedOption.dataset.optionId,
                 });
+                await saveAnswer({
+                  questionId: question.title,
+                  optionId: selectedOption.dataset.optionId,
+                });
                 alert("Progress saved successfully!");
               } catch (error) {
                 console.error("Error saving progress:", error);
@@ -1535,11 +1569,22 @@ console.log(userAnswersJson);
                 errorMessage.style.display = "block";
               }
             } else {
+if(question.pageNumber === 2 || question.pageNumber === 3){
+              if (question.question === "What's your gender?")  {
+                answer =
+                  selectedOption.dataset.optionId == 1 ? "Male" : "Female";
+                question = "gender";
+              } else {
+                question = "skinType";
+                answer = selectedOption.dataset.optionId;
+              }
+              await sendUserData(userId, question, answer);
+            } else{
               await saveAnswer({
                 questionId: question.number,
                 optionId: selectedOption.dataset.optionId,
               });
-
+            }
               const genderPage = document.getElementById("page2");
               const maleOption = genderPage?.querySelector(
                 ".option-button.selected"
@@ -1589,7 +1634,11 @@ console.log(userAnswersJson);
                   question.pageNumber === 17
                 )
               ) {
-                {
+             if(question === "gender"){
+                          showPage(3);
+             } else if(question === "skinType"){
+              showPage(4);
+             } else {
                   showPage(question.pageNumber + 1);
                 }
               }
