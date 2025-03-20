@@ -5,7 +5,7 @@ import skinTestData from "../data/skintest.json";
 const userId = '1'; // This will be set on the client side using sessionStorage
 
 const userAnswers = await fetch(
-  "http://localhost:8080/skinTest/answers/" + (userId)
+  "http://18.171.235.80:8082/skinTest/answers/" + (userId)
 );
 const userAnswersJson = await userAnswers.json();
 console.log(userAnswersJson);
@@ -881,7 +881,7 @@ console.log(userAnswersJson);
 
   async function saveAnswer(answer) {
     try {
-      const response = await fetch(`http://localhost:8080/skinTest/answer`, {
+      const response = await fetch(`http://18.171.235.80:8082/skinTest/answer`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -899,7 +899,7 @@ console.log(userAnswersJson);
   async function calCulateResults() {
     try {
       const response = await fetch(
-        `http://localhost:8080/skinTest/testScore/${userId}`,
+        `http://18.171.235.80:8082/skinTest/testScore/${userId}`,
         {
           method: "GET",
           headers: {
@@ -922,7 +922,7 @@ console.log(userAnswersJson);
         question,
         answer,
       };
-      const response = await fetch(`http://localhost:8080/skinTest/userData`, {
+      const response = await fetch(`http://18.171.235.80:8082/skinTest/userData`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
