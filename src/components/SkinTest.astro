@@ -2,16 +2,16 @@
 import skinTestData from "../data/skintest.json";
 
 // Generate a random user ID if none exists in session storage
-const userId = ''; // This will be set on the client side using sessionStorage
+const userId = '1'; // This will be set on the client side using sessionStorage
 
 const userAnswers = await fetch(
-  "http://localhost:8080/skinTest/answers/" + (userId || 0)
+  "http://localhost:8080/skinTest/answers/" + (userId)
 );
 const userAnswersJson = await userAnswers.json();
 console.log(userAnswersJson);
 ---
 
-<div id="app">
+<div id="app"> 
   <div id="categoryQuestions"></div>
   <div id="finishPage" class="page" style="display: none;">
     <div class="content">
@@ -846,10 +846,24 @@ console.log(userAnswersJson);
 
 <script define:vars={{ skinTestData, userAnswersJson, userId }}>
   let currentPage = 1;
-  sessionStorage.setItem('userId', 1);
-   userId = sessionStorage.getItem('userId')
   if (userAnswersJson) {
     skinTestData?.questionaireObject.forEach((category) => {
+
+      if (category.title === "WELCOME") {
+        //logic for male and fem
+        if (userAnswersJson?.data?.gender) {
+            currentPage = 3;
+        } else {
+          return;
+        }
+        if (userAnswersJson?.data?.skinTypeId != -1) {
+          currentPage = 4;
+        } else {
+          return;
+        }
+
+      } else {
+
       category.questionaire.forEach((question) => {
         if (
           question?.number ===
@@ -859,6 +873,8 @@ console.log(userAnswersJson);
           // currentPage = 36;
         }
       });
+    }
+
     });
     console.log(userAnswersJson);
   }
@@ -1188,13 +1204,13 @@ console.log(userAnswersJson);
             questionProgress.textContent = `${question.number}/10`;
           }
           if(category.title=="BARRIER"){
-            questionProgress.textContent = `${question.number}/14`;
+            questionProgress.textContent = `${question.number}/50`;
           }
           if(category.title=="MELANIN"){
-            questionProgress.textContent = `${question.number}/11`;
+            questionProgress.textContent = `${question.number}/50`;
           }
           if(category.title=="COLLAGEN"){
-            questionProgress.textContent = `${question.number}/15`;
+            questionProgress.textContent = `${question.number}/50`;
           }
           questionPageContent.appendChild(questionProgress);
         }
@@ -1288,7 +1304,15 @@ console.log(userAnswersJson);
             optionButton.dataset.optionId = option?.optionId;
             questionOptions.appendChild(optionButton);
 
+            if (
+              userAnswersJson?.data?.gender?.toLowerCase() ===
+              option?.text?.toLowerCase()
+            ) {
+              optionButton.classList.add("selected");
+            }
+
             userAnswersJson?.data?.answers?.forEach((answer) => {
+              
               if (
                 answer?.questionId === question?.number &&
                 answer?.optionId === option?.optionId
@@ -1554,7 +1578,7 @@ if(question.pageNumber === 2 || question.pageNumber === 3){
                 question = "skinType";
                 answer = selectedOption.dataset.optionId;
               }
-              await sendUserData(question, answer);
+              await sendUserData(userId, question, answer);
             } else{
               await saveAnswer({
                 questionId: question.number,
