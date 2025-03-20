@@ -1252,7 +1252,7 @@ console.log(userAnswersJson);
               const selectionArrow = document.createElement("div");
               selectionArrow.classList.add("selection-arrow");
               comparisonOption.appendChild(selectionArrow);
-              if (image?.optionId === userAnswersJson?.data?.skinTypeId) {
+              if (userAnswersJson?.data?.skinTypeId  === image?.optionId) {
                 comparisonOption.classList.add("selected");
             }
 
