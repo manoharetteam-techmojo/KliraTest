@@ -856,7 +856,7 @@ console.log(userAnswersJson);
         } else {
           return;
         }
-        if (userAnswersJson?.data?.skinTypeId != -1) {
+        if (userAnswersJson?.data?.skinTypeId != null) {
           currentPage = 4;
         } else {
           return;
@@ -1022,6 +1022,10 @@ console.log(userAnswersJson);
     }
   }
 
+  function formatedNumber(number){
+        return number.toString().padStart(2, '0');
+      }
+
   function buildQuestionaire() {
     const questionaire = document.getElementById("categoryQuestions");
     skinTestData.questionaireObject.forEach((category) => {
@@ -1186,7 +1190,7 @@ console.log(userAnswersJson);
 
         categoryDiv.appendChild(navigationWithSave);
       }
-
+  
       category.questionaire.forEach((question) => {
         const questionPage = document.createElement("div");
         questionPage.classList.add("page");
@@ -1201,16 +1205,16 @@ console.log(userAnswersJson);
 
         if (!(question.pageNumber == 2 || question.pageNumber == 3)) {
           if(category.title=="SEBUM"){
-            questionProgress.textContent = `${question.number}/10`;
+            questionProgress.textContent = `${formatedNumber(question.number)}/10`;
           }
           if(category.title=="BARRIER"){
-            questionProgress.textContent = `${question.number}/50`;
+            questionProgress.textContent = `${formatedNumber(question.number)}/50`;
           }
           if(category.title=="MELANIN"){
-            questionProgress.textContent = `${question.number}/50`;
+            questionProgress.textContent = `${formatedNumber(question.number)}/11`;
           }
           if(category.title=="COLLAGEN"){
-            questionProgress.textContent = `${question.number}/50`;
+            questionProgress.textContent = `${formatedNumber(question.number)}/15`;
           }
           questionPageContent.appendChild(questionProgress);
         }
