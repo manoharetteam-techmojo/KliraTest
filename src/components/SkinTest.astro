@@ -11,7 +11,7 @@ const userAnswersJson = await userAnswers.json();
 console.log(userAnswersJson);
 ---
 
-<div id="app"> 
+<div id="app">
   <div id="categoryQuestions"></div>
   <div id="finishPage" class="page" style="display: none;">
     <div class="content">
@@ -32,7 +32,7 @@ console.log(userAnswersJson);
 <style is:inline>
   @font-face {
     font-family: "Monaco";
-    src: url("/src/fonts/Monaco.ttf") format("truetype");
+    src: url("../../public/fonts/Monaco.ttf") format("truetype");
     font-weight: normal;
     font-style: normal;
   }
@@ -70,7 +70,7 @@ console.log(userAnswersJson);
     height: 100vh;
     position: relative;
   }
-  
+
   .category-tabs {
     display: flex;
     justify-content: center;
@@ -803,7 +803,7 @@ console.log(userAnswersJson);
       padding: 0 20px;
     }
   }
- 
+
   .category-tabs {
     display: flex;
     justify-content: center;
@@ -852,7 +852,7 @@ console.log(userAnswersJson);
       if (category.title === "WELCOME") {
         //logic for male and fem
         if (userAnswersJson?.data?.gender) {
-            currentPage = 3;
+          currentPage = 3;
         } else {
           return;
         }
@@ -864,16 +864,16 @@ console.log(userAnswersJson);
 
       } else {
 
-      category.questionaire.forEach((question) => {
-        if (
-          question?.number ===
-          userAnswersJson?.data?.answers?.at(-1)?.questionId
-        ) {
-          currentPage = question.pageNumber + 1;
-          // currentPage = 36;
-        }
-      });
-    }
+        category.questionaire.forEach((question) => {
+          if (
+            question?.number ===
+            userAnswersJson?.data?.answers?.at(-1)?.questionId
+          ) {
+            currentPage = question.pageNumber + 1;
+            // currentPage = 36;
+          }
+        });
+      }
 
     });
     console.log(userAnswersJson);
@@ -882,11 +882,11 @@ console.log(userAnswersJson);
   async function saveAnswer(answer) {
     try {
       const response = await fetch(`http://18.171.235.80:8082/skinTest/answer`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ ...answer, userId }),
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ ...answer, userId }),
       });
       const responseData = await response.json();
       console.log(responseData);
@@ -923,11 +923,11 @@ console.log(userAnswersJson);
         answer,
       };
       const response = await fetch(`http://18.171.235.80:8082/skinTest/userData`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(userData),
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(userData),
       });
       const responseCalculateData = await response.json();
       console.log(responseCalculateData);
@@ -1024,7 +1024,7 @@ console.log(userAnswersJson);
 
   function formatedNumber(number){
         return number.toString().padStart(2, '0');
-      }
+  }
 
   function buildQuestionaire() {
     const questionaire = document.getElementById("categoryQuestions");
@@ -1042,7 +1042,7 @@ console.log(userAnswersJson);
         // Add category tabs at the top of each category page
         const categoryTabs = document.createElement("div");
         categoryTabs.classList.add("category-tabs");
-        
+
         // Create the tabs
         const categories = ["Sebum", "Barrier", "Melanin", "Collagen"];
         categories.forEach((tabName, index) => {
@@ -1050,15 +1050,15 @@ console.log(userAnswersJson);
           const tab = document.createElement("span");
           tab.classList.add("category-tab");
           tab.textContent = tabName;
-          
+
           // Make the tab active if it matches current category title
           if (tabName.toUpperCase() === category.title) {
             tab.classList.add("active");
           }
-          
+
           // Add the tab (non-clickable)
           categoryTabs.appendChild(tab);
-          
+
           // Add separator after each tab except the last one
           if (index < categories.length - 1) {
             const separator = document.createElement("span");
@@ -1067,7 +1067,7 @@ console.log(userAnswersJson);
             categoryTabs.appendChild(separator);
           }
         });
-        
+
         categoryDiv.appendChild(categoryTabs);
       }
 
@@ -1081,23 +1081,23 @@ console.log(userAnswersJson);
       const description = document.createElement("p");
       description.textContent = category.description;
       titleContent.appendChild(description);
-      
+
       // Add question count indicator based on the category
       if (category.title === "SEBUM" || category.title === "BARRIER" || 
           category.title === "MELANIN" || category.title === "COLLAGEN") {
         // Apply specific styling for category pages
-        
+
         const questionCount = document.createElement("div");
         questionCount.classList.add("question-count");
-        
+
         let count = 0;
         if (category.title === "SEBUM") count = 10;
         if (category.title === "BARRIER") count = 14;
         if (category.title === "MELANIN") count = 11;
         if (category.title === "COLLAGEN") count = 15;
-        
+
         questionCount.textContent = `● ${count} Questions`;
-        
+
         titleContent.appendChild(questionCount);
       }
 
@@ -1190,7 +1190,7 @@ console.log(userAnswersJson);
 
         categoryDiv.appendChild(navigationWithSave);
       }
-  
+
       category.questionaire.forEach((question) => {
         const questionPage = document.createElement("div");
         questionPage.classList.add("page");
@@ -1254,7 +1254,7 @@ console.log(userAnswersJson);
               comparisonOption.appendChild(selectionArrow);
               if (userAnswersJson?.data?.skinTypeId  === image?.optionId) {
                 comparisonOption.classList.add("selected");
-            }
+              }
 
               userAnswersJson?.data?.answers?.forEach((answer) => {
                 if (
@@ -1540,21 +1540,21 @@ console.log(userAnswersJson);
               try {
                 if(question.pageNumber === 2 || question.pageNumber === 3){
                       if (question.question === "What's your gender?" )  {
-                      answer1 =
-                            selectedOption.dataset.optionId == 1 ? "Male" : "Female";
-                      question1 = "gender";
-                    } else {
-                        question1 = "skinType";
-                        answer1 = selectedOption.dataset.optionId;
-                      }
-                    await sendUserData(userId, question1, answer1);
+                    answer1 =
+                      selectedOption.dataset.optionId == 1 ? "Male" : "Female";
+                    question1 = "gender";
+                  } else {
+                    question1 = "skinType";
+                    answer1 = selectedOption.dataset.optionId;
+                  }
+                  await sendUserData(userId, question1, answer1);
                  } else{
-                      await saveAnswer({
-                      questionId: question.number,
-                      optionId: selectedOption.dataset.optionId,
-                 });
-               }
-            alert("Progress saved successfully!");
+                  await saveAnswer({
+                    questionId: question.number,
+                    optionId: selectedOption.dataset.optionId,
+                  });
+                }
+                alert("Progress saved successfully!");
               } catch (error) {
                 console.error("Error saving progress:", error);
                 alert("Failed to save progress. Please try again.");
@@ -1583,20 +1583,20 @@ console.log(userAnswersJson);
             } else {
           if(question.pageNumber === 2 || question.pageNumber === 3){
               if (question.question === "What's your gender?")  {
-                answer1 =
-                  selectedOption.dataset.optionId == 1 ? "Male" : "Female";
-                question1 = "gender";
-              } else {
-                question1 = "skinType";
-                answer1 = selectedOption.dataset.optionId;
-              }
+                  answer1 =
+                    selectedOption.dataset.optionId == 1 ? "Male" : "Female";
+                  question1 = "gender";
+                } else {
+                  question1 = "skinType";
+                  answer1 = selectedOption.dataset.optionId;
+                }
                 await sendUserData(userId, question1, answer1);
               } else{
-                  await saveAnswer({
+                await saveAnswer({
                   questionId: question.number,
                   optionId: selectedOption.dataset.optionId,
-              });
-            }
+                });
+              }
               const genderPage = document.getElementById("page2");
               const maleOption = genderPage?.querySelector(
                 ".option-button.selected"
@@ -1647,10 +1647,10 @@ console.log(userAnswersJson);
                 )
               ) {
              if(question === "gender"){
-                          showPage(3);
+                  showPage(3);
              } else if(question === "skinType"){
-              showPage(4);
-             } else {
+                  showPage(4);
+                } else {
                   showPage(question.pageNumber + 1);
                 }
               }
@@ -1677,7 +1677,7 @@ console.log(userAnswersJson);
     });
 
     document.getElementById(`page${pageNumber}`).style.display = "flex";
-   
+
     currentPage = pageNumber;
 
     if (
