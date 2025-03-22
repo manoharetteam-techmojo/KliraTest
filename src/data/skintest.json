@@ -6,23 +6,23 @@
       "description":"The SkinSize™ diagnostic will help us decode your skin, curate your ideal routine, and prescribe your Klira Special formula.",
       "questionaire": [
         {
+          "number": "1",
           "pageNumber": 2,
           "question": "What's your gender?",
           "options": [
             {
               "text": "Male",
-              "letter": "a",
-              "optionId": 1
+              "optionId": "a"
             },
             {
               "text": "Female",
-              "letter": "b",
-              "optionId": 2
+              "optionId": "b"
             }
           ],
           "optionsPresent": true
         },
         {
+          "number": "2",
           "pageNumber": 3,
           "question": "What is your natural skin colour without tanning or self tanners? Select from the colours below.",
           "optionsType":"image",
@@ -31,32 +31,32 @@
             {
              "src": "./assets/1.png",
           "alt": "Image 1",
-              "optionId": 1
+          "optionId": "a"
             },
             {
                 "src": "./assets/2.png",
           "alt": "Image 2",
-              "optionId": 2
+              "optionId": "b"
             },
             {
               "src": "./assets/3.png",
           "alt": "Image 3",
-              "optionId": 3
+              "optionId": "c"
             },
             {
               "src": "./assets/4.png",
           "alt": "Image 3",
-              "optionId": 4
+              "optionId": "d"
             },
             {
              "src": "./assets/5.png",
           "alt": "Image 5",
-              "optionId": 5
+              "optionId": "e"
             },
             {
              "src": "./assets/6.png",
           "alt": "Image 6",
-              "optionId": 6
+              "optionId": "f"
             }
           ],
           "imagesPresent": true,
@@ -76,28 +76,23 @@
           "options": [
             {
               "text": "Very rough, flakey or ashy",
-              "letter": "a",
-              "optionId": 1
+              "optionId": "a"
             },
             {
               "text": "Tight",
-              "letter": "b",
-              "optionId": 2
+              "optionId": "b"
             },
             {
               "text": "Well hydrated with minimal reflection of light",
-              "letter": "c",
-              "optionId": 3
+              "optionId": "c"
             },
             {
               "text": "Shiny and reflecting bright light",
-              "letter": "d",
-              "optionId": 4
+              "optionId": "d"
             },
             {
               "text": "Wet and shiny with a lot of reflection",
-              "letter": "e",
-              "optionId": 5
+              "optionId": "e"
             }
           ],
           "imagesPresent": false,
@@ -110,28 +105,23 @@
           "options": [
             {
               "text": "Flakey or in wrinkles",
-              "letter": "a",
-              "optionId": 1
+              "optionId": "a"
             },
             {
               "text": "Smooth and still in place",
-              "letter": "b",
-              "optionId": 2
+              "optionId": "b"
             },
             {
               "text": "Shiny and needing powder",
-              "letter": "c",
-              "optionId": 3
+              "optionId": "c"
             },
             {
               "text": "Streaked and shiny",
-              "letter": "d",
-              "optionId": 4
+              "optionId": "d"
             },
             {
               "text": "I don't wear foundation",
-              "letter": "e",
-              "optionId": 5
+              "optionId": "e"
             }
           ],
           "imagesPresent": false,
@@ -144,23 +134,19 @@
           "options": [
             {
               "text": "Dry or cracked",
-              "letter": "a",
-              "optionId": 1
+              "optionId": "a"
             },
             {
               "text": "Tight",
-              "letter": "b",
-              "optionId": 2
+              "optionId": "b"
             },
             {
               "text": "Comfortable",
-              "letter": "c",
-              "optionId": 3
+              "optionId": "c"
             },
             {
               "text": "Shiny",
-              "letter": "d",
-              "optionId": 4
+              "optionId": "d"
             }
           ],
           "imagesPresent": false,
@@ -173,23 +159,19 @@
           "options": [
             {
               "text": "None",
-              "letter": "a",
-              "optionId": 1
+              "optionId": "a"
             },
             {
               "text": "A few in the T-zone (forehead and nose) only",
-              "letter": "b",
-              "optionId": 2
+              "optionId": "b"
             },
             {
               "text": "Many",
-              "letter": "c",
-              "optionId": 3
+              "optionId": "c"
             },
             {
               "text": "Tons",
-              "letter": "d",
-              "optionId": 4
+              "optionId": "d"
             }
           ],
           "imagesPresent": false,
@@ -202,23 +184,19 @@
           "options": [
             {
               "text": "Dry and cracked",
-              "letter": "a",
-              "optionId": 1
+              "optionId": "a"
             },
             {
               "text": "Dry",
-              "letter": "b",
-              "optionId": 2
+              "optionId": "b"
             },
             {
               "text": "Comfortable",
-              "letter": "c",
-              "optionId": 3
+              "optionId": "c"
             },
             {
               "text": "Oily",
-              "letter": "d",
-              "optionId": 4
+              "optionId": "d"
             }
           ],
           "imagesPresent": false,
@@ -231,18 +209,15 @@
           "options": [
             {
               "text": "Always",
-              "letter": "a",
-              "optionId": 1
+              "optionId": "a"
             },
             {
               "text": "Sometimes",
-              "letter": "b",
-              "optionId": 2
+              "optionId": "b"
             },
             {
               "text": "Rarely",
-              "letter": "c",
-              "optionId": 3
+              "optionId": "c"
             }
           ],
           "imagesPresent": false,
@@ -257,23 +232,19 @@
           "options": [
             {
               "text": "Never",
-              "letter": "a",
-              "optionId": 1
+              "optionId": "a"
             },
             {
               "text": "Rarely",
-              "letter": "b",
-              "optionId": 2
+              "optionId": "b"
             },
             {
               "text": "Sometimes",
-              "letter": "c",
-              "optionId": 3
+              "optionId": "c"
             },
             {
               "text": "Always",
-              "letter": "d",
-              "optionId": 4
+              "optionId": "d"
             }
           ],
           "images": [
@@ -296,23 +267,19 @@
           "options": [
             {
               "text": "Never",
-              "letter": "a",
-              "optionId": 1
+              "optionId": "a"
             },
             {
               "text": "Sometimes",
-              "letter": "b",
-              "optionId": 2
+              "optionId": "b"
             },
             {
               "text": "Frequently",
-              "letter": "c",
-              "optionId": 3
+              "optionId": "c"
             },
             {
               "text": "Always",
-              "letter": "d",
-              "optionId": 4
+              "optionId": "d"
             }
           ],
           "imagesPresent": false,
@@ -325,23 +292,19 @@
           "options": [
             {
               "text": "Rough",
-              "letter": "a",
-              "optionId": 1
+              "optionId": "a"
             },
             {
               "text": "Smooth",
-              "letter": "b",
-              "optionId": 2
+              "optionId": "b"
             },
             {
               "text": "Slightly shiny",
-              "letter": "c",
-              "optionId": 3
+              "optionId": "c"
             },
             {
               "text": "Shiny and slick",
-              "letter": "d",
-              "optionId": 4
+              "optionId": "d"
             }
           ],
           "imagesPresent": false,
@@ -354,23 +317,19 @@
           "options": [
             {
               "text": "Never",
-              "letter": "a",
-              "optionId": 1
+              "optionId": "a"
             },
             {
               "text": "Rarely",
-              "letter": "b",
-              "optionId": 2
+              "optionId": "b"
             },
             {
               "text": "More than once a month",
-              "letter": "c",
-              "optionId": 3
+              "optionId": "c"
             },
             {
               "text": "More than once a week",
-              "letter": "d",
-              "optionId": 4
+              "optionId": "d"
             }
           ],
           "imagesPresent": false,
@@ -387,12 +346,12 @@
             {
               "src": "/assets/10aImage1.png",
               "alt": "age1",
-              "optionId": 1
+              "optionId": "a"
             },
             {
               "src": "/assets/10aImage2.png",
               "alt": "age4",
-              "optionId": 2
+              "optionId": "b"
             }
           ],
           "imagesPresent": true,
@@ -406,36 +365,32 @@
       "description": "The skin barrier is the outermost layer of the skin that acts as a protective shield, preventing moisture loss, blocking harmful bacteria, and defending against environmental damage to maintain overall skin health.",
       "questionaire": [
         {
-          "number": "11",
+          "number": "1",
           "pageNumber": 17,
           "question": "Do you ever get redness or red patches on your cheeks, chin or nose?",
           "options": [
             {
               "text": "Never",
-              "letter": "a",
-              "optionId": 1
+              "optionId": "a"
             },
             {
               "text": "Rarely",
-              "letter": "b",
-              "optionId": 2
+              "optionId": "b"
             },
             {
               "text": "More than once a month",
-              "letter": "c",
-              "optionId": 3
+              "optionId": "c"
             },
             {
               "text": "More than once a week",
-              "letter": "d",
-              "optionId": 4
+              "optionId": "d"
             }
           ],
           "imagesPresent": false,
           "optionsPresent": true
         },
         {
-          "number": "11a",
+          "number": "1a",
           "pageNumber": 18,
           "question": "Which image do they look most like?",
           "optionsType":"image",
@@ -444,319 +399,277 @@
             {
               "src": "/assets/11aImage1.png",
               "alt": "age1",
-              "optionId": 1
+              "optionId": "a"
             },
             {
               "src": "/assets/11aImage2.png",
               "alt": "age4",
-              "optionId": 2
+              "optionId": "b"
             }
           ],
           "imagesPresent": true,
           "optionsPresent": false
         },
         {
-          "number": "12",
+          "number": "2",
           "pageNumber": 19,
           "question": "Do any skincare or makeup products cause your face to itch, sting, break out or get a rash?",
           "options": [
             {
               "text": "Never",
-              "letter": "a",
-              "optionId": 1
+              "optionId": "a"
             },
             {
               "text": "Rarely",
-              "letter": "b",
-              "optionId": 2
+              "optionId": "b"
             },
             {
               "text": "Often",
-              "letter": "c",
-              "optionId": 3
+              "optionId": "c"
             },
             {
               "text": "Always ",
-              "letter": "d",
-              "optionId": 4
+              "optionId": "d"
             }
           ],
           "imagesPresent": false,
           "optionsPresent": true
         },
         {
-          "number": "13",
+          "number": "3",
           "pageNumber": 20,
           "question": "Have you ever been diagnosed with rosacea by a dermatologist?",
           "options": [
             {
               "text": "No",
-              "letter": "a",
-              "optionId": 1
+              "optionId": "a"
             },
             {
               "text": "Friends/family tell me I have it",
-              "letter": "b",
-              "optionId": 2
+              "optionId": "b"
             },
             {
               "text": "Yes",
-              "letter": "c",
-              "optionId": 3
+              "optionId": "c"
             },
             {
               "text": "Yes, a severe case",
-              "letter": "d",
-              "optionId": 4
+              "optionId": "d"
             }
           ],
           "imagesPresent": false,
           "optionsPresent": true
         },
         {
-          "number": "14",
+          "number": "4",
           "pageNumber": 21,
           "question": "Does wearing certain jewellery give you a rash?",
           "options": [
             {
               "text": "Never",
-              "letter": "a",
-              "optionId": 1
+              "optionId": "a"
             },
             {
               "text": "Rarely",
-              "letter": "b",
-              "optionId": 2
+              "optionId": "b"
             },
             {
               "text": "Often",
-              "letter": "c",
-              "optionId": 3
+              "optionId": "c"
             },
             {
               "text": "Always",
-              "letter": "d",
-              "optionId": 4
+              "optionId": "d"
             }
           ],
           "imagesPresent": false,
           "optionsPresent": true
         },
         {
-          "number": "15",
+          "number": "5",
           "pageNumber": 22,
           "question": "Does sunscreen ever make your skin itch, burn, break out or turn red?",
           "options": [
             {
               "text": "Never",
-              "letter": "a",
-              "optionId": 1
+              "optionId": "a"
             },
             {
               "text": "Rarely",
-              "letter": "b",
-              "optionId": 2
+              "optionId": "b"
             },
             {
               "text": "Often",
-              "letter": "c",
-              "optionId": 3
+              "optionId": "c"
             },
             {
               "text": "Always",
-              "letter": "d",
-              "optionId": 4
+              "optionId": "d"
             },
             {
               "text": "I never wear sunscreen",
-              "letter": "e",
-              "optionId": 5
+              "optionId": "e"
             }
           ],
           "imagesPresent": false,
           "optionsPresent": true
         },
         {
-          "number": "16",
+          "number": "6",
           "pageNumber": 23,
           "question": "Have you ever been diagnosed with eczema, atopic dermatitis or allergic skin disease?",
           "options": [
             {
               "text": "No",
-              "letter": "a",
-              "optionId": 1
+              "optionId": "a"
             },
             {
               "text": "Friends/family tell me I have it",
-              "letter": "b",
-              "optionId": 2
+              "optionId": "b"
             },
             {
               "text": "Yes",
-              "letter": "c",
-              "optionId": 3
+              "optionId": "c"
             },
             {
               "text": "Yes, a severe case",
-              "letter": "d",
-              "optionId": 4
+              "optionId": "d"
             }
           ],
           "imagesPresent": false,
           "optionsPresent": true
         },
         {
-          "number": "17",
+          "number": "7",
           "pageNumber": 24,
           "question": "Can you use the soap provided in hotels on your body or face without a problem?",
           "options": [
             {
               "text": "Yes",
-              "letter": "a",
-              "optionId": 1
+              "optionId": "a"
             },
             {
               "text": "Most of the time",
-              "letter": "b",
-              "optionId": 2
+              "optionId": "b"
             },
             {
               "text": "No, my skin itches, turns red or breaks out",
-              "letter": "c",
-              "optionId": 3
+              "optionId": "c"
             },
             {
               "text": "I wouldn't use it because of past problems",
-              "letter": "d",
-              "optionId": 4
+              "optionId": "d"
             }
           ],
           "imagesPresent": false,
           "optionsPresent": true
         },
         {
-          "number": "18",
+          "number": "8",
           "pageNumber": 25,
           "question": "Have you or anyone in your family been diagnosed with eczema, asthma, hayfever?",
           "options": [
             {
               "text": "Yes, I have",
-              "letter": "a",
-              "optionId": 1
+              "optionId": "a"
             },
             {
               "text": "No",
-              "letter": "b",
-              "optionId": 2
+              "optionId": "b"
             },
             {
               "text": "No, but one family member",
-              "letter": "c",
-              "optionId": 3
+              "optionId": "c"
             },
             {
               "text": "No, but many of my family members",
-              "letter": "d",
-              "optionId": 4
+              "optionId": "d"
             }
           ],
           "imagesPresent": false,
           "optionsPresent": true
         },
         {
-          "number": "19",
+          "number": "9",
           "pageNumber": 26,
           "question": "How often does your face or neck get red after moderate exercise, stress or a strong emotion like anger?",
           "options": [
             {
               "text": "Never",
-              "letter": "a",
-              "optionId": 1
+              "optionId": "a"
             },
             {
               "text": "Sometimes",
-              "letter": "b",
-              "optionId": 2
+              "optionId": "b"
             },
             {
               "text": "Frequently",
-              "letter": "c",
-              "optionId": 3
+              "optionId": "c"
             },
             {
               "text": "Always",
-              "letter": "d",
-              "optionId": 4
+              "optionId": "d"
             }
           ],
           "imagesPresent": false,
           "optionsPresent": true
         },
         {
-          "number": "20",
+          "number": "10",
           "pageNumber": 27,
           "question": "How often do you tend to go red in the face after drinking alcohol?",
           "options": [
             {
               "text": "Never",
-              "letter": "a",
-              "optionId": 1
+              "optionId": "a"
             },
             {
               "text": "Sometimes",
-              "letter": "b",
-              "optionId": 2
+              "optionId": "b"
             },
             {
               "text": "Frequently",
-              "letter": "c",
-              "optionId": 3
+              "optionId": "c"
             },
             {
               "text": "Always, or I don't drink because of this",
-              "letter": "d",
-              "optionId": 4
+              "optionId": "d"
             },
             {
               "text": "I don't drink alcohol",
-              "letter": "e",
-              "optionId": 5
+              "optionId": "e"
             }
           ],
           "imagesPresent": false,
           "optionsPresent": true
         },
         {
-          "number": "21",
+          "number": "11",
           "pageNumber": 28,
           "question": "How often do you get red and flushed after eating spicy foods or hot drinks?",
           "options": [
             {
               "text": "Never",
-              "letter": "a",
-              "optionId": 1
+              "optionId": "a"
             },
             {
               "text": "Sometimes",
-              "letter": "b",
-              "optionId": 2
+              "optionId": "b"
             },
             {
               "text": "Frequently",
-              "letter": "c",
-              "optionId": 3
+              "optionId": "c"
             },
             {
               "text": "Always",
-              "letter": "d",
-              "optionId": 4
+              "optionId": "d"
             }
           ],
           "imagesPresent": false,
           "optionsPresent": true
         },
         {
-          "number": "22",
+          "number": "12",
           "pageNumber": 29,
           "question": "Look carefully at your nose and cheeks in the mirror - select the image that represents how many visible red or blue broken blood vessels you have.",
           "optionsType":"image",
@@ -765,80 +678,72 @@
             {
               "src": "/assets/22Image1.png",
               "alt": "age1",
-              "optionId": 1
+              "optionId": "a"
             },
             {
               "src": "/assets/22Image2.png",
               "alt": "age4",
-              "optionId": 2
+              "optionId": "b"
             },
             {
               "src": "/assets/22Image3.png",
               "alt": "age1",
-              "optionId": 3
+              "optionId": "c"
             },
             {
               "src": "/assets/22Image4.png",
               "alt": "age4",
-              "optionId": 4
+              "optionId": "d"
             }
           ],
           "imagesPresent": true,
           "optionsPresent": false
         },
         {
-          "number": "23",
+          "number": "13",
           "pageNumber": 30,
           "question": "Do people ever ask you if you are sunburned, even when you aren't?",
           "options": [
             {
               "text": "Never",
-              "letter": "a",
-              "optionId": 1
+              "optionId": "a"
             },
             {
               "text": "Sometimes",
-              "letter": "b",
-              "optionId": 2
+              "optionId": "b"
             },
             {
               "text": "Frequently",
-              "letter": "c",
-              "optionId": 3
+              "optionId": "c"
             },
             {
               "text": "Always",
-              "letter": "d",
-              "optionId": 4
+              "optionId": "d"
             }
           ],
           "imagesPresent": false,
           "optionsPresent": true
         },
         {
-          "number": "24",
+          "number": "14",
           "pageNumber": 31,
           "question": "How often do you get itching, swelling or small bumps from makeup?",
           "options": [
             {
               "text": "Never",
-              "letter": "a",
-              "optionId": 1
+              "optionId": "a"
             },
             {
               "text": "Sometimes",
-              "letter": "b",
-              "optionId": 2
+              "optionId": "b"
             },
             {
               "text": "Frequently",
-              "letter": "c",
-              "optionId": 3
+              "optionId": "c"
             },
             {
               "text": "Always",
-              "letter": "d",
-              "optionId": 4
+              "optionId": "d"
             }
           ],
           "imagesPresent": false,
@@ -852,30 +757,26 @@
       "description": "Melanin is a natural pigment produced by melanocytes that provides skin with its colour and protects against UV radiation.",
       "questionaire": [
         {
-          "number": "25",
+          "number": "1",
           "pageNumber": 33,
           "question": "After you have a spot or ingrown hair, how often is it followed by a dark brown or black mark?",
           "hint":"The mark looks like this",
           "options": [
             {
               "text": "Never",
-              "letter": "a",
-              "optionId": 1
+              "optionId": "a"
             },
             {
               "text": "Sometimes",
-              "letter": "b",
-              "optionId": 2
+              "optionId": "b"
             },
             {
               "text": "Frequently",
-              "letter": "c",
-              "optionId": 3
+              "optionId": "c"
             },
             {
               "text": "Always",
-              "letter": "d",
-              "optionId": 4
+              "optionId": "d"
             }
           ],
           "images": [
@@ -888,304 +789,264 @@
           "optionsPresent": true
         },
         {
-          "number": "26",
+          "number": "2",
           "pageNumber": 34,
           "question": "After you cut yourself, how long does the brown (not pink) mark remain?",
           "options": [
             {
               "text": "I don't get a brown mark",
-              "letter": "a",
-              "optionId": 1
+              "optionId": "a"
             },
             {
               "text": "A week",
-              "letter": "b",
-              "optionId": 2
+              "optionId": "b"
             },
             {
               "text": "A few weeks",
-              "letter": "c",
-              "optionId": 3
+              "optionId": "c"
             },
             {
               "text": "Months",
-              "letter": "d",
-              "optionId": 4
+              "optionId": "d"
             }
           ],
           "imagesPresent": false,
           "optionsPresent": true
         },
         {
-          "number": "27",
+          "number": "3",
           "pageNumber": 35,
           "question": "Did you develop patches of brown marks on the skin (usually on the top of the lip, forehead or sides of the cheeks) when pregnant or taking birth control after exposure to the sun?",
           "options": [
             {
               "text": "I don't get a brown mark",
-              "letter": "a",
-              "optionId": 1
+              "optionId": "a"
             },
             {
               "text": "A week",
-              "letter": "b",
-              "optionId": 2
+              "optionId": "b"
             },
             {
               "text": "A few weeks",
-              "letter": "c",
-              "optionId": 3
+              "optionId": "c"
             },
             {
               "text": "Months",
-              "letter": "d",
-              "optionId": 4
+              "optionId": "d"
             }
           ],
           "imagesPresent": false,
           "optionsPresent": true
         },
         {
-          "number": "28",
+          "number": "4",
           "pageNumber": 36,
           "question": "Do you currently have any flat dark patches on your upper lips, side of the lower jaw or your upper cheeks?",
           "hint":"They look like this",
           "options": [
             {
               "text": "No",
-              "letter": "a",
-              "optionId": 1
+              "optionId": "a"
             },
             {
               "text": "I'm not sure",
-              "letter": "b",
-              "optionId": 2
+              "optionId": "b"
             },
             {
               "text": "Yes, they're slightly noticeable",
-              "letter": "c",
-              "optionId": 3
+              "optionId": "c"
             },
             {
               "text": "Yes, they're very noticeable",
-              "letter": "d",
-              "optionId": 4
+              "optionId": "d"
             }
           ],
           "images": [
             {
               "src": "/assets/28Image1.png",
               "alt": "Whiteheads",
-              "optionId": 1
+              "optionId": "a"
             },
             {
               "src": "/assets/28Image2.png",
               "alt": "Whiteheads",
-              "optionId": 2
+              "optionId": "b"
             }
           ],
           "imagesPresent": true,
           "optionsPresent": true
         },
         {
-          "number": "29",
+          "number": "5",
           "pageNumber": 37,
           "question": "Do the dark marks on your face become more obvious after sun exposure?",
           "options": [
             {
               "text": "I don't have dark spots",
-              "letter": "a",
-              "optionId": 1
+              "optionId": "a"
             },
             {
               "text": "Unsure",
-              "letter": "b",
-              "optionId": 2
+              "optionId": "b"
             },
             {
               "text": "A little",
-              "letter": "c",
-              "optionId": 3
+              "optionId": "c"
             },
             {
               "text": "A lot",
-              "letter": "d",
-              "optionId": 4
+              "optionId": "d"
             }
           ],
           "imagesPresent": false,
           "optionsPresent": true
         },
         {
-          "number": "30",
+          "number": "6",
           "pageNumber": 38,
           "question": "Do you have, or have you ever had, small brown spots on your face?",
           "options": [
             {
               "text": "None at all",
-              "letter": "a",
-              "optionId": 1
+              "optionId": "a"
             },
             {
               "text": "Yes, a few (1-5) on my face",
-              "letter": "b",
-              "optionId": 2
+              "optionId": "b"
             },
             {
               "text": "Yes, many (6-15) all over",
-              "letter": "c",
-              "optionId": 3
+              "optionId": "c"
             },
             {
               "text": "Yes, lots (more than 16)",
-              "letter": "d",
-              "optionId": 4
+              "optionId": "d"
             }
           ],
           "imagesPresent": false,
           "optionsPresent": true
         },
         {
-          "number": "31",
+          "number": "7",
           "pageNumber": 39,
           "question": "When exposed to sun for the first time in several months, how does your skin react?",
           "options": [
             {
               "text": "Burn only",
-              "letter": "a",
-              "optionId": 1
+              "optionId": "a"
             },
             {
               "text": "Burns, then gets darker",
-              "letter": "b",
-              "optionId": 2
+              "optionId": "b"
             },
             {
               "text": "Gets darker",
-              "letter": "c",
-              "optionId": 3
+              "optionId": "c"
             },
             {
               "text": "It is hard to see as I already have dark skin",
-              "letter": "d",
-              "optionId": 4
+              "optionId": "d"
             }
           ],
           "imagesPresent": false,
           "optionsPresent": true
         },
         {
-          "number": "32",
+          "number": "8",
           "pageNumber": 40,
           "question": "What happens after you've had a few consecutive days of sun exposure?",
           "options": [
             {
               "text": "I sunburn and blister, but my skin does not change colour",
-              "letter": "a",
-              "optionId": 1
+              "optionId": "a"
             },
             {
               "text": "My skin becomes slightly darker",
-              "letter": "b",
-              "optionId": 2
+              "optionId": "b"
             },
             {
               "text": "My skin becomes much darker",
-              "letter": "c",
-              "optionId": 3
+              "optionId": "c"
             },
             {
               "text": "It is hard to see as I already have dark skin",
-              "letter": "d",
-              "optionId": 4
+              "optionId": "d"
             }
           ],
           "imagesPresent": false,
           "optionsPresent": true
         },
         {
-          "number": "33",
+          "number": "9",
           "pageNumber": 41,
           "question": "When you go in the sun do you develop freckles?",
           "options": [
             {
               "text": "No",
-              "letter": "a",
-              "optionId": 1
+              "optionId": "a"
             },
             {
               "text": "A few small freckles each year",
-              "letter": "b",
-              "optionId": 2
+              "optionId": "b"
             },
             {
               "text": "Often",
-              "letter": "c",
-              "optionId": 3
+              "optionId": "c"
             },
             {
               "text": "It's hard to see as my skin is dark",
-              "letter": "d",
-              "optionId": 4
+              "optionId": "d"
             }
           ],
           "imagesPresent": false,
           "optionsPresent": true
         },
         {
-          "number": "34",
+          "number": "10",
           "pageNumber": 42,
           "question": "What is your natural hair colour?",
           "hint":"If you're grey then choose the colour before greying.",
           "options": [
             {
               "text": "Blonde",
-              "letter": "a",
-              "optionId": 1
+              "optionId": "a"
             },
             {
               "text": "Brown",
-              "letter": "b",
-              "optionId": 2
+              "optionId": "b"
             },
             {
               "text": "Black",
-              "letter": "c",
-              "optionId": 3
+              "optionId": "c"
             },
             {
               "text": "Red",
-              "letter": "d",
-              "optionId": 4
+              "optionId": "d"
             }
           ],
           "imagesPresent": false,
           "optionsPresent": true
         },
         {
-          "number": "35",
+          "number": "11",
           "pageNumber": 43,
           "question": "Do you or anyone in your family have a history of malignant melanoma?",
           "options": [
             {
               "text": "No",
-              "letter": "a",
-              "optionId": 1
+              "optionId": "a"
             },
             {
               "text": "One person in my family",
-              "letter": "b",
-              "optionId": 2
+              "optionId": "b"
             },
             {
               "text": "More than one person in my family",
-              "letter": "c",
-              "optionId": 3
+              "optionId": "c"
             },
             {
               "text": "I have a history of melanoma",
-              "letter": "d",
-              "optionId": 4
+              "optionId": "d"
             }
           ],
           "imagesPresent": false,
@@ -1199,7 +1060,7 @@
       "description": "Collagen is a protein that provides structure, elasticity, and firmness to the skin, helping maintain its strength and smooth appearance.",
       "questionaire": [
         {
-          "number": "36",
+          "number": "1",
           "pageNumber": 45,
           "question": "Select the image which best represents your skin.",
           "optionsType":"image",
@@ -1208,449 +1069,389 @@
             {
               "src": "/assets/36Image1.png",
               "alt": "age1",
-              "optionId": 1
+              "optionId": "a"
             },
             {
               "src": "/assets/36Image2.png",
               "alt": "age4",
-              "optionId": 2
+              "optionId": "b"
             },
             {
               "src": "/assets/36Image3.png",
               "alt": "age1",
-              "optionId": 3
+              "optionId": "c"
             },
             {
               "src": "/assets/36Image4.png",
               "alt": "age4",
-              "optionId": 4
+              "optionId": "d"
             }
           ],
           "imagesPresent": true,
           "optionsPresent": false
         },
         {
-          "number": "37",
+          "number": "2",
           "pageNumber": 46,
           "question": "How old does or did your mother's facial skin look?",
           "options": [
             {
               "text": "5-10 years younger",
-              "letter": "a",
-              "optionId": 1
+              "optionId": "a"
             },
             {
               "text": "Her age",
-              "letter": "b",
-              "optionId": 2
+              "optionId": "b"
             },
             {
               "text": "5 years older",
-              "letter": "c",
-              "optionId": 3
+              "optionId": "c"
             },
             {
               "text": "More than 5 years older",
-              "letter": "d",
-              "optionId": 4
+              "optionId": "d"
             },
             {
               "text": "I can't answer that",
-              "letter": "e",
-              "optionId": 5
+              "optionId": "e"
             }
           ],
           "imagesPresent": false,
           "optionsPresent": true
         },
         {
-          "number": "38",
+          "number": "3",
           "pageNumber": 47,
           "question": "How old does or did your father's facial skin look?",
           "options": [
             {
               "text": "5-10 years younger",
-              "letter": "a",
-              "optionId": 1
+              "optionId": "a"
             },
             {
               "text": "Her age",
-              "letter": "b",
-              "optionId": 2
+              "optionId": "b"
             },
             {
               "text": "5 years older",
-              "letter": "c",
-              "optionId": 3
+              "optionId": "c"
             },
             {
               "text": "More than 5 years older",
-              "letter": "d",
-              "optionId": 4
+              "optionId": "d"
             },
             {
               "text": "I can't answer that",
-              "letter": "e",
-              "optionId": 5
+              "optionId": "e"
             }
           ],
           "imagesPresent": false,
           "optionsPresent": true
         },
         {
-          "number": "39",
+          "number": "4",
           "pageNumber": 48,
           "question": "At any time in your life have you ever tanned your skin on an ongoing basis for more than 2 weeks per year? If so, for how many years did you do this?",
           "hint":"i. Think about tanning from playing sports, travelling, outdoor work or activities.",
           "options": [
             {
               "text": "Never",
-              "letter": "a",
-              "optionId": 1
+              "optionId": "a"
             },
             {
               "text": "1-5 years",
-              "letter": "b",
-              "optionId": 2
+              "optionId": "b"
             },
             {
               "text": "5-10 years",
-              "letter": "c",
-              "optionId": 3
+              "optionId": "c"
             },
             {
               "text": "More than 10 years",
-              "letter": "d",
-              "optionId": 4
+              "optionId": "d"
             }
           ],
           "imagesPresent": false,
           "optionsPresent": true
         },
         {
-          "number": "40",
+          "number": "5",
           "pageNumber": 49,
           "question": "At any time in your life, have you ever engaged in seasonal tanning of 2 weeks per year or less? If so, how often?",
           "options": [
             {
               "text": "Never",
-              "letter": "a",
-              "optionId": 1
+              "optionId": "a"
             },
             {
               "text": "1-5 years",
-              "letter": "b",
-              "optionId": 2
+              "optionId": "b"
             },
             {
               "text": "5-10 years",
-              "letter": "c",
-              "optionId": 3
+              "optionId": "c"
             },
             {
               "text": "More than 10 years",
-              "letter": "d",
-              "optionId": 4
+              "optionId": "d"
             }
           ],
           "imagesPresent": false,
           "optionsPresent": true
         },
         {
-          "number": "41",
+          "number": "6",
           "pageNumber": 50,
           "question": "Based on the places you have lived, how much daily sun exposure have you received in your life?",
           "options": [
             {
               "text": "Little; I've mostly lived in places that are grey and overcast",
-              "letter": "a",
-              "optionId": 1
+              "optionId": "a"
             },
             {
               "text": "Some; I've lived in less sunny climes at times, but also places with regular sun",
-              "letter": "b",
-              "optionId": 2
+              "optionId": "b"
             },
             {
               "text": "Moderate; I've lived in places with a fair amount of sun exposure",
-              "letter": "c",
-              "optionId": 3
+              "optionId": "c"
             },
             {
               "text": "A lot; I've lived in tropical, southern, or very sunny places",
-              "letter": "d",
-              "optionId": 4
+              "optionId": "d"
             }
           ],
           "imagesPresent": false,
           "optionsPresent": true
         },
         {
-          "number": "42",
+          "number": "7",
           "pageNumber": 51,
           "question": "How old do you think you look?",
           "options": [
             {
               "text": "1-5 years younger than my age",
-              "letter": "a",
-              "optionId": 1
+              "optionId": "a"
             },
             {
               "text": "My age",
-              "letter": "b",
-              "optionId": 2
+              "optionId": "b"
             },
             {
               "text": "5 years older than my age",
-              "letter": "c",
-              "optionId": 3
+              "optionId": "c"
             },
             {
               "text": "More than 5 years older than my age",
-              "letter": "d",
-              "optionId": 4
+              "optionId": "d"
             }
           ],
           "imagesPresent": false,
           "optionsPresent": true
         },
         {
-          "number": "43",
+          "number": "8",
           "pageNumber": 52,
           "question": "During the last five years, how often have you allowed your skin to tan either intentionally or unintentionally, including through outdoor activities or sports?",
           "options": [
             {
               "text": "Never",
-              "letter": "a",
-              "optionId": 1
+              "optionId": "a"
             },
             {
               "text": "A few times a year",
-              "letter": "b",
-              "optionId": 2
+              "optionId": "b"
             },
             {
               "text": "Monthly",
-              "letter": "c",
-              "optionId": 3
+              "optionId": "c"
             },
             {
               "text": "Every week",
-              "letter": "d",
-              "optionId": 4
+              "optionId": "d"
             }
           ],
           "imagesPresent": false,
           "optionsPresent": true
         },
         {
-          "number": "44",
+          "number": "9",
           "pageNumber": 53,
           "question": "How often, if ever, have you used a tanning bed?",
           "options": [
             {
               "text": "Never",
-              "letter": "a",
-              "optionId": 1
+              "optionId": "a"
             },
             {
               "text": "1-5 times",
-              "letter": "b",
-              "optionId": 2
+              "optionId": "b"
             },
             {
               "text": "5-10 times",
-              "letter": "c",
-              "optionId": 3
+              "optionId": "c"
             },
             {
               "text": "Many times",
-              "letter": "d",
-              "optionId": 4
+              "optionId": "d"
             }
           ],
           "imagesPresent": false,
           "optionsPresent": true
         },
         {
-          "number": "45",
+          "number": "10",
           "pageNumber": 54,
           "question": "Over your entire life, how many cigarettes have you smoked?",
           "options": [
             {
               "text": "None",
-              "letter": "a",
-              "optionId": 1
+              "optionId": "a"
             },
             {
               "text": "A few packs",
-              "letter": "b",
-              "optionId": 2
+              "optionId": "b"
             },
             {
               "text": "Many packs",
-              "letter": "c",
-              "optionId": 3
+              "optionId": "c"
             },
             {
               "text": "I smoke every day",
-              "letter": "d",
-              "optionId": 4
+              "optionId": "d"
             },
             {
               "text": "I've never smoked, but have been surrounded by people who regularly smoked in my presence",
-              "letter": "e",
-              "optionId": 5
+              "optionId": "e"
             }
           ],
           "imagesPresent": false,
           "optionsPresent": true
         },
         {
-          "number": "46",
+          "number": "11",
           "pageNumber": 55,
           "question": "Describe the air pollution where you live...",
           "options": [
             {
               "text": "Fresh and clean",
-              "letter": "a",
-              "optionId": 1
+              "optionId": "a"
             },
             {
               "text": "Sometimes I live where the air is fresh and clean",
-              "letter": "b",
-              "optionId": 2
+              "optionId": "b"
             },
             {
               "text": "Slightly polluted",
-              "letter": "c",
-              "optionId": 3
+              "optionId": "c"
             },
             {
               "text": "Very polluted",
-              "letter": "d",
-              "optionId": 4
+              "optionId": "d"
             }
           ],
           "imagesPresent": false,
           "optionsPresent": true
         },
         {
-          "number": "47",
+          "number": "12",
           "pageNumber": 56,
           "question": "Have you ever used a prescription-grade retinoid?",
           "options": [
             {
               "text": "Yes, for many years",
-              "letter": "a",
-              "optionId": 1
+              "optionId": "a"
             },
             {
               "text": "Yes, occasionally",
-              "letter": "b",
-              "optionId": 2
+              "optionId": "b"
             },
             {
               "text": "Once for acne when I was younger",
-              "letter": "c",
-              "optionId": 3
+              "optionId": "c"
             },
             {
               "text": "Never",
-              "letter": "d",
-              "optionId": 4
+              "optionId": "d"
             }
           ],
           "imagesPresent": false,
           "optionsPresent": true
         },
         {
-          "number": "48",
+          "number": "13",
           "pageNumber": 57,
           "question": "How often do you eat fruit and vegetables?",
           "options": [
             {
               "text": "At every meal",
-              "letter": "a",
-              "optionId": 1
+              "optionId": "a"
             },
             {
               "text": "Once a day",
-              "letter": "b",
-              "optionId": 2
+              "optionId": "b"
             },
             {
               "text": "Occasionally",
-              "letter": "c",
-              "optionId": 3
+              "optionId": "c"
             },
             {
               "text": "Never",
-              "letter": "d",
-              "optionId": 4
+              "optionId": "d"
             },
             {
               "text": "I'm vegan",
-              "letter": "e",
-              "optionId": 5
+              "optionId": "e"
             }
           ],
           "imagesPresent": false,
           "optionsPresent": true
         },
         {
-          "number": "49",
+          "number": "14",
           "pageNumber": 58,
           "question": "Over your lifetime what percentage of your daily diet has consisted of fresh fruit and vegetables?",
           "options": [
             {
               "text": "75-100%",
-              "letter": "a",
-              "optionId": 1
+              "optionId": "a"
             },
             {
               "text": "25-74%",
-              "letter": "b",
-              "optionId": 2
+              "optionId": "b"
             },
             {
               "text": "10-24%",
-              "letter": "c",
-              "optionId": 3
+              "optionId": "c"
             },
             {
               "text": "Less than 10%",
-              "letter": "d",
-              "optionId": 4
+              "optionId": "d"
             }
           ],
           "imagesPresent": false,
           "optionsPresent": true
         },
         {
-          "number": "50",
+          "number": "15",
           "pageNumber": 59,
           "question": " What is your age group?",
           "options": [
             {
               "text": "Over 65",
-              "letter": "a",
-              "optionId": 1
+              "optionId": "a"
             },
             {
               "text": "40-65",
-              "letter": "b",
-              "optionId": 2
+              "optionId": "b"
             },
             {
               "text": "30-39",
-              "letter": "c",
-              "optionId": 3
+              "optionId": "c"
             },
             {
               "text": "Under 30",
-              "letter": "d",
-              "optionId": 4
+              "optionId": "d"
             }
           ],
           "imagesPresent": false,

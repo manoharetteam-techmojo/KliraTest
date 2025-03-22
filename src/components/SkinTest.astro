@@ -1,14 +1,6 @@
 ---
 import skinTestData from "../data/skintest.json";
 
-// Generate a random user ID if none exists in session storage
-const userId = '1'; // This will be set on the client side using sessionStorage
-
-const userAnswers = await fetch(
-  "http://18.171.235.80:8082/skinTest/answers/" + (userId)
-);
-const userAnswersJson = await userAnswers.json();
-console.log(userAnswersJson);
 ---
 
 <div id="app">
@@ -844,50 +836,30 @@ console.log(userAnswersJson);
   }
 </style>
 
-<script define:vars={{ skinTestData, userAnswersJson, userId }}>
+<script define:vars={{ skinTestData }}>
   let currentPage = 1;
-  if (userAnswersJson) {
-    skinTestData?.questionaireObject.forEach((category) => {
-
-      if (category.title === "WELCOME") {
-        //logic for male and fem
-        if (userAnswersJson?.data?.gender) {
-          currentPage = 3;
-        } else {
-          return;
-        }
-        if (userAnswersJson?.data?.skinTypeId != null) {
-          currentPage = 4;
-        } else {
-          return;
-        }
-
-      } else {
-
-        category.questionaire.forEach((question) => {
-          if (
-            question?.number ===
-            userAnswersJson?.data?.answers?.at(-1)?.questionId
-          ) {
-            currentPage = question.pageNumber + 1;
-            // currentPage = 36;
-          }
-        });
-      }
-
-    });
-    console.log(userAnswersJson);
-  }
 
   async function saveAnswer(answer) {
     try {
-      const response = await fetch(`http://18.171.235.80:8082/skinTest/answer`, {
+      const token = getCookie("token");
+      // Format the answer to match the expected structure
+      const formattedAnswer = {
+        category: answer.category || "UNKNOWN",
+        questionId: answer.questionId.toString(),
+        answerId: answer.answerId
+      };
+
+      const response = await fetch(
+        `http://localhost:8080/api/v1/skin-test/answer`,
+        {
           method: "POST",
           headers: {
+            Authorization: `Bearer ${token}`,
             "Content-Type": "application/json",
           },
-          body: JSON.stringify({ ...answer, userId }),
-      });
+          body: JSON.stringify(formattedAnswer),
+        }
+      );
       const responseData = await response.json();
       console.log(responseData);
       return responseData;
@@ -898,11 +870,13 @@ console.log(userAnswersJson);
 
   async function calCulateResults() {
     try {
+      const token = getCookie("token");
       const response = await fetch(
-        `http://18.171.235.80:8082/skinTest/testScore/${userId}`,
+        `http://localhost:8080/api/v1/skin-test/skin-size-score`,
         {
           method: "GET",
           headers: {
+            Authorization: `Bearer ${token}`,
             "Content-Type": "application/json",
           },
         }
@@ -915,25 +889,188 @@ console.log(userAnswersJson);
     }
   }
 
-  async function sendUserData(userId, question, answer) {
+  function hasCookie(cookieName) {
+    return document.cookie.split('; ').some(cookie => cookie.startsWith(`${cookieName}=`));
+  }  
+  
+  if (hasCookie('token')) {
+    initializeSavedAnswers();
+    
+    async function initializeSavedAnswers() {
+      try {
+        const savedAnswers = await getSavedAnswers();
+        if (savedAnswers && savedAnswers.data) {
+          updateCurrentPage(savedAnswers);
+          updateSelectedAnswers(savedAnswers);
+          showPage(currentPage);
+        }
+      } catch (error) {
+        console.error("Error initializing saved answers:", error);
+      }
+    }
+    
+    async function getSavedAnswers() {
+      try {
+        const token = getCookie("token");
+        const response = await fetch(
+          `http://localhost:8080/api/v1/skin-test/saved-answers`,
+          {
+            method: "GET",
+            headers: {
+              Authorization: `Bearer ${token}`,
+              "Content-Type": "application/json",
+            },
+          }
+        );
+        const responseSavedAnswers = await response.json();
+        console.log(responseSavedAnswers);
+        return responseSavedAnswers;
+      } catch (error) {
+        console.error("Error getting saved answers:", error);
+      }
+    }
+    
+   function getPageNumber(lastCategory, lastQuestionId) {
+            if (!skinTestData?.questionaireObject) return null;
+
+            for (const categoryData of skinTestData.questionaireObject) {
+                if (categoryData.title === lastCategory) {
+                    for (const question of categoryData.questionaire) {
+                        if (question.number === lastQuestionId) {
+                            return question.pageNumber + 1; 
+                        }
+                    }
+                }
+            }
+            return null; // Return null if no match is found
+    }
+      
+    function updateCurrentPage(savedAnswers) {
+
+            // Define the category order
+            const categoryOrder = ["WELCOME", "SEBUM", "BARRIER", "MELANIN", "COLLAGEN"];
+
+            // Get the answers object
+            const answers = savedAnswers.data.answers;
+
+            // Helper function to sort questionId correctly (handles both numbers and letters)
+            function sortQuestionId(a, b) {
+                const parseId = (id) => {
+                    const match = id.match(/^(\d+)([a-zA-Z]*)$/);
+                    return match ? [parseInt(match[1], 10), match[2] || ''] : [0, ''];
+                };
+
+                const [numA, charA] = parseId(a.questionId);
+                const [numB, charB] = parseId(b.questionId);
+
+                // Compare the numerical part first
+                if (numA !== numB) {
+                    return numA - numB;
+                }
+                // Compare the alphabetical part if numerical parts are equal
+                return charA.localeCompare(charB);
+              }
+
+// Find the last available category in the defined order
+            let lastCategory = null;
+            for (const category of categoryOrder) {
+                if (category in answers) {
+                    lastCategory = category;
+                }
+}
+
+          // Get the last questionId from the sorted last category
+          let lastQuestionId = null;
+          if (lastCategory && answers[lastCategory].length > 0) {
+              // Sort the answers by questionId before accessing the last one
+              const sortedAnswers = answers[lastCategory].sort(sortQuestionId);
+              const lastQuestion = sortedAnswers[sortedAnswers.length - 1];
+              lastQuestionId = lastQuestion.questionId;
+          }
+
+      
+          currentPage = getPageNumber(lastCategory, lastQuestionId);
+    }
+
+    function updateSelectedAnswers(savedAnswers) {
+      if (!savedAnswers || !savedAnswers.data || !savedAnswers.data.answers) return;
+      
+      // This function will be called after DOM is ready
+      setTimeout(() => {
+        // Process all answers from all categories
+        Object.keys(savedAnswers.data.answers).forEach(category => {
+          const categoryAnswers = savedAnswers.data.answers[category];
+          
+
+          let categoryQuestionsData;
+          skinTestData?.questionaireObject.forEach(categoryData => {
+            if (categoryData.title === category) {
+              categoryQuestionsData = categoryData;
+            }
+          });
+          // Process all other answers
+          categoryAnswers.forEach(answer => {
+            categoryQuestionsData.questionaire.forEach(question => {
+           
+                if (question.number === answer.questionId) {
+                  const questionPage = document.getElementById(`page${question.pageNumber}`);
+                  if (questionPage) {
+                    // Try to find option button first
+                    const optionButtons = questionPage.querySelectorAll(".option-button");
+                    optionButtons.forEach(button => {
+                      if (button.dataset.optionId === answer.answerId) {
+                        button.classList.add("selected");
+                      }
+                    });
+                    
+                    // If no option buttons, try image containers
+                    const imageContainers = questionPage.querySelectorAll(".image-container");
+                    imageContainers.forEach(container => {
+                      if (container.dataset.optionId === answer.answerId) {
+                        container.classList.add("selected");
+                      }
+                    });
+                  }
+                }
+              });
+            });
+
+        });
+      }, 500); // Small delay to ensure DOM is ready
+    }
+    } 
+  else {
+    console.log('Token not found, setting a new one.');
+    signInApi();
+  }
+
+  function getCookie(name) {
+    const value = `; ${document.cookie}`;
+    const parts = value.split(`; ${name}=`);
+    if (parts.length === 2) return parts.pop().split(";").shift();
+    return null;
+  }
+
+  async function signInApi() {
     try {
-      const userData = {
-        userId,
-        question,
-        answer,
+      const signInData = {
+        username: "user131@email.com",
+        password: "password",
       };
-      const response = await fetch(`http://18.171.235.80:8082/skinTest/userData`, {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(userData),
+      const response = await fetch(`http://localhost:8080/auth/generateToken`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(signInData),
       });
-      const responseCalculateData = await response.json();
-      console.log(responseCalculateData);
-      return responseCalculateData;
+      const signInApiData = await response.json();
+      console.log(signInApiData.data);
+      const token = signInApiData.data;
+      document.cookie = `token=${token}; path=/; secure; SameSite=Strict; max-age=3600`;
+      return signInApiData;
     } catch (error) {
-      console.error("Error calculating results:", error);
+      console.error("Error saving answer:", error);
     }
   }
 
@@ -1022,8 +1159,8 @@ console.log(userAnswersJson);
     }
   }
 
-  function formatedNumber(number){
-        return number.toString().padStart(2, '0');
+  function formatedNumber(number) {
+    return number.toString().padStart(2, "0");
   }
 
   function buildQuestionaire() {
@@ -1035,10 +1172,7 @@ console.log(userAnswersJson);
       questionaire.appendChild(categoryDiv);
 
       // Add header with KLIRA logo for main category pages in the flow
-      if (category.title === "SEBUM" || category.title === "BARRIER" || 
-          category.title === "MELANIN" || category.title === "COLLAGEN") {
-          
-        
+      if (  category.title === "SEBUM" || category.title === "BARRIER" || category.title === "MELANIN" || category.title === "COLLAGEN") {
         // Add category tabs at the top of each category page
         const categoryTabs = document.createElement("div");
         categoryTabs.classList.add("category-tabs");
@@ -1083,8 +1217,7 @@ console.log(userAnswersJson);
       titleContent.appendChild(description);
 
       // Add question count indicator based on the category
-      if (category.title === "SEBUM" || category.title === "BARRIER" || 
-          category.title === "MELANIN" || category.title === "COLLAGEN") {
+      if (  category.title === "SEBUM" ||  category.title === "BARRIER" ||  category.title === "MELANIN" ||  category.title === "COLLAGEN" ) {
         // Apply specific styling for category pages
 
         const questionCount = document.createElement("div");
@@ -1131,8 +1264,8 @@ console.log(userAnswersJson);
               ".option-button.selected"
             );
             if (
-              selectedOption?.dataset.optionId == "1" ||
-              selectedOption?.dataset.optionId == "2"
+              selectedOption?.dataset.optionId == "a" ||
+              selectedOption?.dataset.optionId == "b"
             ) {
               showPage(14);
             } else {
@@ -1162,8 +1295,9 @@ console.log(userAnswersJson);
           if (selectedOption) {
             try {
               await saveAnswer({
-                questionId: category.title,
-                optionId: selectedOption.dataset.optionId,
+                category: category.title,
+                questionId: category.title === "WELCOME" ? "1" : "1", // Default to 1 if unknown
+                answerId: selectedOption.dataset.optionId
               });
               alert("Progress saved successfully!");
             } catch (error) {
@@ -1182,10 +1316,11 @@ console.log(userAnswersJson);
         nextButton.onclick = () => {
           showPage(category.pageNumber + 1);
         };
-        nextButton.innerHTML = '<img src="/assets/black-rightarrow.png" alt="Next" class="arrow-img">';
+        nextButton.innerHTML =
+          '<img src="/assets/black-rightarrow.png" alt="Next" class="arrow-img">';
 
         navigationWithSave.appendChild(prevButton);
-        navigationWithSave.appendChild(saveProgressContainer);
+        // navigationWithSave.appendChild(saveProgressContainer);
         navigationWithSave.appendChild(nextButton);
 
         categoryDiv.appendChild(navigationWithSave);
@@ -1204,17 +1339,17 @@ console.log(userAnswersJson);
         questionProgress.classList.add("progress");
 
         if (!(question.pageNumber == 2 || question.pageNumber == 3)) {
-          if(category.title=="SEBUM"){
-            questionProgress.textContent = `${formatedNumber(question.number)}/50`;
+          if (category.title == "SEBUM") {
+            questionProgress.textContent = `${formatedNumber(question.number)}/10`;
           }
-          if(category.title=="BARRIER"){
-            questionProgress.textContent = `${formatedNumber(question.number)}/50`;
+          if (category.title == "BARRIER") {
+            questionProgress.textContent = `${formatedNumber(question.number)}/14`;
           }
-          if(category.title=="MELANIN"){
-            questionProgress.textContent = `${formatedNumber(question.number)}/50`;
+          if (category.title == "MELANIN") {
+            questionProgress.textContent = `${formatedNumber(question.number)}/11`;
           }
-          if(category.title=="COLLAGEN"){
-            questionProgress.textContent = `${formatedNumber(question.number)}/50`;
+          if (category.title == "COLLAGEN") {
+            questionProgress.textContent = `${formatedNumber(question.number)}/15`;
           }
           questionPageContent.appendChild(questionProgress);
         }
@@ -1252,19 +1387,7 @@ console.log(userAnswersJson);
               const selectionArrow = document.createElement("div");
               selectionArrow.classList.add("selection-arrow");
               comparisonOption.appendChild(selectionArrow);
-              if (userAnswersJson?.data?.skinTypeId  === image?.optionId) {
-                comparisonOption.classList.add("selected");
-              }
-
-              userAnswersJson?.data?.answers?.forEach((answer) => {
-                if (
-                  answer?.questionId === question?.number &&
-                  answer?.optionId === image?.optionId
-                ) {
-                  comparisonOption.classList.add("selected");
-                }
-              });
-
+              
               comparisonOption.addEventListener("click", function () {
                 imageComparisonContainer
                   .querySelectorAll(".image-container")
@@ -1307,23 +1430,6 @@ console.log(userAnswersJson);
             optionButton.textContent = option.text;
             optionButton.dataset.optionId = option?.optionId;
             questionOptions.appendChild(optionButton);
-
-            if (
-              userAnswersJson?.data?.gender?.toLowerCase() ===
-              option?.text?.toLowerCase()
-            ) {
-              optionButton.classList.add("selected");
-            }
-
-            userAnswersJson?.data?.answers?.forEach((answer) => {
-              
-              if (
-                answer?.questionId === question?.number &&
-                answer?.optionId === option?.optionId
-              ) {
-                optionButton.classList.add("selected");
-              }
-            });
 
             optionButton.addEventListener("click", function () {
               const parentOptions = this.closest(".options");
@@ -1379,14 +1485,13 @@ console.log(userAnswersJson);
 
           //Barrier Page 10a Handling
 
-
           if (question.pageNumber === 19) {
             tenAOption = document
               .getElementById("page17")
               .querySelector(".option-button.selected");
             if (
-              tenAOption?.dataset.optionId === "1" ||
-              tenAOption?.dataset.optionId === "2"
+              tenAOption?.dataset.optionId === "a" ||
+              tenAOption?.dataset.optionId === "b"
             ) {
               showPage(question.pageNumber - 2);
             } else {
@@ -1427,8 +1532,9 @@ console.log(userAnswersJson);
             if (selectedOption) {
               try {
                 const result = await saveAnswer({
+                  category: category.title,
                   questionId: question.number,
-                  optionId: selectedOption.dataset.optionId,
+                  answerId: selectedOption.dataset.optionId
                 });
                 console.log(result);
               } catch (error) {
@@ -1449,6 +1555,9 @@ console.log(userAnswersJson);
               try {
                 const responseCalculateData = await calCulateResults();
                 if (responseCalculateData.success) {
+                  // Remove the token cookie as the test is now complete
+                  document.cookie = "token=; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT; secure; SameSite=Strict;";
+                
                   // Hide all pages
                   const pages = document.querySelectorAll(".page");
                   pages.forEach((page) => {
@@ -1497,10 +1606,13 @@ console.log(userAnswersJson);
 
             if (selectedOption) {
               try {
-                await saveAnswer({
+
+                  await saveAnswer({
+                  category: category.title,
                   questionId: question.number,
-                  optionId: selectedOption.dataset.optionId,
+                  answerId: selectedOption.dataset.optionId
                 });
+                
                 alert("Progress saved successfully!");
               } catch (error) {
                 console.error("Error saving progress:", error);
@@ -1538,22 +1650,13 @@ console.log(userAnswersJson);
 
             if (selectedOption) {
               try {
-                if(question.pageNumber === 2 || question.pageNumber === 3){
-                      if (question.question === "What's your gender?" )  {
-                    answer1 =
-                      selectedOption.dataset.optionId == 1 ? "Male" : "Female";
-                    question1 = "gender";
-                  } else {
-                    question1 = "skinType";
-                    answer1 = selectedOption.dataset.optionId;
-                  }
-                  await sendUserData(userId, question1, answer1);
-                 } else{
+
                   await saveAnswer({
-                    questionId: question.number,
-                    optionId: selectedOption.dataset.optionId,
-                  });
-                }
+                  category: category.title,
+                  questionId: question.number,
+                  answerId: selectedOption.dataset.optionId
+                });
+                
                 alert("Progress saved successfully!");
               } catch (error) {
                 console.error("Error saving progress:", error);
@@ -1581,22 +1684,11 @@ console.log(userAnswersJson);
                 errorMessage.style.display = "block";
               }
             } else {
-          if(question.pageNumber === 2 || question.pageNumber === 3){
-              if (question.question === "What's your gender?")  {
-                  answer1 =
-                    selectedOption.dataset.optionId == 1 ? "Male" : "Female";
-                  question1 = "gender";
-                } else {
-                  question1 = "skinType";
-                  answer1 = selectedOption.dataset.optionId;
-                }
-                await sendUserData(userId, question1, answer1);
-              } else{
-                await saveAnswer({
-                  questionId: question.number,
-                  optionId: selectedOption.dataset.optionId,
-                });
-              }
+              await saveAnswer({
+                category: category.title,
+                questionId: question.number,
+                answerId: selectedOption.dataset.optionId
+              });
               const genderPage = document.getElementById("page2");
               const maleOption = genderPage?.querySelector(
                 ".option-button.selected"
@@ -1608,8 +1700,8 @@ console.log(userAnswersJson);
                   .getElementById("page14")
                   .querySelector(".option-button.selected");
                 if (
-                  tenAOption?.dataset.optionId === "1" ||
-                  tenAOption?.dataset.optionId === "2"
+                  tenAOption?.dataset.optionId === "a" ||
+                  tenAOption?.dataset.optionId === "b"
                 ) {
                   showPage(question.pageNumber + 2);
                 } else {
@@ -1622,8 +1714,8 @@ console.log(userAnswersJson);
                   .getElementById("page17")
                   .querySelector(".option-button.selected");
                 if (
-                  tenAOption?.dataset.optionId === "1" ||
-                  tenAOption?.dataset.optionId === "2"
+                  tenAOption?.dataset.optionId === "a" ||
+                  tenAOption?.dataset.optionId === "b"
                 ) {
                   showPage(question.pageNumber + 2);
                 } else {
@@ -1646,9 +1738,9 @@ console.log(userAnswersJson);
                   question.pageNumber === 17
                 )
               ) {
-             if(question === "gender"){
+                if (question === "gender") {
                   showPage(3);
-             } else if(question === "skinType"){
+                } else if (question === "skinType") {
                   showPage(4);
                 } else {
                   showPage(question.pageNumber + 1);
