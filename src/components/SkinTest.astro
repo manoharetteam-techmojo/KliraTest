@@ -1053,26 +1053,33 @@ import skinTestData from "../data/skintest.json";
 
   async function signInApi() {
     try {
-      const signInData = {
-        username: "user1@email.com",
-        password: "password",
-      };
-      const response = await fetch(`http://18.171.235.80:8082/auth/generateToken`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(signInData),
-      });
-      const signInApiData = await response.json();
-      console.log(signInApiData.data);
-      const token = signInApiData.data;
-      document.cookie = `token=${token}; path=/; secure; SameSite=Strict; max-age=3600`;
-      return signInApiData;
+        const signInData = {
+            username: "user1@email.com",
+            password: "password",
+        };
+
+        const response = await fetch(`http://18.171.235.80:8082/auth/generateToken`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(signInData),
+            credentials: "include",  // ✅ Allows backend to set cookies
+        });
+
+        if (!response.ok) {
+            throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+
+        const signInApiData = await response.json();
+        console.log("Sign-in API Response:", signInApiData);
+
+        return signInApiData;
     } catch (error) {
-      console.error("Error saving answer:", error);
+        console.error("Error during sign-in:", error);
     }
-  }
+}
+
 
   buildQuestionaire();
   showPage(currentPage);
