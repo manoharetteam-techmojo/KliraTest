@@ -849,7 +849,7 @@ import skinTestData from "../data/skintest.json";
       };
 
       const response = await fetch(
-        `http://18.171.235.80:8082/api/v1/skin-test/answer`,
+        `http://localhost:8080/api/v1/skin-test/answer`,
         {
           method: "POST",
           headers: {
@@ -870,7 +870,7 @@ import skinTestData from "../data/skintest.json";
   async function calCulateResults() {
     try {
       const response = await fetch(
-        `http://18.171.235.80:8082/api/v1/skin-test/skin-size-score`,
+        `http://localhost:8080/api/v1/skin-test/skin-size-score`,
         {
           method: "GET",
           headers: {
@@ -888,14 +888,12 @@ import skinTestData from "../data/skintest.json";
   }
 
   function hasCookie(cookieName) {
-    return document.cookie
-      .split("; ")
-      .some((cookie) => cookie.startsWith(`${cookieName}=`));
-  }
-
-  if (hasCookie("token")) {
+    return document.cookie.split('; ').some(cookie => cookie.startsWith(`${cookieName}=`));
+  }  
+  
+  if (hasCookie('token')) {
     initializeSavedAnswers();
-
+    
     async function initializeSavedAnswers() {
       try {
         const savedAnswers = await getSavedAnswers();
@@ -908,17 +906,17 @@ import skinTestData from "../data/skintest.json";
         console.error("Error initializing saved answers:", error);
       }
     }
-
+    
     async function getSavedAnswers() {
       try {
         const response = await fetch(
-          `http://18.171.235.80:8082/api/v1/skin-test/saved-answers`,
+          `http://localhost:8080/api/v1/skin-test/saved-answers`,
           {
             method: "GET",
             headers: {
               "Content-Type": "application/json",
             },
-            credentials: "include",
+            credentials:"include"
           }
         );
         const responseSavedAnswers = await response.json();
@@ -928,166 +926,163 @@ import skinTestData from "../data/skintest.json";
         console.error("Error getting saved answers:", error);
       }
     }
+    
+   function getPageNumber(lastCategory, lastQuestionId) {
+            if (!skinTestData?.questionaireObject) return null;
 
-    function getPageNumber(lastCategory, lastQuestionId) {
-      if (!skinTestData?.questionaireObject) return null;
-
-      for (const categoryData of skinTestData.questionaireObject) {
-        if (categoryData.title === lastCategory) {
-          for (const question of categoryData.questionaire) {
-            if (question.number === lastQuestionId) {
-              return question.pageNumber + 1;
+            for (const categoryData of skinTestData.questionaireObject) {
+                if (categoryData.title === lastCategory) {
+                    for (const question of categoryData.questionaire) {
+                        if (question.number === lastQuestionId) {
+                            return question.pageNumber + 1; 
+                        }
+                    }
+                }
             }
-          }
-        }
-      }
-      return null; // Return null if no match is found
+            return 1; // Return null if no match is found
     }
-
+      
     function updateCurrentPage(savedAnswers) {
-      // Define the category order
-      const categoryOrder = [
-        "WELCOME",
-        "SEBUM",
-        "BARRIER",
-        "MELANIN",
-        "COLLAGEN",
-      ];
 
-      // Get the answers object
-      const answers = savedAnswers.data.answers;
+            // Define the category order
+            const categoryOrder = ["WELCOME", "SEBUM", "BARRIER", "MELANIN", "COLLAGEN"];
 
-      // Helper function to sort questionId correctly (handles both numbers and letters)
-      function sortQuestionId(a, b) {
-        const parseId = (id) => {
-          const match = id.match(/^(\d+)([a-zA-Z]*)$/);
-          return match ? [parseInt(match[1], 10), match[2] || ""] : [0, ""];
-        };
+            // Get the answers object
+            const answers = savedAnswers.data.answers;
 
-        const [numA, charA] = parseId(a.questionId);
-        const [numB, charB] = parseId(b.questionId);
+            // Helper function to sort questionId correctly (handles both numbers and letters)
+            function sortQuestionId(a, b) {
+                const parseId = (id) => {
+                    const match = id.match(/^(\d+)([a-zA-Z]*)$/);
+                    return match ? [parseInt(match[1], 10), match[2] || ''] : [0, ''];
+                };
 
-        // Compare the numerical part first
-        if (numA !== numB) {
-          return numA - numB;
-        }
-        // Compare the alphabetical part if numerical parts are equal
-        return charA.localeCompare(charB);
-      }
+                const [numA, charA] = parseId(a.questionId);
+                const [numB, charB] = parseId(b.questionId);
 
-      // Find the last available category in the defined order
-      let lastCategory = null;
-      for (const category of categoryOrder) {
-        if (category in answers) {
-          lastCategory = category;
-        }
-      }
+                // Compare the numerical part first
+                if (numA !== numB) {
+                    return numA - numB;
+                }
+                // Compare the alphabetical part if numerical parts are equal
+                return charA.localeCompare(charB);
+              }
 
-      // Get the last questionId from the sorted last category
-      let lastQuestionId = null;
-      if (lastCategory && answers[lastCategory].length > 0) {
-        // Sort the answers by questionId before accessing the last one
-        const sortedAnswers = answers[lastCategory].sort(sortQuestionId);
-        const lastQuestion = sortedAnswers[sortedAnswers.length - 1];
-        lastQuestionId = lastQuestion.questionId;
-      }
+// Find the last available category in the defined order
+            let lastCategory = null;
+            for (const category of categoryOrder) {
+                if (category in answers) {
+                    lastCategory = category;
+                }
+}
 
-      currentPage = getPageNumber(lastCategory, lastQuestionId);
+          // Get the last questionId from the sorted last category
+          let lastQuestionId = null;
+          if (lastCategory && answers[lastCategory].length > 0) {
+              // Sort the answers by questionId before accessing the last one
+              const sortedAnswers = answers[lastCategory].sort(sortQuestionId);
+              const lastQuestion = sortedAnswers[sortedAnswers.length - 1];
+              lastQuestionId = lastQuestion.questionId;
+          }
+
+      
+          currentPage = getPageNumber(lastCategory, lastQuestionId);
     }
 
     function updateSelectedAnswers(savedAnswers) {
-      if (!savedAnswers || !savedAnswers.data || !savedAnswers.data.answers)
-        return;
-
+      if (!savedAnswers || !savedAnswers.data || !savedAnswers.data.answers) return;
+      
       // This function will be called after DOM is ready
       setTimeout(() => {
         // Process all answers from all categories
-        Object.keys(savedAnswers.data.answers).forEach((category) => {
+        Object.keys(savedAnswers.data.answers).forEach(category => {
           const categoryAnswers = savedAnswers.data.answers[category];
+          
 
           let categoryQuestionsData;
-          skinTestData?.questionaireObject.forEach((categoryData) => {
+          skinTestData?.questionaireObject.forEach(categoryData => {
             if (categoryData.title === category) {
               categoryQuestionsData = categoryData;
             }
           });
           // Process all other answers
-          categoryAnswers.forEach((answer) => {
-            categoryQuestionsData.questionaire.forEach((question) => {
-              if (question.number === answer.questionId) {
-                const questionPage = document.getElementById(
-                  `page${question.pageNumber}`
-                );
-                if (questionPage) {
-                  // Try to find option button first
-                  const optionButtons =
-                    questionPage.querySelectorAll(".option-button");
-                  optionButtons.forEach((button) => {
-                    if (button.dataset.optionId === answer.answerId) {
-                      button.classList.add("selected");
-                    }
-                  });
-
-                  // If no option buttons, try image containers
-                  const imageContainers =
-                    questionPage.querySelectorAll(".image-container");
-                  imageContainers.forEach((container) => {
-                    if (container.dataset.optionId === answer.answerId) {
-                      container.classList.add("selected");
-                    }
-                  });
+          categoryAnswers.forEach(answer => {
+            categoryQuestionsData.questionaire.forEach(question => {
+           
+                if (question.number === answer.questionId) {
+                  const questionPage = document.getElementById(`page${question.pageNumber}`);
+                  if (questionPage) {
+                    // Try to find option button first
+                    const optionButtons = questionPage.querySelectorAll(".option-button");
+                    optionButtons.forEach(button => {
+                      if (button.dataset.optionId === answer.answerId) {
+                        button.classList.add("selected");
+                      }
+                    });
+                    
+                    // If no option buttons, try image containers
+                    const imageContainers = questionPage.querySelectorAll(".image-container");
+                    imageContainers.forEach(container => {
+                      if (container.dataset.optionId === answer.answerId) {
+                        container.classList.add("selected");
+                      }
+                    });
+                  }
                 }
-              }
+              });
             });
-          });
+
         });
       }, 500); // Small delay to ensure DOM is ready
     }
-  } else {
-    console.log("Token not found, setting a new one.");
+    } 
+  else {
+    console.log('Token not found, setting a new one.');
     signInApi();
   }
 
-  function signInApi() {
+
+
+   function signInApi() {
     try {
-      // const signInData = {
-      //     username: "user1@email.com",
-      //     password: "password",
-      // };
+        // const signInData = {
+        //     username: "user1@email.com",
+        //     password: "password",
+        // };
 
-      // const response = await fetch(`http://localhost:8080/auth/generateToken`, {
-      //     method: "POST",
-      //     headers: {
-      //         "Content-Type": "application/json",
-      //     },
-      //     body: JSON.stringify(signInData),
-      //     credentials: "include",
-      // });
+        // const response = await fetch(`http://localhost:8080/auth/generateToken`, {
+        //     method: "POST",
+        //     headers: {
+        //         "Content-Type": "application/json",
+        //     },
+        //     body: JSON.stringify(signInData),
+        //     credentials: "include",  
+        // });
 
-      // if (!response.ok) {
-      //     throw new Error(`HTTP error! Status: ${response.status}`);
-      // }
+        // if (!response.ok) {
+        //     throw new Error(`HTTP error! Status: ${response.status}`);
+        // }
 
-      // const signInApiData = await response.json();
-      // Extract token from response body
-      // const token = signInApiData.token;
+        // const signInApiData = await response.json();
+          // Extract token from response body
+          // const token = signInApiData.token;
 
-      const token =
-        "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1c2VyMkBlbWFpbC5jb20iLCJpYXQiOjE3NDI4MDA3NTMsImV4cCI6MTc0Mjg0Mzk1M30.wyrGrLFydtwQ9QWGSFtcbv8SyL_IR4P0fd73hTPok8U";
-      document.cookie = `token=${token}; path=/; max-age=3600;`;
+          const token = "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1c2VyMUBlbWFpbC5jb20iLCJpYXQiOjE3NDI3OTgyODYsImV4cCI6MTc0MjgwOTA4Nn0.3q9_VWVDZv2VoPEOwMjfSWU3weq8CMok6j5uDz-Pu24";
+          document.cookie = `token=${token}; path=/; max-age=3600;`;
 
-      if (token) {
-        console.log("Token stored:", token);
-      } else {
-        console.warn("No token received in response.");
-      }
-      // console.log("Sign-in API Response:", signInApiData);
+        if (token) {
+            console.log("Token stored:", token);
+        } else {
+            console.warn("No token received in response.");
+        }
+        // console.log("Sign-in API Response:", signInApiData);
 
-      // return signInApiData;
+        // return signInApiData;
     } catch (error) {
-      console.error("Error during sign-in:", error);
+        console.error("Error during sign-in:", error);
     }
-  }
+}
+
 
   buildQuestionaire();
   showPage(currentPage);
@@ -1187,12 +1182,7 @@ import skinTestData from "../data/skintest.json";
       questionaire.appendChild(categoryDiv);
 
       // Add header with KLIRA logo for main category pages in the flow
-      if (
-        category.title === "SEBUM" ||
-        category.title === "BARRIER" ||
-        category.title === "MELANIN" ||
-        category.title === "COLLAGEN"
-      ) {
+      if (  category.title === "SEBUM" || category.title === "BARRIER" || category.title === "MELANIN" || category.title === "COLLAGEN") {
         // Add category tabs at the top of each category page
         const categoryTabs = document.createElement("div");
         categoryTabs.classList.add("category-tabs");
@@ -1237,12 +1227,7 @@ import skinTestData from "../data/skintest.json";
       titleContent.appendChild(description);
 
       // Add question count indicator based on the category
-      if (
-        category.title === "SEBUM" ||
-        category.title === "BARRIER" ||
-        category.title === "MELANIN" ||
-        category.title === "COLLAGEN"
-      ) {
+      if (  category.title === "SEBUM" ||  category.title === "BARRIER" ||  category.title === "MELANIN" ||  category.title === "COLLAGEN" ) {
         // Apply specific styling for category pages
 
         const questionCount = document.createElement("div");
@@ -1280,8 +1265,7 @@ import skinTestData from "../data/skintest.json";
 
         const prevButton = document.createElement("button");
         prevButton.classList.add("nav-button", "prev");
-        prevButton.innerHTML =
-          '<img src="/assets/white-leftarrow.png" alt="Previous" class="arrow-img">';
+        prevButton.innerHTML = '<img src="/assets/white-leftarrow.png" alt="Previous" class="arrow-img">';
         prevButton.onclick = () => {
           //Category_Previous_Button
           if (category.pageNumber === 16) {
@@ -1323,7 +1307,7 @@ import skinTestData from "../data/skintest.json";
               await saveAnswer({
                 category: category.title,
                 questionId: category.title === "WELCOME" ? "1" : "1", // Default to 1 if unknown
-                answerId: selectedOption.dataset.optionId,
+                answerId: selectedOption.dataset.optionId
               });
               alert("Progress saved successfully!");
             } catch (error) {
@@ -1413,7 +1397,7 @@ import skinTestData from "../data/skintest.json";
               const selectionArrow = document.createElement("div");
               selectionArrow.classList.add("selection-arrow");
               comparisonOption.appendChild(selectionArrow);
-
+              
               comparisonOption.addEventListener("click", function () {
                 imageComparisonContainer
                   .querySelectorAll(".image-container")
@@ -1538,8 +1522,7 @@ import skinTestData from "../data/skintest.json";
             showPage(question.pageNumber - 1);
           }
         };
-        questionPrevButton.innerHTML =
-          '<img src="/assets/black-leftarrow.png" alt="Previous" class="arrow-img">';
+        questionPrevButton.innerHTML = '<img src="/assets/black-leftarrow.png" alt="Previous" class="arrow-img">';
 
         const questionNextButton = document.createElement("button");
         questionNextButton.classList.add("nav-button");
@@ -1561,7 +1544,7 @@ import skinTestData from "../data/skintest.json";
                 const result = await saveAnswer({
                   category: category.title,
                   questionId: question.number,
-                  answerId: selectedOption.dataset.optionId,
+                  answerId: selectedOption.dataset.optionId
                 });
                 console.log(result);
               } catch (error) {
@@ -1583,9 +1566,8 @@ import skinTestData from "../data/skintest.json";
                 const responseCalculateData = await calCulateResults();
                 if (responseCalculateData.success) {
                   // Remove the token cookie as the test is now complete
-                  document.cookie =
-                    "token=; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT; secure; SameSite=Strict;";
-
+                  document.cookie = "token=; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT; secure; SameSite=Strict;";
+                
                   // Hide all pages
                   const pages = document.querySelectorAll(".page");
                   pages.forEach((page) => {
@@ -1634,12 +1616,13 @@ import skinTestData from "../data/skintest.json";
 
             if (selectedOption) {
               try {
-                await saveAnswer({
+
+                  await saveAnswer({
                   category: category.title,
                   questionId: question.number,
-                  answerId: selectedOption.dataset.optionId,
+                  answerId: selectedOption.dataset.optionId
                 });
-
+                
                 alert("Progress saved successfully!");
               } catch (error) {
                 console.error("Error saving progress:", error);
@@ -1677,12 +1660,13 @@ import skinTestData from "../data/skintest.json";
 
             if (selectedOption) {
               try {
-                await saveAnswer({
+
+                  await saveAnswer({
                   category: category.title,
                   questionId: question.number,
-                  answerId: selectedOption.dataset.optionId,
+                  answerId: selectedOption.dataset.optionId
                 });
-
+                
                 alert("Progress saved successfully!");
               } catch (error) {
                 console.error("Error saving progress:", error);
@@ -1713,7 +1697,7 @@ import skinTestData from "../data/skintest.json";
               await saveAnswer({
                 category: category.title,
                 questionId: question.number,
-                answerId: selectedOption.dataset.optionId,
+                answerId: selectedOption.dataset.optionId
               });
               const genderPage = document.getElementById("page2");
               const maleOption = genderPage?.querySelector(
@@ -1774,8 +1758,7 @@ import skinTestData from "../data/skintest.json";
               }
             }
           };
-          questionNextButton.innerHTML =
-            '<img src="/assets/white-rightarrow.png" alt="Next" class="arrow-img">';
+          questionNextButton.innerHTML = '<img src="/assets/white-rightarrow.png" alt="Next" class="arrow-img">';
 
           navigationWithSave.appendChild(questionPrevButton);
           navigationWithSave.appendChild(saveProgressContainer);
@@ -1815,4 +1798,5 @@ import skinTestData from "../data/skintest.json";
 
     window.scrollTo(0, 0);
   }
+
 </script>
