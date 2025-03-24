@@ -1566,7 +1566,7 @@ import skinTestData from "../data/skintest.json";
                 const responseCalculateData = await calCulateResults();
                 if (responseCalculateData.success) {
                   // Remove the token cookie as the test is now complete
-                  document.cookie = "token=; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT; secure; SameSite=Strict;";
+                  document.cookie = "token=; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT;";
                 
                   // Hide all pages
                   const pages = document.querySelectorAll(".page");
