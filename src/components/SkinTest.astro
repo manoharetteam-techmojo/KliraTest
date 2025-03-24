@@ -1,6 +1,28 @@
 ---
 import skinTestData from "../data/skintest.json";
 
+let tokenN = "";
+const cookieString = Astro.request.headers.get("cookie");
+if (cookieString) {
+  const cookies = Object.fromEntries(
+    cookieString.split("; ").map((c) => c.split("="))
+  );
+  tokenN = cookies.token;
+  console.log("Token Already Exists---> ", cookies.token);
+}
+  const response = await fetch(
+      `http://localhost:8080/api/v1/skin-test/saved-answers`,
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          "Cookie": `token=${tokenN}`
+        },
+        credentials: "include"
+      }
+    );
+    const SavedAnswers = await response.json();
+
 ---
 
 <div id="app">
@@ -836,20 +858,81 @@ import skinTestData from "../data/skintest.json";
   }
 </style>
 
-<script define:vars={{ skinTestData }}>
+<script define:vars={{ skinTestData , SavedAnswers}}>
+
+  if (!document.cookie.includes('token=')) {
+    tokenN = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE3NDI4MDkyODEsImV4cCI6MTc0NDAxODg4MSwidXNlcklkIjozNTIwMX0.BZVaBD8xP__1sFIeW8iNqbzD80ZfQXVl5CKqK64hsyA";
+    document.cookie = `token=${tokenN}; path=/; max-age=3600;`;
+    console.log('Created New Token cookie set on client side:', document.cookie);
+  }
+  
+  console.log(" already cookie present ", SavedAnswers);
   let currentPage = 1;
 
+  // Update current page based on saved answers if available
+  if (SavedAnswers?.data?.answers) {
+    const answers = SavedAnswers?.data?.answers;
+    
+    const categoryOrder = ["WELCOME", "SEBUM", "BARRIER", "MELANIN", "COLLAGEN"];
+    
+    // Sort answers by category order and sort questions within each category
+    const sortedAnswers = {};
+    categoryOrder.forEach(category => {
+      if (answers[category]) {
+        // Sort questions within each category by questionId
+        sortedAnswers[category] = answers[category].sort((a, b) => {
+          const numA = parseInt(a.questionId);
+          const numB = parseInt(b.questionId);
+          return numA - numB;
+        });
+      }
+    });
+    
+    // Find the last category with answers
+    const lastCategory = Object.keys(sortedAnswers).pop();
+    
+    if (lastCategory && sortedAnswers[lastCategory].length > 0) {
+      // Get the last answer from the sorted last category
+      const lastAnswer = sortedAnswers[lastCategory][sortedAnswers[lastCategory].length - 1];
+      
+      // Find the corresponding page number
+      const categoryData = skinTestData.questionaireObject.find(cat => cat.title === lastCategory);
+      if (categoryData) {
+        const question = categoryData.questionaire.find(q => q.number === lastAnswer.questionId);
+        if (question) {
+          currentPage = question.pageNumber + 1;
+        }
+      }
+    }
+
+
+  }
   async function saveAnswer(answer) {
     try {
+      // Get the gender from page 2
+      // const genderPage = document.getElementById("page2");
+      // const maleOption = genderPage?.querySelector(".option-button.selected");
+      // const gender = maleOption?.textContent?.toLowerCase();
+
       // Format the answer to match the expected structure
+      let questionId = answer.questionId.toString();
+      
+      // // Adjust questionId for male users in Melanin section
+      // if (gender === "male" && answer.category === "MELANIN") {
+      //   const num = parseInt(questionId);
+      //   if (num >= 3) {
+      //     questionId = (num - 1).toString();
+      //   }
+      // }
+
       const formattedAnswer = {
         category: answer.category || "UNKNOWN",
-        questionId: answer.questionId.toString(),
+        questionId: questionId,
         answerId: answer.answerId
       };
 
       const response = await fetch(
-        `http://18.171.235.80:8082/api/v1/skin-test/answer`,
+        `http://localhost:8080/api/v1/skin-test/answer`,
         {
           method: "POST",
           headers: {
@@ -870,7 +953,7 @@ import skinTestData from "../data/skintest.json";
   async function calCulateResults() {
     try {
       const response = await fetch(
-        `http://18.171.235.80:8082/api/v1/skin-test/skin-size-score`,
+        `http://localhost:8080/api/v1/skin-test/skin-size-score`,
         {
           method: "GET",
           headers: {
@@ -886,202 +969,6 @@ import skinTestData from "../data/skintest.json";
       console.error("Error calculating results:", error);
     }
   }
-
-  function hasCookie(cookieName) {
-    return document.cookie.split('; ').some(cookie => cookie.startsWith(`${cookieName}=`));
-  }  
-  
-  if (hasCookie('token')) {
-    initializeSavedAnswers();
-    
-    async function initializeSavedAnswers() {
-      try {
-        const savedAnswers = await getSavedAnswers();
-        if (savedAnswers && savedAnswers.data) {
-          updateCurrentPage(savedAnswers);
-          updateSelectedAnswers(savedAnswers);
-          showPage(currentPage);
-        }
-      } catch (error) {
-        console.error("Error initializing saved answers:", error);
-      }
-    }
-    
-    async function getSavedAnswers() {
-      try {
-        const response = await fetch(
-          `http://18.171.235.80:8082/api/v1/skin-test/saved-answers`,
-          {
-            method: "GET",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            credentials:"include"
-          }
-        );
-        const responseSavedAnswers = await response.json();
-        console.log(responseSavedAnswers);
-        return responseSavedAnswers;
-      } catch (error) {
-        console.error("Error getting saved answers:", error);
-      }
-    }
-    
-   function getPageNumber(lastCategory, lastQuestionId) {
-            if (!skinTestData?.questionaireObject) return null;
-
-            for (const categoryData of skinTestData.questionaireObject) {
-                if (categoryData.title === lastCategory) {
-                    for (const question of categoryData.questionaire) {
-                        if (question.number === lastQuestionId) {
-                            return question.pageNumber + 1; 
-                        }
-                    }
-                }
-            }
-            return 1; // Return null if no match is found
-    }
-      
-    function updateCurrentPage(savedAnswers) {
-
-            // Define the category order
-            const categoryOrder = ["WELCOME", "SEBUM", "BARRIER", "MELANIN", "COLLAGEN"];
-
-            // Get the answers object
-            const answers = savedAnswers.data.answers;
-
-            // Helper function to sort questionId correctly (handles both numbers and letters)
-            function sortQuestionId(a, b) {
-                const parseId = (id) => {
-                    const match = id.match(/^(\d+)([a-zA-Z]*)$/);
-                    return match ? [parseInt(match[1], 10), match[2] || ''] : [0, ''];
-                };
-
-                const [numA, charA] = parseId(a.questionId);
-                const [numB, charB] = parseId(b.questionId);
-
-                // Compare the numerical part first
-                if (numA !== numB) {
-                    return numA - numB;
-                }
-                // Compare the alphabetical part if numerical parts are equal
-                return charA.localeCompare(charB);
-              }
-
-// Find the last available category in the defined order
-            let lastCategory = null;
-            for (const category of categoryOrder) {
-                if (category in answers) {
-                    lastCategory = category;
-                }
-}
-
-          // Get the last questionId from the sorted last category
-          let lastQuestionId = null;
-          if (lastCategory && answers[lastCategory].length > 0) {
-              // Sort the answers by questionId before accessing the last one
-              const sortedAnswers = answers[lastCategory].sort(sortQuestionId);
-              const lastQuestion = sortedAnswers[sortedAnswers.length - 1];
-              lastQuestionId = lastQuestion.questionId;
-          }
-
-      
-          currentPage = getPageNumber(lastCategory, lastQuestionId);
-    }
-
-    function updateSelectedAnswers(savedAnswers) {
-      if (!savedAnswers || !savedAnswers.data || !savedAnswers.data.answers) return;
-      
-      // This function will be called after DOM is ready
-      setTimeout(() => {
-        // Process all answers from all categories
-        Object.keys(savedAnswers.data.answers).forEach(category => {
-          const categoryAnswers = savedAnswers.data.answers[category];
-          
-
-          let categoryQuestionsData;
-          skinTestData?.questionaireObject.forEach(categoryData => {
-            if (categoryData.title === category) {
-              categoryQuestionsData = categoryData;
-            }
-          });
-          // Process all other answers
-          categoryAnswers.forEach(answer => {
-            categoryQuestionsData.questionaire.forEach(question => {
-           
-                if (question.number === answer.questionId) {
-                  const questionPage = document.getElementById(`page${question.pageNumber}`);
-                  if (questionPage) {
-                    // Try to find option button first
-                    const optionButtons = questionPage.querySelectorAll(".option-button");
-                    optionButtons.forEach(button => {
-                      if (button.dataset.optionId === answer.answerId) {
-                        button.classList.add("selected");
-                      }
-                    });
-                    
-                    // If no option buttons, try image containers
-                    const imageContainers = questionPage.querySelectorAll(".image-container");
-                    imageContainers.forEach(container => {
-                      if (container.dataset.optionId === answer.answerId) {
-                        container.classList.add("selected");
-                      }
-                    });
-                  }
-                }
-              });
-            });
-
-        });
-      }, 500); // Small delay to ensure DOM is ready
-    }
-    } 
-  else {
-    console.log('Token not found, setting a new one.');
-    signInApi();
-  }
-
-
-
-   function signInApi() {
-    try {
-        // const signInData = {
-        //     username: "user1@email.com",
-        //     password: "password",
-        // };
-
-        // const response = await fetch(`http://18.171.235.80:8082/auth/generateToken`, {
-        //     method: "POST",
-        //     headers: {
-        //         "Content-Type": "application/json",
-        //     },
-        //     body: JSON.stringify(signInData),
-        //     credentials: "include",  
-        // });
-
-        // if (!response.ok) {
-        //     throw new Error(`HTTP error! Status: ${response.status}`);
-        // }
-
-        // const signInApiData = await response.json();
-          // Extract token from response body
-          // const token = signInApiData.token;
-
-          const token = "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1c2VyMUBlbWFpbC5jb20iLCJpYXQiOjE3NDI3OTgyODYsImV4cCI6MTc0MjgwOTA4Nn0.3q9_VWVDZv2VoPEOwMjfSWU3weq8CMok6j5uDz-Pu24";
-          document.cookie = `token=${token}; path=/; max-age=3600;`;
-
-        if (token) {
-            console.log("Token stored:", token);
-        } else {
-            console.warn("No token received in response.");
-        }
-        // console.log("Sign-in API Response:", signInApiData);
-
-        //  return signInApiData;
-    } catch (error) {
-        console.error("Error during sign-in:", error);
-    }
-}
 
 
   buildQuestionaire();
@@ -1384,6 +1271,16 @@ import skinTestData from "../data/skintest.json";
             comparisonOption.classList.add("image-container");
             comparisonOption.dataset.optionId = image?.optionId;
 
+            // Check for saved answer and mark as selected if found
+            if (SavedAnswers?.data?.answers?.[category.title]) {
+              const savedAnswer = SavedAnswers.data.answers[category.title].find(
+                answer => answer.questionId === question.number && answer.answerId === image.optionId
+              );
+              if (savedAnswer) {
+                comparisonOption.classList.add("selected");
+              }
+            }
+
             const imageElement = document.createElement("img");
             imageElement.src = image.src;
             imageElement.alt = image.alt;
@@ -1397,22 +1294,22 @@ import skinTestData from "../data/skintest.json";
               const selectionArrow = document.createElement("div");
               selectionArrow.classList.add("selection-arrow");
               comparisonOption.appendChild(selectionArrow);
-              
-              comparisonOption.addEventListener("click", function () {
-                imageComparisonContainer
-                  .querySelectorAll(".image-container")
-                  .forEach((opt) => {
-                    opt.classList.remove("selected");
-                  });
 
-                this.classList.add("selected");
+            comparisonOption.addEventListener("click", function () {
+              imageComparisonContainer
+                .querySelectorAll(".image-container")
+                .forEach((opt) => {
+                  opt.classList.remove("selected");
+                });
 
-                const errorMessage =
-                  questionPageContent.querySelector(".error-message");
-                if (errorMessage) {
-                  errorMessage.style.display = "none";
-                }
-              });
+              this.classList.add("selected");
+
+              const errorMessage =
+                questionPageContent.querySelector(".error-message");
+              if (errorMessage) {
+                errorMessage.style.display = "none";
+              }
+            });
             }
           });
 
@@ -1439,6 +1336,17 @@ import skinTestData from "../data/skintest.json";
 
             optionButton.textContent = option.text;
             optionButton.dataset.optionId = option?.optionId;
+
+            // Check for saved answer and mark as selected if found
+            if (SavedAnswers?.data?.answers?.[category.title]) {
+              const savedAnswer = SavedAnswers.data.answers[category.title].find(
+                answer => answer.questionId === question.number && answer.answerId === option.optionId
+              );
+              if (savedAnswer) {
+                optionButton.classList.add("selected");
+              }
+            }
+
             questionOptions.appendChild(optionButton);
 
             optionButton.addEventListener("click", function () {
@@ -1452,6 +1360,38 @@ import skinTestData from "../data/skintest.json";
               }
 
               this.classList.add("selected");
+
+              // Handle gender selection on page 2
+              // if (question.pageNumber === 2) {
+              //   const gender = this.textContent.toLowerCase();
+              //   const melaninCategory = document.getElementById("page32");
+              //   if (melaninCategory) {
+              //     const questionCount = melaninCategory.querySelector(".question-count");
+              //     if (questionCount) {
+              //       questionCount.textContent = `● ${gender === "male" ? "10" : "11"} Questions`;
+              //     }
+              //   }
+
+              //   // Update all Melanin question progress indicators
+              //   const melaninQuestions = document.querySelectorAll(".page");
+              //   melaninQuestions.forEach(page => {
+              //     if (page.id.startsWith("page") && parseInt(page.id.slice(4)) >= 33 && parseInt(page.id.slice(4)) <= 43) {
+              //       const progress = page.querySelector(".progress");
+              //       if (progress) {
+              //         const questionNumber = progress.textContent.split("/")[0];
+              //         // For male users, skip question 3 and adjust numbering
+              //         if (gender === "male") {
+              //           const num = parseInt(questionNumber);
+              //           if (num >= 3) {
+              //             progress.textContent = `${num - 1}/10`;
+              //           } else {
+              //             progress.textContent = `${num}/10`;
+              //           }
+              //         } 
+              //       }
+              //     }
+              //   });
+              // }
 
               const errorMessage =
                 questionPageContent.querySelector(".error-message");
