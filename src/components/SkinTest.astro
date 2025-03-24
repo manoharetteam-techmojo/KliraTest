@@ -854,9 +854,9 @@ import skinTestData from "../data/skintest.json";
         {
           method: "POST",
           headers: {
-            Authorization: `Bearer ${token}`,
             "Content-Type": "application/json",
           },
+          credentials:"include",
           body: JSON.stringify(formattedAnswer),
         }
       );
@@ -876,9 +876,9 @@ import skinTestData from "../data/skintest.json";
         {
           method: "GET",
           headers: {
-            Authorization: `Bearer ${token}`,
             "Content-Type": "application/json",
           },
+          credentials:"include"
         }
       );
       const responseCalculateData = await response.json();
@@ -917,9 +917,9 @@ import skinTestData from "../data/skintest.json";
           {
             method: "GET",
             headers: {
-              Authorization: `Bearer ${token}`,
               "Content-Type": "application/json",
             },
+            credentials:"include"
           }
         );
         const responseSavedAnswers = await response.json();
