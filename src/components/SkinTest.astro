@@ -841,7 +841,6 @@ import skinTestData from "../data/skintest.json";
 
   async function saveAnswer(answer) {
     try {
-      const token = getCookie("token");
       // Format the answer to match the expected structure
       const formattedAnswer = {
         category: answer.category || "UNKNOWN",
@@ -854,9 +853,9 @@ import skinTestData from "../data/skintest.json";
         {
           method: "POST",
           headers: {
-            Authorization: `Bearer ${token}`,
             "Content-Type": "application/json",
           },
+          credentials:"include",
           body: JSON.stringify(formattedAnswer),
         }
       );
@@ -870,15 +869,14 @@ import skinTestData from "../data/skintest.json";
 
   async function calCulateResults() {
     try {
-      const token = getCookie("token");
       const response = await fetch(
         `http://18.171.235.80:8082/api/v1/skin-test/skin-size-score`,
         {
           method: "GET",
           headers: {
-            Authorization: `Bearer ${token}`,
             "Content-Type": "application/json",
           },
+          credentials:"include"
         }
       );
       const responseCalculateData = await response.json();
@@ -911,15 +909,14 @@ import skinTestData from "../data/skintest.json";
     
     async function getSavedAnswers() {
       try {
-        const token = getCookie("token");
         const response = await fetch(
           `http://18.171.235.80:8082/api/v1/skin-test/saved-answers`,
           {
             method: "GET",
             headers: {
-              Authorization: `Bearer ${token}`,
               "Content-Type": "application/json",
             },
+            credentials:"include"
           }
         );
         const responseSavedAnswers = await response.json();
@@ -1044,35 +1041,45 @@ import skinTestData from "../data/skintest.json";
     signInApi();
   }
 
-  function getCookie(name) {
-    const value = `; ${document.cookie}`;
-    const parts = value.split(`; ${name}=`);
-    if (parts.length === 2) return parts.pop().split(";").shift();
-    return null;
-  }
+
 
   async function signInApi() {
     try {
-      const signInData = {
-        username: "user1@email.com",
-        password: "password",
-      };
-      const response = await fetch(`http://18.171.235.80:8082/auth/generateToken`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(signInData),
-      });
-      const signInApiData = await response.json();
-      console.log(signInApiData.data);
-      const token = signInApiData.data;
-      document.cookie = `token=${token}; path=/; secure; SameSite=Strict; max-age=3600`;
-      return signInApiData;
+        const signInData = {
+            username: "user1@email.com",
+            password: "password",
+        };
+
+        const response = await fetch(`http://18.171.235.80:8082/auth/generateToken`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(signInData),
+            credentials: "include",  // ✅ Allows backend to set cookies
+        });
+
+        if (!response.ok) {
+            throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+
+        const signInApiData = await response.json();
+          // Extract token from response body
+          const token = signInApiData.token;
+
+        if (token) {
+            console.log("Token stored:", token);
+        } else {
+            console.warn("No token received in response.");
+        }
+        console.log("Sign-in API Response:", signInApiData);
+
+        return signInApiData;
     } catch (error) {
-      console.error("Error saving answer:", error);
+        console.error("Error during sign-in:", error);
     }
-  }
+}
+
 
   buildQuestionaire();
   showPage(currentPage);
