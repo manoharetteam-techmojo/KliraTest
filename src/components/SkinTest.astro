@@ -849,7 +849,7 @@ import skinTestData from "../data/skintest.json";
       };
 
       const response = await fetch(
-        `http://localhost:8080/api/v1/skin-test/answer`,
+        `http://18.171.235.80:8082/api/v1/skin-test/answer`,
         {
           method: "POST",
           headers: {
@@ -870,7 +870,7 @@ import skinTestData from "../data/skintest.json";
   async function calCulateResults() {
     try {
       const response = await fetch(
-        `http://localhost:8080/api/v1/skin-test/skin-size-score`,
+        `http://18.171.235.80:8082/api/v1/skin-test/skin-size-score`,
         {
           method: "GET",
           headers: {
@@ -910,7 +910,7 @@ import skinTestData from "../data/skintest.json";
     async function getSavedAnswers() {
       try {
         const response = await fetch(
-          `http://localhost:8080/api/v1/skin-test/saved-answers`,
+          `http://18.171.235.80:8082/api/v1/skin-test/saved-answers`,
           {
             method: "GET",
             headers: {
@@ -1050,7 +1050,7 @@ import skinTestData from "../data/skintest.json";
         //     password: "password",
         // };
 
-        // const response = await fetch(`http://localhost:8080/auth/generateToken`, {
+        // const response = await fetch(`http://18.171.235.80:8082/auth/generateToken`, {
         //     method: "POST",
         //     headers: {
         //         "Content-Type": "application/json",
@@ -1068,7 +1068,7 @@ import skinTestData from "../data/skintest.json";
           // const token = signInApiData.token;
 
           const token = "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1c2VyMUBlbWFpbC5jb20iLCJpYXQiOjE3NDI3OTgyODYsImV4cCI6MTc0MjgwOTA4Nn0.3q9_VWVDZv2VoPEOwMjfSWU3weq8CMok6j5uDz-Pu24";
-          document.cookie = `token=${token}; path=/; max-age=3600;`;
+          document.cookie = `token=${token}; path=/; max-age=3600;  SameSite=None;`;
 
         if (token) {
             console.log("Token stored:", token);
@@ -1077,7 +1077,7 @@ import skinTestData from "../data/skintest.json";
         }
         // console.log("Sign-in API Response:", signInApiData);
 
-        // return signInApiData;
+         return signInApiData;
     } catch (error) {
         console.error("Error during sign-in:", error);
     }
