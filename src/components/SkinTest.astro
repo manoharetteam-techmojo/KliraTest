@@ -1068,7 +1068,7 @@ import skinTestData from "../data/skintest.json";
           // const token = signInApiData.token;
 
           const token = "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1c2VyMUBlbWFpbC5jb20iLCJpYXQiOjE3NDI3OTgyODYsImV4cCI6MTc0MjgwOTA4Nn0.3q9_VWVDZv2VoPEOwMjfSWU3weq8CMok6j5uDz-Pu24";
-          document.cookie = `token=${token}; path=/; max-age=3600;  SameSite=None;`;
+          document.cookie = `token=${token}; path=/; max-age=3600;`;
 
         if (token) {
             console.log("Token stored:", token);
