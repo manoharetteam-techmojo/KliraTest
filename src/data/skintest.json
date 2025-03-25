@@ -864,13 +864,11 @@
           "images": [
             {
               "src": "/assets/28Image1.png",
-              "alt": "Whiteheads",
-              "optionId": "a"
+              "alt": "Whiteheads"
             },
             {
               "src": "/assets/28Image2.png",
-              "alt": "Whiteheads",
-              "optionId": "b"
+              "alt": "Whiteheads"
             }
           ],
           "imagesPresent": true,
