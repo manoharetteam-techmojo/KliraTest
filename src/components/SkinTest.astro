@@ -928,11 +928,9 @@ if (cookieString) {
           } else if (question.pageNumber === 34) {
             // Check gender from WELCOME category
             const welcomeAnswers = sortedAnswers["WELCOME"];
-            const genderAnswer = welcomeAnswers?.find(a => a.questionId === "2");
+            const genderAnswer = welcomeAnswers?.find(a => a.questionId === "1");
             if (genderAnswer) {
-              const genderOption = document.getElementById("page2")?.querySelector(`[data-option-id="${genderAnswer.answerId}"]`);
-              const gender = genderOption?.textContent?.toLowerCase();
-              if (gender === "male") {
+              if (genderAnswer.answerId === "a") {
                 currentPage = question.pageNumber + 2;
               } else {
                 currentPage = question.pageNumber + 1;
@@ -1759,7 +1757,11 @@ if (cookieString) {
       page.style.display = "none";
     });
 
-    document.getElementById(`page${pageNumber}`).style.display = "flex";
+    if (pageNumber === 60) {
+      document.getElementById("finishPage").style.display = "flex";
+    } else {
+      document.getElementById(`page${pageNumber}`).style.display = "flex";
+    }
 
     currentPage = pageNumber;
 
