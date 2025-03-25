@@ -860,11 +860,11 @@ if (cookieString) {
 
 <script define:vars={{ skinTestData , SavedAnswers}}>
 
-  if (!document.cookie.includes('token=')) {
-    tokenN = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE3NDI4MDkyODEsImV4cCI6MTc0NDAxODg4MSwidXNlcklkIjozNTIwMX0.BZVaBD8xP__1sFIeW8iNqbzD80ZfQXVl5CKqK64hsyA";
-    document.cookie = `token=${tokenN}; path=/; max-age=3600; `;
-    console.log('Created New Token cookie set on client side:', document.cookie);
-  }
+  // if (!document.cookie.includes('token=')) {
+  //   tokenN = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE3NDI4MDkyODEsImV4cCI6MTc0NDAxODg4MSwidXNlcklkIjozNTIwMX0.BZVaBD8xP__1sFIeW8iNqbzD80ZfQXVl5CKqK64hsyA";
+  //   document.cookie = `token=${tokenN}; path=/; max-age=3600; `;
+  //   console.log('Created New Token cookie set on client side:', document.cookie);
+  // }
   
   console.log(" already cookie present ", SavedAnswers);
   let currentPage = 1;
