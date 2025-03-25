@@ -21,7 +21,7 @@ if (cookieString) {
         credentials: "include"
       }
     );
-    const SavedAnswers = await response.json();
+  const SavedAnswers = await response.json();
 
 ---
 
@@ -866,11 +866,11 @@ if (cookieString) {
   //   console.log('Created New Token cookie set on client side:', document.cookie);
   // }
   
-  console.log(" already cookie present ", SavedAnswers);
   let currentPage = 1;
 
   // Update current page based on saved answers if available
   if (SavedAnswers?.data?.answers) {
+    console.log(" already cookie present ", SavedAnswers);
     const answers = SavedAnswers?.data?.answers;
     
     // Return if answers object is empty
