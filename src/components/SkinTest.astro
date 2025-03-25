@@ -7,8 +7,8 @@ if (cookieString) {
   const cookies = Object.fromEntries(
     cookieString.split("; ").map((c) => c.split("="))
   );
-  tokenN = cookies.token;
-  console.log("Token Already Exists---> ", cookies.token);
+  tokenN = cookies.user_jwt_token;
+  console.log("Token Already Exists---> ", cookies.user_jwt_token);
 }
   const response = await fetch(
       `https://stg-api.klira.skin/api/v1/skin-test/saved-answers`,
@@ -16,7 +16,7 @@ if (cookieString) {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
-          "Cookie": `token=${tokenN}`
+          "Cookie": `user_jwt_token=${tokenN}`
         },
         credentials: "include"
       }
@@ -860,9 +860,9 @@ if (cookieString) {
 
 <script define:vars={{ skinTestData , SavedAnswers}}>
 
-  // if (!document.cookie.includes('token=')) {
+  // if (!document.cookie.includes('user_jwt_token=')) {
   //   tokenN = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE3NDI4MDkyODEsImV4cCI6MTc0NDAxODg4MSwidXNlcklkIjozNTIwMX0.BZVaBD8xP__1sFIeW8iNqbzD80ZfQXVl5CKqK64hsyA";
-  //   document.cookie = `token=${tokenN}; path=/; max-age=3600; `;
+  //   document.cookie = `user_jwt_token=${tokenN}; path=/; max-age=3600; `;
   //   console.log('Created New Token cookie set on client side:', document.cookie);
   // }
   
@@ -1547,7 +1547,7 @@ if (cookieString) {
                 const responseCalculateData = await calCulateResults();
                 if (responseCalculateData.success) {
                   // Remove the token cookie as the test is now complete
-                  document.cookie = "token=; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT;";
+                  document.cookie = "user_jwt_token=; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT;";
                 
                   // Hide all pages
                   const pages = document.querySelectorAll(".page");
