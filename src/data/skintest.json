@@ -227,7 +227,7 @@
           "number": "7",
           "pageNumber": 11,
           "question": "Look at your nose in the mirror do you have blackheads or whiteheads?",
-          "hint":"They look like this",
+          "hint":"i: They look like this",
           "optionsType":"text",
           "options": [
             {
@@ -760,7 +760,7 @@
           "number": "1",
           "pageNumber": 33,
           "question": "After you have a spot or ingrown hair, how often is it followed by a dark brown or black mark?",
-          "hint":"The mark looks like this",
+          "hint":"i: The mark looks like this",
           "options": [
             {
               "text": "Never",
@@ -842,7 +842,7 @@
           "number": "4",
           "pageNumber": 36,
           "question": "Do you currently have any flat dark patches on your upper lips, side of the lower jaw or your upper cheeks?",
-          "hint":"They look like this",
+          "hint":"i: They look like this",
           "options": [
             {
               "text": "No",
@@ -1003,7 +1003,7 @@
           "number": "10",
           "pageNumber": 42,
           "question": "What is your natural hair colour?",
-          "hint":"If you're grey then choose the colour before greying.",
+          "hint":"i: If you're grey then choose the colour before greying.",
           "options": [
             {
               "text": "Blonde",
@@ -1062,7 +1062,7 @@
           "pageNumber": 45,
           "question": "Select the image which best represents your skin.",
           "optionsType":"image",
-          "hint":"i. If you've had injectable cosmetic treatments, select the answer you think represents your natural skin.",
+          "hint":"i: If you've had injectable cosmetic treatments, select the answer you think represents your natural skin.",
           "images": [
             {
               "src": "/assets/36Image1.png",
@@ -1150,7 +1150,7 @@
           "number": "4",
           "pageNumber": 48,
           "question": "At any time in your life have you ever tanned your skin on an ongoing basis for more than 2 weeks per year? If so, for how many years did you do this?",
-          "hint":"i. Think about tanning from playing sports, travelling, outdoor work or activities.",
+          "hint":"i: Think about tanning from playing sports, travelling, outdoor work or activities.",
           "options": [
             {
               "text": "Never",
