@@ -114,12 +114,6 @@ const SavedAnswers = await response.json();
     opacity: 1;
   }
 
-  .question-count {
-    margin-top: 25px;
-    font-size: 14px;
-    font-family: "Monaco";
-    color: rgba(255, 255, 255, 0.8);
-  }
 
   .arrow-img {
     width: 16px;
@@ -858,13 +852,6 @@ const SavedAnswers = await response.json();
     opacity: 1;
   }
 
-  .question-count {
-    margin-top: 25px;
-    font-size: 14px;
-    font-family: "Monaco";
-    color: rgba(255, 255, 255, 0.8);
-  }
-
   .arrow-img {
     width: 16px;
     height: 16px;
@@ -999,29 +986,6 @@ const SavedAnswers = await response.json();
       const description = document.createElement("p");
       description.textContent = category.description;
       titleContent.appendChild(description);
-
-      // Add question count indicator based on the category
-      if (
-        category.title === "SEBUM" ||
-        category.title === "BARRIER" ||
-        category.title === "MELANIN" ||
-        category.title === "COLLAGEN"
-      ) {
-        // Apply specific styling for category pages
-
-        const questionCount = document.createElement("div");
-        questionCount.classList.add("question-count");
-
-        let count = 0;
-        if (category.title === "SEBUM") count = 10;
-        if (category.title === "BARRIER") count = 14;
-        if (category.title === "MELANIN") count = 11;
-        if (category.title === "COLLAGEN") count = 15;
-
-        questionCount.textContent = `● ${count} Questions`;
-
-        titleContent.appendChild(questionCount);
-      }
 
       // Add title content for all pages
       categoryDiv.appendChild(titleContent);
@@ -1265,13 +1229,6 @@ const SavedAnswers = await response.json();
               // Handle gender selection on page 2
               // if (question.pageNumber === 2) {
               //   const gender = this.textContent.toLowerCase();
-              //   const melaninCategory = document.getElementById("page32");
-              //   if (melaninCategory) {
-              //     const questionCount = melaninCategory.querySelector(".question-count");
-              //     if (questionCount) {
-              //       questionCount.textContent = `● ${gender === "male" ? "10" : "11"} Questions`;
-              //     }
-              //   }
 
               //   // Update all Melanin question progress indicators
               //   const melaninQuestions = document.querySelectorAll(".page");
@@ -1844,13 +1801,6 @@ const SavedAnswers = await response.json();
           // );
           // if (genderAnswer) {
           //   const gender = genderAnswer.answerId === "a" ? "male" : "female";
-          //   const melaninCategory = document.getElementById("page32");
-          //   if (melaninCategory) {
-          //     const questionCount = melaninCategory.querySelector(".question-count");
-          //     if (questionCount) {
-          //       questionCount.textContent = `● ${gender === "male" ? "10" : "11"} Questions`;
-          //     }
-          //   }
 
           //   // Update all Melanin question progress indicators
           //   const melaninQuestions = document.querySelectorAll(".page");

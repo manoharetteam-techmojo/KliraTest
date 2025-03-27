@@ -582,11 +582,11 @@
               "optionId": "b"
             },
             {
-              "text": "No, but one family member",
+              "text": "No, but a family member has",
               "optionId": "c"
             },
             {
-              "text": "No, but many of my family members",
+              "text": "No, but many of my family members have",
               "optionId": "d"
             }
           ],
