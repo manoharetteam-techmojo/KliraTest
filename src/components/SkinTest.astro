@@ -43,6 +43,8 @@ const SavedAnswers = await response.json();
 </div>
 
 <style is:inline>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap');
+
   @font-face {
     font-family: "Monaco";
     src: url("../../public/fonts/Monaco.ttf") format("truetype");
@@ -93,14 +95,18 @@ const SavedAnswers = await response.json();
 
   .category-tab {
     color: #777;
-    font-size: 14px;
+    text-decoration: none;
+    padding: 0 8px;
+    font-size: 18px;
     opacity: 0.5;
-    padding: 0 1px;
+    font-family: "Inter", sans-serif;
+    font-weight: 300;
   }
 
   .separator {
     color: #555;
-    margin: 0 4px;
+    margin: 0 8px;
+    font-size: 18px;
   }
 
   .category-tab.active {
@@ -243,7 +249,7 @@ const SavedAnswers = await response.json();
     background-color: #f0f0f0;
     border: none;
     color: #000;
-    font-size: 14px; /* Smaller font for mobile */
+    font-size: 16px; /* Smaller font for mobile */
     cursor: pointer;
     transition: background-color 0.3s;
     width: 100%;
@@ -828,20 +834,23 @@ const SavedAnswers = await response.json();
     display: flex;
     justify-content: center;
     align-items: center;
-    margin: 30px 0;
+    margin: 40px 0;
   }
 
   .category-tab {
     color: #777;
     text-decoration: none;
-    padding: 0 2px;
-    font-size: 14px;
+    padding: 0 8px;
+    font-size: 18px;
     opacity: 0.5;
+    font-family: "Inter", sans-serif;
+    font-weight: 300;
   }
 
   .separator {
     color: #555;
-    margin: 0 5px;
+    margin: 0 8px;
+    font-size: 18px;
   }
 
   .category-tab.active {
