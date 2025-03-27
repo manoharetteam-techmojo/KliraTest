@@ -1247,36 +1247,36 @@ const SavedAnswers = await response.json();
               this.classList.add("selected");
 
               // Handle gender selection on page 2
-              // if (question.pageNumber === 2) {
-              //   const gender = this.textContent.toLowerCase();
-              //   const melaninCategory = document.getElementById("page32");
-              //   if (melaninCategory) {
-              //     const questionCount = melaninCategory.querySelector(".question-count");
-              //     if (questionCount) {
-              //       questionCount.textContent = `● ${gender === "male" ? "10" : "11"} Questions`;
-              //     }
-              //   }
+              if (question.pageNumber === 2) {
+                const gender = this.textContent.toLowerCase();
+                const melaninCategory = document.getElementById("page32");
+                if (melaninCategory) {
+                  const questionCount = melaninCategory.querySelector(".question-count");
+                  if (questionCount) {
+                    questionCount.textContent = `● ${gender === "male" ? "10" : "11"} Questions`;
+                  }
+                }
 
-              //   // Update all Melanin question progress indicators
-              //   const melaninQuestions = document.querySelectorAll(".page");
-              //   melaninQuestions.forEach(page => {
-              //     if (page.id.startsWith("page") && parseInt(page.id.slice(4)) >= 33 && parseInt(page.id.slice(4)) <= 43) {
-              //       const progress = page.querySelector(".progress");
-              //       if (progress) {
-              //         const questionNumber = progress.textContent.split("/")[0];
-              //         // For male users, skip question 3 and adjust numbering
-              //         if (gender === "male") {
-              //           const num = parseInt(questionNumber);
-              //           if (num >= 3) {
-              //             progress.textContent = `${num - 1}/10`;
-              //           } else {
-              //             progress.textContent = `${num}/10`;
-              //           }
-              //         }
-              //       }
-              //     }
-              //   });
-              // }
+                // Update all Melanin question progress indicators
+                const melaninQuestions = document.querySelectorAll(".page");
+                melaninQuestions.forEach(page => {
+                  if (page.id.startsWith("page") && parseInt(page.id.slice(4)) >= 33 && parseInt(page.id.slice(4)) <= 43) {
+                    const progress = page.querySelector(".progress");
+                    if (progress) {
+                      const questionNumber = progress.textContent.split("/")[0];
+                      // For male users, skip question 3 and adjust numbering
+                      if (gender === "male") {
+                        const num = parseInt(questionNumber);
+                        if (num >= 3) {
+                          progress.textContent = `${num - 1}/10`;
+                        } else {
+                          progress.textContent = `${num}/10`;
+                        }
+                      }
+                    }
+                  }
+                });
+              }
 
               const errorMessage =
                 questionPageContent.querySelector(".error-message");
@@ -1718,7 +1718,7 @@ const SavedAnswers = await response.json();
   //     "Created New Token cookie set on client side:",
   //     document.cookie
   //   );
-  // }
+// }
 
   let currentPage = 1;
 
@@ -1819,6 +1819,42 @@ const SavedAnswers = await response.json();
             }
           } else {
             currentPage = question.pageNumber + 1;
+          }
+
+          // Update question count and progress indicators based on gender
+          const welcomeAnswers = sortedAnswers["WELCOME"];
+          const genderAnswer = welcomeAnswers?.find(
+            (a) => a.questionId === "1"
+          );
+          if (genderAnswer) {
+            const gender = genderAnswer.answerId === "a" ? "male" : "female";
+            const melaninCategory = document.getElementById("page32");
+            if (melaninCategory) {
+              const questionCount = melaninCategory.querySelector(".question-count");
+              if (questionCount) {
+                questionCount.textContent = `● ${gender === "male" ? "10" : "11"} Questions`;
+              }
+            }
+
+            // Update all Melanin question progress indicators
+            const melaninQuestions = document.querySelectorAll(".page");
+            melaninQuestions.forEach(page => {
+              if (page.id.startsWith("page") && parseInt(page.id.slice(4)) >= 33 && parseInt(page.id.slice(4)) <= 43) {
+                const progress = page.querySelector(".progress");
+                if (progress) {
+                  const questionNumber = progress.textContent.split("/")[0];
+                  // For male users, skip question 3 and adjust numbering
+                  if (gender === "male") {
+                    const num = parseInt(questionNumber);
+                    if (num >= 3) {
+                      progress.textContent = `${num - 1}/10`;
+                    } else {
+                      progress.textContent = `${num}/10`;
+                    }
+                  }
+                }
+              }
+            });
           }
         }
       }
