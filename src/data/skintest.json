@@ -218,6 +218,10 @@
             {
               "text": "Rarely",
               "optionId": "c"
+            },
+            {
+              "text": "Never",
+              "optionId": "d"
             }
           ],
           "imagesPresent": false,
@@ -819,20 +823,24 @@
           "question": "Did you develop patches of brown marks on the skin (usually on the top of the lip, forehead or sides of the cheeks) when pregnant or taking birth control after exposure to the sun?",
           "options": [
             {
-              "text": "I don't get a brown mark",
+              "text": "No",
               "optionId": "a"
             },
             {
-              "text": "A week",
+              "text": "A little",
               "optionId": "b"
             },
             {
-              "text": "A few weeks",
+              "text": "A few ",
               "optionId": "c"
             },
             {
-              "text": "Months",
+              "text": "A lot",
               "optionId": "d"
+            },
+            {
+              "text": "This question does not apply to me",
+              "optionId": "e"
             }
           ],
           "imagesPresent": false,
@@ -1175,7 +1183,7 @@
         {
           "number": "5",
           "pageNumber": 49,
-          "question": "At any time in your life, have you ever engaged in seasonal tanning of 2 weeks per year or less? If so, how often?",
+          "question": "How often have you intentionally tanned your skin in the sun for 2 weeks a year or less?",
           "options": [
             {
               "text": "Never",
