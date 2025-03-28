@@ -1176,7 +1176,7 @@ const SavedAnswers = await response.json();
               selectionArrow.classList.add("selection-arrow");
               comparisonOption.appendChild(selectionArrow);
 
-              comparisonOption.addEventListener("click", function () {
+              comparisonOption.addEventListener("click", async function () {
                 imageComparisonContainer
                   .querySelectorAll(".image-container")
                   .forEach((opt) => {
@@ -1189,6 +1189,17 @@ const SavedAnswers = await response.json();
                   questionPageContent.querySelector(".error-message");
                 if (errorMessage) {
                   errorMessage.style.display = "none";
+                }
+
+                // Save answer immediately when an option is selected
+                try {
+                  await saveAnswer({
+                    category: category.title,
+                    questionId: question.number,
+                    answerId: this.dataset.optionId,
+                  });
+                } catch (error) {
+                  console.error("Error saving answer:", error);
                 }
               });
             }
@@ -1234,7 +1245,7 @@ const SavedAnswers = await response.json();
 
             questionOptions.appendChild(optionButton);
 
-            optionButton.addEventListener("click", function () {
+            optionButton.addEventListener("click", async function () {
               const parentOptions = this.closest(".options");
               if (parentOptions) {
                 parentOptions
@@ -1246,35 +1257,21 @@ const SavedAnswers = await response.json();
 
               this.classList.add("selected");
 
-              // Handle gender selection on page 2
-              // if (question.pageNumber === 2) {
-              //   const gender = this.textContent.toLowerCase();
-
-              //   // Update all Melanin question progress indicators
-              //   const melaninQuestions = document.querySelectorAll(".page");
-              //   melaninQuestions.forEach(page => {
-              //     if (page.id.startsWith("page") && parseInt(page.id.slice(4)) >= 33 && parseInt(page.id.slice(4)) <= 43) {
-              //       const progress = page.querySelector(".progress");
-              //       if (progress) {
-              //         const questionNumber = progress.textContent.split("/")[0];
-              //         // For male users, skip question 3 and adjust numbering
-              //         if (gender === "male") {
-              //           const num = parseInt(questionNumber);
-              //           if (num >= 3) {
-              //             progress.textContent = `${num - 1}/10`;
-              //           } else {
-              //             progress.textContent = `${num}/10`;
-              //           }
-              //         }
-              //       }
-              //     }
-              //   });
-              // }
-
               const errorMessage =
                 questionPageContent.querySelector(".error-message");
               if (errorMessage) {
                 errorMessage.style.display = "none";
+              }
+
+              // Save answer immediately when an option is selected
+              try {
+                await saveAnswer({
+                  category: category.title,
+                  questionId: question.number,
+                  answerId: this.dataset.optionId,
+                });
+              } catch (error) {
+                console.error("Error saving answer:", error);
               }
             });
           });
@@ -1498,9 +1495,6 @@ const SavedAnswers = await response.json();
           saveProgressContainer.appendChild(saveProgressButton);
 
           questionNextButton.onclick = async () => {
-            // Prevent multiple clicks while saving
-            if (isSaving) return;
-            
             // Check if an option is selected
             const selectedOption =
               questionPage.querySelector(".option-button.selected") ||
@@ -1515,76 +1509,53 @@ const SavedAnswers = await response.json();
                 errorMessage.style.display = "block";
               }
             } else {
-              try {
-               
-                  // Set loading state
-                  isSaving = true;
-                  questionNextButton.disabled = true;
+              const genderPage = document.getElementById("page2");
+              const maleOption = genderPage?.querySelector(
+                ".option-button.selected"
+              );
+              const gender = maleOption?.textContent?.toLowerCase();
 
-                  const result = await saveAnswer({
-                    category: category.title,
-                    questionId: question.number,
-                    answerId: selectedOption.dataset.optionId,
-                  });
-                  
-                  // Only proceed with navigation if save was successful
-                  if (result) {
-                   
-                  const genderPage = document.getElementById("page2");
-                  const maleOption = genderPage?.querySelector(
-                    ".option-button.selected"
-                  );
-                  const gender = maleOption?.textContent?.toLowerCase();
-
-                  if (question.pageNumber === 14) {
-                    tenAOption = document
-                      .getElementById("page14")
-                      .querySelector(".option-button.selected");
-                    if (
-                      tenAOption?.dataset.optionId === "a" ||
-                      tenAOption?.dataset.optionId === "b"
-                    ) {
-                      showPage(question.pageNumber + 2);
-                    } else {
-                      showPage(question.pageNumber + 1);
-                    }
-                  }
-
-                  if (question.pageNumber === 17) {
-                    tenAOption = document
-                      .getElementById("page17")
-                      .querySelector(".option-button.selected");
-                    if (
-                      tenAOption?.dataset.optionId === "a" ||
-                      tenAOption?.dataset.optionId === "b"
-                    ) {
-                      showPage(question.pageNumber + 2);
-                    } else {
-                      showPage(question.pageNumber + 1);
-                    }
-                  }
-
-                  if (
-                    !(
-                      question.pageNumber === 14 ||
-                      question.pageNumber === 17
-                    )
-                  ) {
-                    if (question === "gender") {
-                      showPage(3);
-                    } else if (question === "skinType") {
-                      showPage(4);
-                    } else {
-                      showPage(question.pageNumber + 1);
-                    }
-                  }
+              if (question.pageNumber === 14) {
+                tenAOption = document
+                  .getElementById("page14")
+                  .querySelector(".option-button.selected");
+                if (
+                  tenAOption?.dataset.optionId === "a" ||
+                  tenAOption?.dataset.optionId === "b"
+                ) {
+                  showPage(question.pageNumber + 2);
+                } else {
+                  showPage(question.pageNumber + 1);
                 }
-              } catch (error) {
-                console.error("Error saving answer:", error);
-              } finally {
-                // Reset loading state
-                isSaving = false;
-                questionNextButton.disabled = false;
+              }
+
+              if (question.pageNumber === 17) {
+                tenAOption = document
+                  .getElementById("page17")
+                  .querySelector(".option-button.selected");
+                if (
+                  tenAOption?.dataset.optionId === "a" ||
+                  tenAOption?.dataset.optionId === "b"
+                ) {
+                  showPage(question.pageNumber + 2);
+                } else {
+                  showPage(question.pageNumber + 1);
+                }
+              }
+
+              if (
+                !(
+                  question.pageNumber === 14 ||
+                  question.pageNumber === 17
+                )
+              ) {
+                if (question === "gender") {
+                  showPage(3);
+                } else if (question === "skinType") {
+                  showPage(4);
+                } else {
+                  showPage(question.pageNumber + 1);
+                }
               }
             }
           };
