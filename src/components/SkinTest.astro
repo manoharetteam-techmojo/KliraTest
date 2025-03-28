@@ -704,6 +704,7 @@ const SavedAnswers = await response.json();
 
     p {
       font-size: 15px;
+      color: #646464;
     }
 
     .navigation {
@@ -1682,6 +1683,13 @@ const SavedAnswers = await response.json();
     }
   }
 
+  function getConnection() {
+        fetch("https://stg-api.klira.skin/api/v1/skin-test/get-connection")
+                .then(response => response.json())
+                .then(data => console.log("API Response:", data))
+                .catch(error => console.error("Error:", error));
+  }
+
   // if (!document.cookie.includes("user_jwt_token=")) {
   //   tokenN =
   //     "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE3NDI4MDkyODEsImV4cCI6MTc0NDAxODg4MSwidXNlcklkIjozNTIwMX0.BZVaBD8xP__1sFIeW8iNqbzD80ZfQXVl5CKqK64hsyA";
@@ -1691,6 +1699,8 @@ const SavedAnswers = await response.json();
   //     document.cookie
   //   );
 // }
+
+  getConnection();
 
   let currentPage = 1;
 
