@@ -866,6 +866,8 @@ const SavedAnswers = await response.json();
 </style>
 
 <script define:vars={{ skinTestData, SavedAnswers }}>
+  // Add tracking for last selected options
+  const lastSelectedOptions = new Map();
 
   async function handleApiResponse(response) {
     if (response.status === 401) {
@@ -1515,18 +1517,81 @@ const SavedAnswers = await response.json();
               }
             } else {
               try {
-                // Set loading state
-                isSaving = true;
-                questionNextButton.disabled = true;
-
-                const result = await saveAnswer({
-                  category: category.title,
-                  questionId: question.number,
-                  answerId: selectedOption.dataset.optionId,
-                });
+                // Get the last selected option for this question
+                const lastSelected = lastSelectedOptions.get(question.number);
+                const currentSelected = selectedOption.dataset.optionId;
                 
-                // Only proceed with navigation if save was successful
-                if (result) {
+                // Check if the selection has changed
+                const hasChanges = lastSelected !== currentSelected;
+
+                // Only proceed with API call if there are actual changes
+                if (hasChanges) {
+                  // Set loading state
+                  isSaving = true;
+                  questionNextButton.disabled = true;
+
+                  const result = await saveAnswer({
+                    category: category.title,
+                    questionId: question.number,
+                    answerId: currentSelected,
+                  });
+                  
+                  // Only proceed with navigation if save was successful
+                  if (result) {
+                    // Update the last selected option
+                    lastSelectedOptions.set(question.number, currentSelected);
+
+                    const genderPage = document.getElementById("page2");
+                    const maleOption = genderPage?.querySelector(
+                      ".option-button.selected"
+                    );
+                    const gender = maleOption?.textContent?.toLowerCase();
+
+                    if (question.pageNumber === 14) {
+                      tenAOption = document
+                        .getElementById("page14")
+                        .querySelector(".option-button.selected");
+                      if (
+                        tenAOption?.dataset.optionId === "a" ||
+                        tenAOption?.dataset.optionId === "b"
+                      ) {
+                        showPage(question.pageNumber + 2);
+                      } else {
+                        showPage(question.pageNumber + 1);
+                      }
+                    }
+
+                    if (question.pageNumber === 17) {
+                      tenAOption = document
+                        .getElementById("page17")
+                        .querySelector(".option-button.selected");
+                      if (
+                        tenAOption?.dataset.optionId === "a" ||
+                        tenAOption?.dataset.optionId === "b"
+                      ) {
+                        showPage(question.pageNumber + 2);
+                      } else {
+                        showPage(question.pageNumber + 1);
+                      }
+                    }
+
+                    if (
+                      !(
+                        question.pageNumber === 14 ||
+                        question.pageNumber === 17
+                      )
+                    ) {
+                      if (question === "gender") {
+                        showPage(3);
+                      } else if (question === "skinType") {
+                        showPage(4);
+                      } else {
+                        showPage(question.pageNumber + 1);
+                      }
+                    }
+                  }
+                } else {
+                  // If no changes, just proceed with navigation
                   const genderPage = document.getElementById("page2");
                   const maleOption = genderPage?.querySelector(
                     ".option-button.selected"
