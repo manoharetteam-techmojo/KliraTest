@@ -859,6 +859,10 @@ const SavedAnswers = await response.json();
     object-fit: contain;
     display: block;
   }
+
+  .nav-button:disabled {
+    cursor: not-allowed;
+  }
 </style>
 
 <script define:vars={{ skinTestData, SavedAnswers }}>
@@ -1493,6 +1497,9 @@ const SavedAnswers = await response.json();
           saveProgressContainer.appendChild(saveProgressButton);
 
           questionNextButton.onclick = async () => {
+            // Prevent multiple clicks while saving
+            if (isSaving) return;
+            
             // Check if an option is selected
             const selectedOption =
               questionPage.querySelector(".option-button.selected") ||
@@ -1507,62 +1514,74 @@ const SavedAnswers = await response.json();
                 errorMessage.style.display = "block";
               }
             } else {
-              const result = await saveAnswer({
-                category: category.title,
-                questionId: question.number,
-                answerId: selectedOption.dataset.optionId,
-              });
-              
-              // Only proceed with navigation if save was successful
-              if (result) {
-                const genderPage = document.getElementById("page2");
-                const maleOption = genderPage?.querySelector(
-                  ".option-button.selected"
-                );
-                const gender = maleOption?.textContent?.toLowerCase();
+              try {
+                // Set loading state
+                isSaving = true;
+                questionNextButton.disabled = true;
 
-                if (question.pageNumber === 14) {
-                  tenAOption = document
-                    .getElementById("page14")
-                    .querySelector(".option-button.selected");
+                const result = await saveAnswer({
+                  category: category.title,
+                  questionId: question.number,
+                  answerId: selectedOption.dataset.optionId,
+                });
+                
+                // Only proceed with navigation if save was successful
+                if (result) {
+                  const genderPage = document.getElementById("page2");
+                  const maleOption = genderPage?.querySelector(
+                    ".option-button.selected"
+                  );
+                  const gender = maleOption?.textContent?.toLowerCase();
+
+                  if (question.pageNumber === 14) {
+                    tenAOption = document
+                      .getElementById("page14")
+                      .querySelector(".option-button.selected");
+                    if (
+                      tenAOption?.dataset.optionId === "a" ||
+                      tenAOption?.dataset.optionId === "b"
+                    ) {
+                      showPage(question.pageNumber + 2);
+                    } else {
+                      showPage(question.pageNumber + 1);
+                    }
+                  }
+
+                  if (question.pageNumber === 17) {
+                    tenAOption = document
+                      .getElementById("page17")
+                      .querySelector(".option-button.selected");
+                    if (
+                      tenAOption?.dataset.optionId === "a" ||
+                      tenAOption?.dataset.optionId === "b"
+                    ) {
+                      showPage(question.pageNumber + 2);
+                    } else {
+                      showPage(question.pageNumber + 1);
+                    }
+                  }
+
                   if (
-                    tenAOption?.dataset.optionId === "a" ||
-                    tenAOption?.dataset.optionId === "b"
+                    !(
+                      question.pageNumber === 14 ||
+                      question.pageNumber === 17
+                    )
                   ) {
-                    showPage(question.pageNumber + 2);
-                  } else {
-                    showPage(question.pageNumber + 1);
+                    if (question === "gender") {
+                      showPage(3);
+                    } else if (question === "skinType") {
+                      showPage(4);
+                    } else {
+                      showPage(question.pageNumber + 1);
+                    }
                   }
                 }
-
-                if (question.pageNumber === 17) {
-                  tenAOption = document
-                    .getElementById("page17")
-                    .querySelector(".option-button.selected");
-                  if (
-                    tenAOption?.dataset.optionId === "a" ||
-                    tenAOption?.dataset.optionId === "b"
-                  ) {
-                    showPage(question.pageNumber + 2);
-                  } else {
-                    showPage(question.pageNumber + 1);
-                  }
-                }
-
-                if (
-                  !(
-                    question.pageNumber === 14 ||
-                    question.pageNumber === 17
-                  )
-                ) {
-                  if (question === "gender") {
-                    showPage(3);
-                  } else if (question === "skinType") {
-                    showPage(4);
-                  } else {
-                    showPage(question.pageNumber + 1);
-                  }
-                }
+              } catch (error) {
+                console.error("Error saving answer:", error);
+              } finally {
+                // Reset loading state
+                isSaving = false;
+                questionNextButton.disabled = false;
               }
             }
           };
@@ -1713,6 +1732,9 @@ const SavedAnswers = await response.json();
   getConnection();
 
   let currentPage = 1;
+
+  // Add loading state variable
+  let isSaving = false;
 
   buildQuestionaire();
 
