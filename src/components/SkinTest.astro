@@ -877,7 +877,7 @@ const SavedAnswers = await response.json();
           window.location.reload();
         }, 5000);
       }
-      return null;
+      return { shouldPreventNavigation: true };
     } else if (response.status === 500) {
       // Show error message in the current page's error message element
       const currentPageElement = document.getElementById(`page${currentPage}`);
@@ -890,9 +890,9 @@ const SavedAnswers = await response.json();
           errorMessage.style.display = "none";
         }, 5000);
       }
-      return null;
+      return { shouldPreventNavigation: true };
     }
-    return response;
+    return { shouldPreventNavigation: false, response };
   }
 
   async function saveAnswer(formattedAnswer) {
@@ -908,9 +908,9 @@ const SavedAnswers = await response.json();
           body: JSON.stringify(formattedAnswer),
         }
       );
-      const handledResponse = await handleApiResponse(response);
-      if (!handledResponse) return null;
-      const responseData = await handledResponse.json();
+      const result = await handleApiResponse(response);
+      if (result.shouldPreventNavigation) return null;
+      const responseData = await result.response.json();
       console.log(responseData);
       return responseData;
     } catch (error) {
@@ -930,9 +930,9 @@ const SavedAnswers = await response.json();
           credentials: "include",
         }
       );
-      const handledResponse = await handleApiResponse(response);
-      if (!handledResponse) return null;
-      const responseCalculateData = await handledResponse.json();
+      const result = await handleApiResponse(response);
+      if (result.shouldPreventNavigation) return null;
+      const responseCalculateData = await result.response.json();
       console.log(responseCalculateData);
       return responseCalculateData;
     } catch (error) {
@@ -1507,65 +1507,61 @@ const SavedAnswers = await response.json();
                 errorMessage.style.display = "block";
               }
             } else {
-              await saveAnswer({
+              const result = await saveAnswer({
                 category: category.title,
                 questionId: question.number,
                 answerId: selectedOption.dataset.optionId,
               });
-              const genderPage = document.getElementById("page2");
-              const maleOption = genderPage?.querySelector(
-                ".option-button.selected"
-              );
-              const gender = maleOption?.textContent?.toLowerCase();
+              
+              // Only proceed with navigation if save was successful
+              if (result) {
+                const genderPage = document.getElementById("page2");
+                const maleOption = genderPage?.querySelector(
+                  ".option-button.selected"
+                );
+                const gender = maleOption?.textContent?.toLowerCase();
 
-              if (question.pageNumber === 14) {
-                tenAOption = document
-                  .getElementById("page14")
-                  .querySelector(".option-button.selected");
-                if (
-                  tenAOption?.dataset.optionId === "a" ||
-                  tenAOption?.dataset.optionId === "b"
-                ) {
-                  showPage(question.pageNumber + 2);
-                } else {
-                  showPage(question.pageNumber + 1);
+                if (question.pageNumber === 14) {
+                  tenAOption = document
+                    .getElementById("page14")
+                    .querySelector(".option-button.selected");
+                  if (
+                    tenAOption?.dataset.optionId === "a" ||
+                    tenAOption?.dataset.optionId === "b"
+                  ) {
+                    showPage(question.pageNumber + 2);
+                  } else {
+                    showPage(question.pageNumber + 1);
+                  }
                 }
-              }
 
-              if (question.pageNumber === 17) {
-                tenAOption = document
-                  .getElementById("page17")
-                  .querySelector(".option-button.selected");
-                if (
-                  tenAOption?.dataset.optionId === "a" ||
-                  tenAOption?.dataset.optionId === "b"
-                ) {
-                  showPage(question.pageNumber + 2);
-                } else {
-                  showPage(question.pageNumber + 1);
+                if (question.pageNumber === 17) {
+                  tenAOption = document
+                    .getElementById("page17")
+                    .querySelector(".option-button.selected");
+                  if (
+                    tenAOption?.dataset.optionId === "a" ||
+                    tenAOption?.dataset.optionId === "b"
+                  ) {
+                    showPage(question.pageNumber + 2);
+                  } else {
+                    showPage(question.pageNumber + 1);
+                  }
                 }
-              }
 
-              // if (question.pageNumber === 34) {
-              //   if (gender === "male") {
-              //     showPage(question.pageNumber + 2);
-              //   } else {
-              //     showPage(question.pageNumber + 1);
-              //   }
-              // }
-
-              if (
-                !(
-                  question.pageNumber === 14 ||
-                  question.pageNumber === 17
-                )
-              ) {
-                if (question === "gender") {
-                  showPage(3);
-                } else if (question === "skinType") {
-                  showPage(4);
-                } else {
-                  showPage(question.pageNumber + 1);
+                if (
+                  !(
+                    question.pageNumber === 14 ||
+                    question.pageNumber === 17
+                  )
+                ) {
+                  if (question === "gender") {
+                    showPage(3);
+                  } else if (question === "skinType") {
+                    showPage(4);
+                  } else {
+                    showPage(question.pageNumber + 1);
+                  }
                 }
               }
             }
