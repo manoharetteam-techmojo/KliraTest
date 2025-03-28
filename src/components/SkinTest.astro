@@ -1605,86 +1605,6 @@ const SavedAnswers = await response.json();
     window.scrollTo(0, 0);
   }
 
-  function handleKeyNavigation(event) {
-    const currentPageElement = document.getElementById(`page${currentPage}`);
-
-    if (event.key === "ArrowLeft") {
-      const prevButton = currentPageElement.querySelector(".nav-button.prev");
-      if (prevButton) {
-        prevButton.click();
-      }
-    }
-
-    if (event.key === "ArrowRight") {
-      if (currentPage === 1) {
-        const startButton = currentPageElement.querySelector(".start-button");
-        if (startButton) {
-          startButton.click();
-        }
-        return;
-      }
-
-      if (currentPage === 59) {
-        const calculateButton = currentPageElement.querySelector(
-          ".calculate-results-button"
-        );
-        if (calculateButton) {
-          calculateButton.click();
-        }
-        return;
-      }
-
-      const nextButton = currentPageElement.querySelector(".nav-button.next");
-      if (nextButton) {
-        nextButton.click();
-      }
-    }
-
-    if (event.key === "ArrowUp" || event.key === "ArrowDown") {
-      const options = currentPageElement.querySelectorAll(".option-button");
-      const imageOptions =
-        currentPageElement.querySelectorAll(".image-container");
-
-      if (options.length > 0) {
-        const selectedOption = currentPageElement.querySelector(
-          ".option-button.selected"
-        );
-        let nextIndex = 0;
-
-        if (selectedOption) {
-          const currentIndex = Array.from(options).indexOf(selectedOption);
-          if (event.key === "ArrowUp") {
-            nextIndex = (currentIndex - 1 + options.length) % options.length;
-          } else {
-            nextIndex = (currentIndex + 1) % options.length;
-          }
-        } else {
-          nextIndex = event.key === "ArrowUp" ? options.length - 1 : 0;
-        }
-
-        options[nextIndex].click();
-      } else if (imageOptions.length > 0) {
-        const selectedImage = currentPageElement.querySelector(
-          ".image-container.selected"
-        );
-        let nextIndex = 0;
-
-        if (selectedImage) {
-          const currentIndex = Array.from(imageOptions).indexOf(selectedImage);
-          if (event.key === "ArrowUp") {
-            nextIndex =
-              (currentIndex - 1 + imageOptions.length) % imageOptions.length;
-          } else {
-            nextIndex = (currentIndex + 1) % imageOptions.length;
-          }
-        } else {
-          nextIndex = event.key === "ArrowUp" ? imageOptions.length - 1 : 0;
-        }
-
-        imageOptions[nextIndex].click();
-      }
-    }
-  }
 
   function getConnection() {
         fetch("https://stg-api.klira.skin/api/v1/skin-test/get-connection")
@@ -1848,6 +1768,5 @@ const SavedAnswers = await response.json();
 
   showPage(currentPage);
 
-  document.addEventListener("keydown", handleKeyNavigation);
   
 </script>
