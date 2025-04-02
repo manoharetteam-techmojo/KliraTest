@@ -1396,20 +1396,7 @@ const SavedAnswers = await response.json();
         questionPrevButton.classList.add("prev");
 
         questionPrevButton.onclick = () => {
-          const genderPage = document.getElementById("page2");
-          const maleOption = genderPage?.querySelector(
-            ".option-button.selected"
-          );
-          const gender = maleOption?.textContent?.toLowerCase();
-
-          const prevPageElement = document.getElementById(
-            `page${question.pageNumber - 2}`
-          );
-          const prevSelectedOption =
-            prevPageElement?.querySelector(".option-button.selected") ||
-            prevPageElement?.querySelector(".image-container.selected");
-
-          //Barrier Page 10a Handling
+            //Barrier Page 10a Handling
 
           if (question.pageNumber === 19) {
             tenAOption = document
