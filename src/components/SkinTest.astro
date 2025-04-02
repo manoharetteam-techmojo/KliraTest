@@ -1,5 +1,6 @@
 ---
 import skinTestData from "../data/skintest.json";
+import imageCombinationsData from "../data/imageCombinations.json";
 
 let tokenN = "";
 const cookieString = Astro.request.headers.get("cookie");
@@ -862,7 +863,7 @@ const SavedAnswers = await response.json();
 
 </style>
 
-<script define:vars={{ skinTestData, SavedAnswers }}>
+<script define:vars={{ skinTestData, SavedAnswers, imageCombinationsData }}>
   // Add tracking for last selected options
 
   async function handleApiResponse(response) {
@@ -1208,96 +1209,88 @@ const SavedAnswers = await response.json();
                     // Get selected skin color
                     const skinColor = this.dataset.optionId;
 
-                    // Fetch image combinations
-                    fetch("/src/data/imageCombinations.json")
-                      .then(response => response.json())
-                      .then(imageCombinationsData => {
-                        // Find matching combination from the combinations array
-                        const combination = imageCombinationsData.combinations.find(
-                          combo => combo.genderPage === gender && combo.skinColorPage === skinColor
-                        );
+                    // Find matching combination from the combinations array
+                    const combination = imageCombinationsData.combinations.find(
+                      combo => combo.genderPage === gender && combo.skinColorPage === skinColor
+                    );
 
-                        if (combination) {
-                          // Update images for each category
-                          const categories = ["sebum", "barrier", "melanin", "collagen"];
-                          categories.forEach(category => {
-                            const categoryQuestions = combination.questions[0][category];
-                            if (categoryQuestions) {
-                              categoryQuestions.forEach(q => {
-                                // Find all image containers with matching category and question number
-                                const imageContainers = document.querySelectorAll(
-                                  `.image-container[data-category="${category}"][data-question-number="${q.questionNumber}"]`
-                                );
-                                
-                                // Find the image comparison container
-                                const imageComparisonContainer = imageContainers[0]?.closest(".image-comparison-container");
-                                
-                                if (imageComparisonContainer) {
-                                  // Clear all existing images
-                                  imageComparisonContainer.innerHTML = '';
+                    if (combination) {
+                      // Update images for each category
+                      const categories = ["sebum", "barrier", "melanin", "collagen"];
+                      categories.forEach(category => {
+                        const categoryQuestions = combination.questions[0][category];
+                        if (categoryQuestions) {
+                          categoryQuestions.forEach(q => {
+                            // Find all image containers with matching category and question number
+                            const imageContainers = document.querySelectorAll(
+                              `.image-container[data-category="${category}"][data-question-number="${q.questionNumber}"]`
+                            );
+                            
+                            // Find the image comparison container
+                            const imageComparisonContainer = imageContainers[0]?.closest(".image-comparison-container");
+                            
+                            if (imageComparisonContainer) {
+                              // Clear all existing images
+                              imageComparisonContainer.innerHTML = '';
 
-                                  // Add new images from imageCombinations.json
-                                  q.images.forEach(image => {
-                                    if (image.src && image.alt) {
-                                      const container = document.createElement("div");
-                                      container.classList.add("image-container");
-                                      container.dataset.optionId = image.optionId || "";
-                                      container.dataset.category = category;
-                                      container.dataset.questionNumber = q.questionNumber;
+                              // Add new images from imageCombinations.json
+                              q.images.forEach(image => {
+                                if (image.src && image.alt) {
+                                  const container = document.createElement("div");
+                                  container.classList.add("image-container");
+                                  container.dataset.optionId = image.optionId || "";
+                                  container.dataset.category = category;
+                                  container.dataset.questionNumber = q.questionNumber;
 
-                                      const img = document.createElement("img");
-                                      img.src = image.src;
-                                      img.alt = image.alt;
-                                      img.classList.add("comparison-image");
+                                  const img = document.createElement("img");
+                                  img.src = image.src;
+                                  img.alt = image.alt;
+                                  img.classList.add("comparison-image");
 
-                                      // Add selection arrow
-                                      const selectionArrow = document.createElement("div");
-                                      selectionArrow.classList.add("selection-arrow");
-                                      container.appendChild(img);
-                                      container.appendChild(selectionArrow);
+                                  // Add selection arrow
+                                  const selectionArrow = document.createElement("div");
+                                  selectionArrow.classList.add("selection-arrow");
+                                  container.appendChild(img);
+                                  container.appendChild(selectionArrow);
 
-                                      //Add click event listener
-                                      container.addEventListener("click", async function () {
-                                        imageComparisonContainer
-                                          .querySelectorAll(".image-container")
-                                          .forEach((opt) => {
-                                            opt.classList.remove("selected");
-                                          });
-
-                                        if (image.optionId) {
-                                          this.classList.add("selected");
-                                        }
-
-                                        const errorMessage = this.closest(".content").querySelector(".error-message");
-                                        if (errorMessage) {
-                                          errorMessage.style.display = "none";
-                                        }
-
-                                        if (image.optionId) {
-                                        try {
-                                          await saveAnswer({
-                                            category: category.toUpperCase(),
-                                            questionId: q.questionNumber,
-                                            answerId: this.dataset.optionId,
-                                          });
-                                        } catch (error) {
-                                          console.error("Error saving answer:", error);
-                                        }
-                                      }
+                                  //Add click event listener
+                                  container.addEventListener("click", async function () {
+                                    imageComparisonContainer
+                                      .querySelectorAll(".image-container")
+                                      .forEach((opt) => {
+                                        opt.classList.remove("selected");
                                       });
 
-                                      imageComparisonContainer.appendChild(container);
+                                    if (image.optionId) {
+                                      this.classList.add("selected");
+                                    }
+
+                                    const errorMessage = this.closest(".content").querySelector(".error-message");
+                                    if (errorMessage) {
+                                      errorMessage.style.display = "none";
+                                    }
+
+                                    if (image.optionId) {
+                                      try {
+                                        await saveAnswer({
+                                          category: category.toUpperCase(),
+                                          questionId: q.questionNumber,
+                                          answerId: this.dataset.optionId,
+                                        });
+                                      } catch (error) {
+                                        console.error("Error saving answer:", error);
+                                      }
                                     }
                                   });
+
+                                  imageComparisonContainer.appendChild(container);
                                 }
                               });
                             }
                           });
                         }
-                      })
-                      .catch(error => {
-                        console.error("Error loading image combinations:", error);
                       });
+                    }
                   }
                 } catch (error) {
                   console.error("Error saving answer:", error);
@@ -1411,15 +1404,6 @@ const SavedAnswers = await response.json();
               showPage(question.pageNumber - 1);
             }
           }
-
-          // If previous page had option 1 or 2 selected, go back 2 pages
-          // if (question.pageNumber === 36) {
-          //   if (gender === "male") {
-          //     showPage(question.pageNumber - 2);
-          //   } else {
-          //     showPage(question.pageNumber - 1);
-          //   }
-          // }
 
           if (!(question.pageNumber === 19)) {
             showPage(question.pageNumber - 1);
@@ -1751,105 +1735,98 @@ const SavedAnswers = await response.json();
 
     // If both gender and skin color are saved, update images
     if (genderAnswer && skinColorAnswer) {
-      fetch("/src/data/imageCombinations.json")
-        .then(response => response.json())
-        .then(imageCombinationsData => {
-          // Find matching combination from the combinations array
-          const combination = imageCombinationsData.combinations.find(
-            combo => combo.genderPage === genderAnswer.answerId && 
-                    combo.skinColorPage === skinColorAnswer.answerId
-          );
+      // Find matching combination from the combinations array
+      const combination = imageCombinationsData.combinations.find(
+        combo => combo.genderPage === genderAnswer.answerId && 
+                combo.skinColorPage === skinColorAnswer.answerId
+      );
 
-          if (combination) {
-            // Update images for each category
-            const categories = ["sebum", "barrier", "melanin", "collagen"];
-            categories.forEach(category => {
-              const categoryQuestions = combination.questions[0][category];
-              if (categoryQuestions) {
-                categoryQuestions.forEach(q => {
-                  // Find all image containers with matching category and question number
-                  const imageContainers = document.querySelectorAll(
-                    `.image-container[data-category="${category}"][data-question-number="${q.questionNumber}"]`
-                  );
-                  
-                  // Find the image comparison container
-                  const imageComparisonContainer = imageContainers[0]?.closest(".image-comparison-container");
-                  
-                  if (imageComparisonContainer) {
-                    // Clear all existing images
-                    imageComparisonContainer.innerHTML = '';
+      if (combination) {
+        // Update images for each category
+        const categories = ["sebum", "barrier", "melanin", "collagen"];
+        categories.forEach(category => {
+          const categoryQuestions = combination.questions[0][category];
+          if (categoryQuestions) {
+            categoryQuestions.forEach(q => {
+              // Find all image containers with matching category and question number
+              const imageContainers = document.querySelectorAll(
+                `.image-container[data-category="${category}"][data-question-number="${q.questionNumber}"]`
+              );
+              
+              // Find the image comparison container
+              const imageComparisonContainer = imageContainers[0]?.closest(".image-comparison-container");
+              
+              if (imageComparisonContainer) {
+                // Clear all existing images
+                imageComparisonContainer.innerHTML = '';
 
-                    // Add new images from imageCombinations.json
-                    q.images.forEach(image => {
-                      if (image.src && image.alt) {
-                        const container = document.createElement("div");
-                        container.classList.add("image-container");
-                        container.dataset.optionId = image.optionId || "";
-                        container.dataset.category = category;
-                        container.dataset.questionNumber = q.questionNumber;
+                // Add new images from imageCombinations.json
+                q.images.forEach(image => {
+                  if (image.src && image.alt) {
+                    const container = document.createElement("div");
+                    container.classList.add("image-container");
+                    container.dataset.optionId = image.optionId || "";
+                    container.dataset.category = category;
+                    container.dataset.questionNumber = q.questionNumber;
 
-                        const img = document.createElement("img");
-                        img.src = image.src;
-                        img.alt = image.alt;
-                        img.classList.add("comparison-image");
+                    const img = document.createElement("img");
+                    img.src = image.src;
+                    img.alt = image.alt;
+                    img.classList.add("comparison-image");
 
-                        // Add selection arrow
-                        const selectionArrow = document.createElement("div");
-                        selectionArrow.classList.add("selection-arrow");
-                        container.appendChild(img);
-                        container.appendChild(selectionArrow);
+                    // Add selection arrow
+                    const selectionArrow = document.createElement("div");
+                    selectionArrow.classList.add("selection-arrow");
+                    container.appendChild(img);
+                    container.appendChild(selectionArrow);
 
-                        // Check for saved answer and mark as selected if found
-                        if (answers[category.toUpperCase()]) {
-                          const savedAnswer = answers[category.toUpperCase()].find(
-                            answer => answer.questionId === q.questionNumber && 
-                                     answer.answerId === image.optionId
-                          );
-                          if (savedAnswer && image.optionId) {
-                            container.classList.add("selected");
-                          }
+                    // Check for saved answer and mark as selected if found
+                    if (answers[category.toUpperCase()]) {
+                      const savedAnswer = answers[category.toUpperCase()].find(
+                        answer => answer.questionId === q.questionNumber && 
+                                 answer.answerId === image.optionId
+                      );
+                      if (savedAnswer && image.optionId) {
+                        container.classList.add("selected");
+                      }
+                    }
+
+                    // Add click event listener
+                    container.addEventListener("click", async function () {
+                      imageComparisonContainer
+                        .querySelectorAll(".image-container")
+                        .forEach((opt) => opt.classList.remove("selected"));
+
+                      if (image.optionId) {
+                        this.classList.add("selected");
+                      }
+
+                      const errorMessage = this.closest(".content").querySelector(".error-message");
+                      if (errorMessage) {
+                        errorMessage.style.display = "none";
+                      }
+
+                      if (image.optionId) {
+                        try {
+                          await saveAnswer({
+                            category: category.toUpperCase(),
+                            questionId: q.questionNumber,
+                            answerId: this.dataset.optionId,
+                          });
+                        } catch (error) {
+                          console.error("Error saving answer:", error);
                         }
-
-                        // Add click event listener
-                        container.addEventListener("click", async function () {
-                          imageComparisonContainer
-                            .querySelectorAll(".image-container")
-                            .forEach((opt) => opt.classList.remove("selected"));
-
-                          if (image.optionId) {
-                            this.classList.add("selected");
-                          }
-
-                          const errorMessage = this.closest(".content").querySelector(".error-message");
-                          if (errorMessage) {
-                            errorMessage.style.display = "none";
-                          }
-
-                          if (image.optionId) {
-                            try {
-                              await saveAnswer({
-                                category: category.toUpperCase(),
-                                questionId: q.questionNumber,
-                                answerId: this.dataset.optionId,
-                              });
-                            } catch (error) {
-                              console.error("Error saving answer:", error);
-                            }
-                          }
-                        });
-
-                        imageComparisonContainer.appendChild(container);
                       }
                     });
+
+                    imageComparisonContainer.appendChild(container);
                   }
                 });
               }
             });
           }
-        })
-        .catch(error => {
-          console.error("Error loading image combinations:", error);
         });
+      }
     }
 
     const categoryOrder = [
