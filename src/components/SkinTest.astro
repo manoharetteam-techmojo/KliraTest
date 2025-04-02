@@ -1596,9 +1596,7 @@ const SavedAnswers = await response.json();
                 } else {
                   showPage(question.pageNumber + 1);
                 }
-              }
-
-              if (question.pageNumber === 17) {
+              } else if (question.pageNumber === 17) {
                 tenAOption = document
                   .getElementById("page17")
                   .querySelector(".option-button.selected");
@@ -1610,21 +1608,8 @@ const SavedAnswers = await response.json();
                 } else {
                   showPage(question.pageNumber + 1);
                 }
-              }
-
-              if (
-                !(
-                  question.pageNumber === 14 ||
-                  question.pageNumber === 17
-                )
-              ) {
-                if (question === "gender") {
-                  showPage(3);
-                } else if (question === "skinType") {
-                  showPage(4);
-                } else {
-                  showPage(question.pageNumber + 1);
-                }
+              } else {
+                showPage(question.pageNumber + 1);
               }
             }
           };
