@@ -1048,39 +1048,39 @@ const SavedAnswers = await response.json();
         };
 
         // Create the Save Progress button
-        const saveProgressContainer = document.createElement("div");
-        saveProgressContainer.classList.add("save-progress-container");
+        // const saveProgressContainer = document.createElement("div");
+        // saveProgressContainer.classList.add("save-progress-container");
 
-        const saveProgressButton = document.createElement("button");
-        saveProgressButton.classList.add("save-progress-button");
-        saveProgressButton.textContent = "Save Progress";
-        saveProgressButton.onclick = async () => {
-          // Get the current page data
-          const currentPageElement = document.getElementById(
-            `page${currentPage}`
-          );
-          const selectedOption =
-            currentPageElement.querySelector(".option-button.selected") ||
-            currentPageElement.querySelector(".image-container.selected");
+        // const saveProgressButton = document.createElement("button");
+        // saveProgressButton.classList.add("save-progress-button");
+        // saveProgressButton.textContent = "Save Progress";
+        // saveProgressButton.onclick = async () => {
+        //   // Get the current page data
+        //   const currentPageElement = document.getElementById(
+        //     `page${currentPage}`
+        //   );
+        //   const selectedOption =
+        //     currentPageElement.querySelector(".option-button.selected") ||
+        //     currentPageElement.querySelector(".image-container.selected");
 
-          if (selectedOption) {
-            try {
-              await saveAnswer({
-                category: category.title,
-                questionId: category.title === "WELCOME" ? "1" : "1", // Default to 1 if unknown
-                answerId: selectedOption.dataset.optionId,
-              });
-              saveProgressButton.textContent = "Progress Saved ";
-            } catch (error) {
-              console.error("Error saving progress:", error);
-              alert("Failed to save progress. Please try again.");
-            }
-          } else {
-            saveProgressButton.textContent = "Progress Saved ";
-          }
-        };
+        //   if (selectedOption) {
+        //     try {
+        //       await saveAnswer({
+        //         category: category.title,
+        //         questionId: category.title === "WELCOME" ? "1" : "1", // Default to 1 if unknown
+        //         answerId: selectedOption.dataset.optionId,
+        //       });
+        //       saveProgressButton.textContent = "Progress Saved ";
+        //     } catch (error) {
+        //       console.error("Error saving progress:", error);
+        //       alert("Failed to save progress. Please try again.");
+        //     }
+        //   } else {
+        //     saveProgressButton.textContent = "Progress Saved ";
+        //   }
+        // };
 
-        saveProgressContainer.appendChild(saveProgressButton);
+        // saveProgressContainer.appendChild(saveProgressButton);
 
         const nextButton = document.createElement("button");
         nextButton.classList.add("nav-button", "next");
