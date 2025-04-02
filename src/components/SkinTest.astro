@@ -1144,6 +1144,8 @@ const SavedAnswers = await response.json();
             const comparisonOption = document.createElement("div");
             comparisonOption.classList.add("image-container");
             comparisonOption.dataset.optionId = image?.optionId;
+            comparisonOption.dataset.category = category.title.toLowerCase();
+            comparisonOption.dataset.questionNumber = question.number;
 
             // Check for saved answer and mark as selected if found
             if (SavedAnswers?.data?.answers?.[category.title]) {
@@ -1160,11 +1162,11 @@ const SavedAnswers = await response.json();
             }
 
             const imageElement = document.createElement("img");
-            imageElement.src = image.src;
-            imageElement.alt = image.alt;
+              imageElement.src = image.src;
+              imageElement.alt = image.alt;
             imageElement.classList.add("comparison-image");
 
-            comparisonOption.appendChild(imageElement);
+              comparisonOption.appendChild(imageElement);
 
             imageComparisonContainer.appendChild(comparisonOption);
 
@@ -1180,7 +1182,7 @@ const SavedAnswers = await response.json();
                     opt.classList.remove("selected");
                   });
 
-                this.classList.add("selected");
+                  this.classList.add("selected");
 
                 const errorMessage =
                   questionPageContent.querySelector(".error-message");
@@ -1195,6 +1197,108 @@ const SavedAnswers = await response.json();
                     questionId: question.number,
                     answerId: this.dataset.optionId,
                   });
+
+                  // If this is the skin color selection (page 3), update images based on gender and skin color
+                  if (question.pageNumber === 3) {
+                    // Get selected gender from page 2
+                    const genderPage = document.getElementById("page2");
+                    const selectedGender = genderPage.querySelector(".option-button.selected");
+                    const gender = selectedGender?.dataset.optionId;
+
+                    // Get selected skin color
+                    const skinColor = this.dataset.optionId;
+
+                    // Fetch image combinations
+                    fetch("/src/data/imageCombinations.json")
+                      .then(response => response.json())
+                      .then(imageCombinationsData => {
+                        // Find matching combination from the combinations array
+                        const combination = imageCombinationsData.combinations.find(
+                          combo => combo.genderPage === gender && combo.skinColorPage === skinColor
+                        );
+
+                        if (combination) {
+                          // Update images for each category
+                          const categories = ["sebum", "barrier", "melanin", "collagen"];
+                          categories.forEach(category => {
+                            const categoryQuestions = combination.questions[0][category];
+                            if (categoryQuestions) {
+                              categoryQuestions.forEach(q => {
+                                // Find all image containers with matching category and question number
+                                const imageContainers = document.querySelectorAll(
+                                  `.image-container[data-category="${category}"][data-question-number="${q.questionNumber}"]`
+                                );
+                                
+                                // Find the image comparison container
+                                const imageComparisonContainer = imageContainers[0]?.closest(".image-comparison-container");
+                                
+                                if (imageComparisonContainer) {
+                                  // Clear all existing images
+                                  imageComparisonContainer.innerHTML = '';
+
+                                  // Add new images from imageCombinations.json
+                                  q.images.forEach(image => {
+                                    if (image.src && image.alt) {
+                                      const container = document.createElement("div");
+                                      container.classList.add("image-container");
+                                      container.dataset.optionId = image.optionId || "";
+                                      container.dataset.category = category;
+                                      container.dataset.questionNumber = q.questionNumber;
+
+                                      const img = document.createElement("img");
+                                      img.src = image.src;
+                                      img.alt = image.alt;
+                                      img.classList.add("comparison-image");
+
+                                      // Add selection arrow
+                                      const selectionArrow = document.createElement("div");
+                                      selectionArrow.classList.add("selection-arrow");
+                                      container.appendChild(img);
+                                      container.appendChild(selectionArrow);
+
+                                      //Add click event listener
+                                      container.addEventListener("click", async function () {
+                                        imageComparisonContainer
+                                          .querySelectorAll(".image-container")
+                                          .forEach((opt) => {
+                                            opt.classList.remove("selected");
+                                          });
+
+                                        if (image.optionId) {
+                                          this.classList.add("selected");
+                                        }
+
+                                        const errorMessage = this.closest(".content").querySelector(".error-message");
+                                        if (errorMessage) {
+                                          errorMessage.style.display = "none";
+                                        }
+
+                                        if (image.optionId) {
+                                        try {
+                                          await saveAnswer({
+                                            category: category.toUpperCase(),
+                                            questionId: q.questionNumber,
+                                            answerId: this.dataset.optionId,
+                                          });
+                                        } catch (error) {
+                                          console.error("Error saving answer:", error);
+                                        }
+                                      }
+                                      });
+
+                                      imageComparisonContainer.appendChild(container);
+                                    }
+                                  });
+                                }
+                              });
+                            }
+                          });
+                        }
+                      })
+                      .catch(error => {
+                        console.error("Error loading image combinations:", error);
+                      });
+                  }
                 } catch (error) {
                   console.error("Error saving answer:", error);
                 }
@@ -1626,15 +1730,174 @@ const SavedAnswers = await response.json();
 
   buildQuestionaire();
 
+  // Add keyboard navigation
+  document.addEventListener('keydown', function(event) {
+    const currentPageElement = document.getElementById(`page${currentPage}`);
+    if (!currentPageElement) return;
+
+    switch(event.key) {
+      case 'ArrowLeft':
+        // Navigate to previous page
+        const prevButton = currentPageElement.querySelector('.nav-button.prev');
+        if (prevButton) {
+          prevButton.click();
+        }
+        break;
+
+      case 'ArrowRight':
+        // Navigate to next page
+        const nextButton = currentPageElement.querySelector('.nav-button.next');
+        if (nextButton) {
+          nextButton.click();
+        }
+        break;
+
+      case 'ArrowUp':
+        // Select previous option
+        const options = currentPageElement.querySelectorAll('.option-button, .image-container');
+        const selectedOption = currentPageElement.querySelector('.option-button.selected, .image-container.selected');
+        
+        if (options.length > 0) {
+          if (selectedOption) {
+            const currentIndex = Array.from(options).indexOf(selectedOption);
+            const prevIndex = (currentIndex - 1 + options.length) % options.length;
+            options[prevIndex].click();
+          } else {
+            options[0].click();
+          }
+        }
+        break;
+
+      case 'ArrowDown':
+        // Select next option
+        const allOptions = currentPageElement.querySelectorAll('.option-button, .image-container');
+        const currentlySelected = currentPageElement.querySelector('.option-button.selected, .image-container.selected');
+        
+        if (allOptions.length > 0) {
+          if (currentlySelected) {
+            const currentIndex = Array.from(allOptions).indexOf(currentlySelected);
+            const nextIndex = (currentIndex + 1) % allOptions.length;
+            allOptions[nextIndex].click();
+          } else {
+            allOptions[0].click();
+          }
+        }
+        break;
+    }
+  });
+
   // Update current page based on saved answers if available
   if (SavedAnswers?.data?.answers) {
     console.log(" already cookie present ", SavedAnswers);
     const answers = SavedAnswers?.data?.answers;
 
-    // Return if answers object is empty
-    // if (!answers || Object.keys(answers).length === 0) {
-    //   return;
-    // }
+    // Get saved gender and skin color answers
+    const welcomeAnswers = answers["WELCOME"];
+    const genderAnswer = welcomeAnswers?.find(a => a.questionId === "1");
+    const skinColorAnswer = welcomeAnswers?.find(a => a.questionId === "2");
+
+    // If both gender and skin color are saved, update images
+    if (genderAnswer && skinColorAnswer) {
+      fetch("/src/data/imageCombinations.json")
+        .then(response => response.json())
+        .then(imageCombinationsData => {
+          // Find matching combination from the combinations array
+          const combination = imageCombinationsData.combinations.find(
+            combo => combo.genderPage === genderAnswer.answerId && 
+                    combo.skinColorPage === skinColorAnswer.answerId
+          );
+
+          if (combination) {
+            // Update images for each category
+            const categories = ["sebum", "barrier", "melanin", "collagen"];
+            categories.forEach(category => {
+              const categoryQuestions = combination.questions[0][category];
+              if (categoryQuestions) {
+                categoryQuestions.forEach(q => {
+                  // Find all image containers with matching category and question number
+                  const imageContainers = document.querySelectorAll(
+                    `.image-container[data-category="${category}"][data-question-number="${q.questionNumber}"]`
+                  );
+                  
+                  // Find the image comparison container
+                  const imageComparisonContainer = imageContainers[0]?.closest(".image-comparison-container");
+                  
+                  if (imageComparisonContainer) {
+                    // Clear all existing images
+                    imageComparisonContainer.innerHTML = '';
+
+                    // Add new images from imageCombinations.json
+                    q.images.forEach(image => {
+                      if (image.src && image.alt) {
+                        const container = document.createElement("div");
+                        container.classList.add("image-container");
+                        container.dataset.optionId = image.optionId || "";
+                        container.dataset.category = category;
+                        container.dataset.questionNumber = q.questionNumber;
+
+                        const img = document.createElement("img");
+                        img.src = image.src;
+                        img.alt = image.alt;
+                        img.classList.add("comparison-image");
+
+                        // Add selection arrow
+                        const selectionArrow = document.createElement("div");
+                        selectionArrow.classList.add("selection-arrow");
+                        container.appendChild(img);
+                        container.appendChild(selectionArrow);
+
+                        // Check for saved answer and mark as selected if found
+                        if (answers[category.toUpperCase()]) {
+                          const savedAnswer = answers[category.toUpperCase()].find(
+                            answer => answer.questionId === q.questionNumber && 
+                                     answer.answerId === image.optionId
+                          );
+                          if (savedAnswer && image.optionId) {
+                            container.classList.add("selected");
+                          }
+                        }
+
+                        // Add click event listener
+                        container.addEventListener("click", async function () {
+                          imageComparisonContainer
+                            .querySelectorAll(".image-container")
+                            .forEach((opt) => opt.classList.remove("selected"));
+
+                          if (image.optionId) {
+                            this.classList.add("selected");
+                          }
+
+                          const errorMessage = this.closest(".content").querySelector(".error-message");
+                          if (errorMessage) {
+                            errorMessage.style.display = "none";
+                          }
+
+                          if (image.optionId) {
+                            try {
+                              await saveAnswer({
+                                category: category.toUpperCase(),
+                                questionId: q.questionNumber,
+                                answerId: this.dataset.optionId,
+                              });
+                            } catch (error) {
+                              console.error("Error saving answer:", error);
+                            }
+                          }
+                        });
+
+                        imageComparisonContainer.appendChild(container);
+                      }
+                    });
+                  }
+                });
+              }
+            });
+          }
+        })
+        .catch(error => {
+          console.error("Error loading image combinations:", error);
+        });
+    }
 
     const categoryOrder = [
       "WELCOME",
@@ -1656,11 +1919,6 @@ const SavedAnswers = await response.json();
         });
       }
     });
-
-    // Return if no categories have answers
-    // if (Object.keys(sortedAnswers).length === 0) {
-    //   return;
-    // }
 
     // Find the last category with answers
     const lastCategory = Object.keys(sortedAnswers).pop();
@@ -1726,35 +1984,6 @@ const SavedAnswers = await response.json();
           else {
             currentPage = question.pageNumber + 1;
           }
-
-          // Update question count and progress indicators based on gender
-          // const welcomeAnswers = sortedAnswers["WELCOME"];
-          // const genderAnswer = welcomeAnswers?.find(
-          //   (a) => a.questionId === "1"
-          // );
-          // if (genderAnswer) {
-          //   const gender = genderAnswer.answerId === "a" ? "male" : "female";
-
-          //   // Update all Melanin question progress indicators
-          //   const melaninQuestions = document.querySelectorAll(".page");
-          //   melaninQuestions.forEach(page => {
-          //     if (page.id.startsWith("page") && parseInt(page.id.slice(4)) >= 33 && parseInt(page.id.slice(4)) <= 43) {
-          //       const progress = page.querySelector(".progress");
-          //       if (progress) {
-          //         const questionNumber = progress.textContent.split("/")[0];
-          //         // For male users, skip question 3 and adjust numbering
-          //         if (gender === "male") {
-          //           const num = parseInt(questionNumber);
-          //           if (num >= 3) {
-          //             progress.textContent = `${num - 1}/10`;
-          //           } else {
-          //             progress.textContent = `${num}/10`;
-          //           }
-          //         }
-          //       }
-          //     }
-          //   });
-          // }
         }
       }
     }

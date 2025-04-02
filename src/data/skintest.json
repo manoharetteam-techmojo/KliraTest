@@ -253,11 +253,11 @@
           ],
           "images": [
             {
-              "src": "/assets/7whiteheads.png",
+              "src": "/assets/Q7_All_Unisex_Whiteheads.jpg",
               "alt": "Whiteheads"
             },
             {
-              "src": "/assets/7blackheads.png",
+              "src": "/assets/Q7_Light_Unisex_Blackheads.jpg",
               "alt": "Blackheads"
             }
           ],
@@ -348,12 +348,12 @@
           "options": [],
           "images": [
             {
-              "src": "/assets/10aImage1.png",
+              "src": "/assets/Q10a_Light_Unisex_Acne.jpg",
               "alt": "age1",
               "optionId": "a"
             },
             {
-              "src": "/assets/10aImage2.png",
+              "src": "/assets/Q10a_Light_Unisex_SebDerm.jpg",
               "alt": "age4",
               "optionId": "b"
             }
@@ -401,12 +401,12 @@
           "options": [],
           "images": [
             {
-              "src": "/assets/11aImage1.png",
+              "src": "/assets/Q10b_Light_Female_Rosacea.jpg",
               "alt": "age1",
               "optionId": "a"
             },
             {
-              "src": "/assets/11aImage2.png",
+              "src": "/assets/Q10b_Light_Female_Perioral-Derm.jpg",
               "alt": "age4",
               "optionId": "b"
             }
@@ -680,22 +680,22 @@
           "options": [],
           "images": [
             {
-              "src": "/assets/22Image1.png",
+              "src": "/assets/q21-none.png",
               "alt": "age1",
               "optionId": "a"
             },
             {
-              "src": "/assets/22Image2.png",
+              "src": "/assets/q21-few.png",
               "alt": "age4",
               "optionId": "b"
             },
             {
-              "src": "/assets/22Image3.png",
+              "src": "/assets/q21-sometimes.png",
               "alt": "age1",
               "optionId": "c"
             },
             {
-              "src": "/assets/22Image4.png",
+              "src": "/assets/q21-many.png",
               "alt": "age4",
               "optionId": "d"
             }
@@ -785,7 +785,7 @@
           ],
           "images": [
             {
-              "src": "/assets/25Image.png",
+              "src": "/assets/Q24_Light_Female_Post-Inflam-Pigmentation-at-corner.png",
               "alt": "Whiteheads"
             }
           ],
@@ -871,11 +871,7 @@
           ],
           "images": [
             {
-              "src": "/assets/28Image1.png",
-              "alt": "Whiteheads"
-            },
-            {
-              "src": "/assets/28Image2.png",
+              "src": "/assets/Q27_Light_Female_Melasma2.jpg",
               "alt": "Whiteheads"
             }
           ],
@@ -1073,22 +1069,22 @@
           "hint":"i: If you've had injectable cosmetic treatments, select the answer you think represents your natural skin.",
           "images": [
             {
-              "src": "/assets/36Image1.png",
+              "src": "/assets/Q35_Light_Female_Ageing-1.png",
               "alt": "age1",
               "optionId": "a"
             },
             {
-              "src": "/assets/36Image2.png",
+              "src": "/assets/Q35_Light_Female_Ageing-2.png",
               "alt": "age4",
               "optionId": "b"
             },
             {
-              "src": "/assets/36Image3.png",
+              "src": "/assets/Q35_Light_Female_Ageing-3.png",
               "alt": "age1",
               "optionId": "c"
             },
             {
-              "src": "/assets/36Image4.png",
+              "src": "/assets/Q35_Light_Female_Ageing-4.png",
               "alt": "age4",
               "optionId": "d"
             }
