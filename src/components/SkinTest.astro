@@ -1147,7 +1147,7 @@ const SavedAnswers = await response.json();
             comparisonOption.dataset.category = category.title.toLowerCase();
             comparisonOption.dataset.questionNumber = question.number;
 
-            // saving answers for skin color selection and barrier question 12
+            // ------ skin color selection and barrier question 12
             if (SavedAnswers?.data?.answers?.[category.title]) {
               const savedAnswer = SavedAnswers.data.answers[
                 category.title
@@ -1190,13 +1190,13 @@ const SavedAnswers = await response.json();
                   errorMessage.style.display = "none";
                 }
 
-                // Save answer immediately when an option is selected
                 try {
                   await saveAnswer({
                     category: category.title,
                     questionId: question.number,
                     answerId: this.dataset.optionId,
                   });
+                  //------
 
                   // If this is the skin color selection (page 3), update images based on gender and skin color
                   if (question.pageNumber === 3) {
