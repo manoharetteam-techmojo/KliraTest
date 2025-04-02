@@ -1443,20 +1443,6 @@ const SavedAnswers = await response.json();
               questionPage.querySelector(".option-button.selected") ||
               questionPage.querySelector(".image-container.selected");
 
-            if (selectedOption) {
-              try {
-                const result = await saveAnswer({
-                  category: category.title,
-                  questionId: question.number,
-                  answerId: selectedOption.dataset.optionId,
-                });
-                console.log(result);
-              } catch (error) {
-                console.error("Error saving answer:", error);
-                alert("Failed to save answer. Please try again.");
-              }
-            }
-
             if (
               !selectedOption &&
               (question.optionsPresent || question.imagesPresent)
