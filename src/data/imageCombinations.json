@@ -23,12 +23,12 @@
               "questionNumber": "10a",
               "images": [
                 {
-                  "src": "/assets/Q10a_Light_Male_Seb-Derm.jpg",
+                  "src": "/assets/Q10a_Light_Unisex_Acne.jpg",
                   "alt": "Male Fair Skin Option A",
                   "optionId": "a"
                 },
                 {
-                  "src": "/assets/Q10a_Light_Unisex_Acne.jpg",
+                  "src": "/assets/Q10a_Light_Male_Seb-Derm.jpg",
                   "alt": "Male Fair Skin Option B",
                   "optionId": "b"
                 }
@@ -40,12 +40,12 @@
               "questionNumber": "1a",
               "images": [
                 {
-                  "src": "/assets/Q10b_Light_Male_Perioral-Derm.jpg",
+                  "src": "/assets/Q10b_Light_Male_Rosacea.jpg",
                   "alt": "Male Fair Skin Option A",
                   "optionId": "a"
                 },
                 {
-                  "src": "/assets/Q10b_Light_Male_Rosacea.jpg",
+                  "src": "assets/Q10b_Light_Male_Perioral-Derm.jpg",
                   "alt": "Male Fair Skin Option B",
                   "optionId": "b"
                 }
@@ -129,12 +129,12 @@
               "questionNumber": "10a",
               "images": [
                 {
-                  "src": "/assets/Q10a_Light_Male_Seb-Derm.jpg",
+                  "src": "/assets/Q10a_Light_Unisex_Acne.jpg",
                   "alt": "Male Fair Skin Option A",
                   "optionId": "a"
                 },
                 {
-                  "src": "/assets/Q10a_Light_Unisex_Acne.jpg",
+                  "src": "/assets/Q10a_Light_Male_Seb-Derm.jpg",
                   "alt": "Male Fair Skin Option B",
                   "optionId": "b"
                 }
@@ -252,12 +252,12 @@
               "questionNumber": "1a",
               "images": [
                 {
-                  "src": "/assets/Q10b_Dark_Unisex_Perioral-Derm-e1710388355603.jpg",
+                  "src": "/assets/Q10b_Medium_Unisex_Rosacea.jpg",
                   "alt": "Male Fair Skin Option A",
                   "optionId": "a"
                 },
                 {
-                  "src": "/assets/Q10b_Medium_Unisex_Rosacea.jpg",
+                  "src": "/assets/Q10b_Dark_Unisex_Perioral-Derm-e1710388355603.jpg",
                   "alt": "Male Fair Skin Option B",
                   "optionId": "b"
                 }
@@ -354,12 +354,12 @@
               "questionNumber": "1a",
               "images": [
                 {
-                  "src": "/assets/Q10b_Dark_Unisex_Perioral-Derm-e1710388355603.jpg",
+                  "src": "/assets/Q10b_Medium_Unisex_Rosacea.jpg",
                   "alt": "Male Fair Skin Option A",
                   "optionId": "a"
                 },
                 {
-                  "src": "/assets/Q10b_Medium_Unisex_Rosacea.jpg",
+                  "src": "/assets/Q10b_Dark_Unisex_Perioral-Derm-e1710388355603.jpg",
                   "alt": "Male Fair Skin Option B",
                   "optionId": "b"
                 }
@@ -660,12 +660,12 @@
               "questionNumber": "1a",
               "images": [
                 {
-                  "src": "/assets/Q10b_Light_Female_Perioral-Derm.jpg",
+                  "src": "/assets/Q10b_Light_Female_Rosacea.jpg",
                   "alt": "Male Fair Skin Option A",
                   "optionId": "a"
                 },
                 {
-                  "src": "/assets/Q10b_Light_Female_Rosacea.jpg",
+                  "src": "/assets/Q10b_Light_Female_Perioral-Derm.jpg",
                   "alt": "Male Fair Skin Option B",
                   "optionId": "b"
                 }
@@ -766,12 +766,12 @@
               "questionNumber": "1a",
               "images": [
                 {
-                  "src": "/assets/Q10b_Light_Female_Perioral-Derm.jpg",
+                  "src": "/assets/Q10b_Light_Female_Rosacea.jpg",
                   "alt": "Male Fair Skin Option A",
                   "optionId": "a"
                 },
                 {
-                  "src": "/assets/Q10b_Light_Female_Rosacea.jpg",
+                  "src": "/assets/Q10b_Light_Female_Perioral-Derm.jpg",
                   "alt": "Male Fair Skin Option B",
                   "optionId": "b"
                 }
@@ -872,12 +872,12 @@
               "questionNumber": "1a",
               "images": [
                 {
-                  "src": "/assets/Q10b_Dark_Unisex_Perioral-Derm-e1710388355603.jpg",
+                  "src": "/assets/Q10b_Medium_Unisex_Rosacea.jpg",
                   "alt": "Male Fair Skin Option A",
                   "optionId": "a"
                 },
                 {
-                  "src": "/assets/Q10b_Medium_Unisex_Rosacea.jpg",
+                  "src": "/assets/Q10b_Dark_Unisex_Perioral-Derm-e1710388355603.jpg ",
                   "alt": "Male Fair Skin Option B",
                   "optionId": "b"
                 }
@@ -974,12 +974,12 @@
               "questionNumber": "1a",
               "images": [
                 {
-                  "src": "/assets/Q10b_Dark_Unisex_Perioral-Derm-e1710388355603.jpg",
+                  "src": "/assets/Q10b_Medium_Unisex_Rosacea.jpg",
                   "alt": "Male Fair Skin Option A",
                   "optionId": "a"
                 },
                 {
-                  "src": "/assets/Q10b_Medium_Unisex_Rosacea.jpg",
+                  "src": "/assets/Q10b_Dark_Unisex_Perioral-Derm-e1710388355603.jpg ",
                   "alt": "Male Fair Skin Option B",
                   "optionId": "b"
                 }
