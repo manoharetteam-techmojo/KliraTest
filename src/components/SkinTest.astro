@@ -1199,99 +1199,7 @@ const SavedAnswers = await response.json();
                   });
                   //------
 
-                  // If this is the skin color selection (page 3), update images based on gender and skin color
-                  if (question.pageNumber === 3) {
-                    // Get selected gender from page 2
-                    const genderPage = document.getElementById("page2");
-                    const selectedGender = genderPage.querySelector(".option-button.selected");
-                    const gender = selectedGender?.dataset.optionId;
 
-                    // Get selected skin color
-                    const skinColor = this.dataset.optionId;
-
-                    // Find matching combination from the combinations array
-                    const combination = imageCombinationsData.combinations.find(
-                      combo => combo.genderPage === gender && combo.skinColorPage === skinColor
-                    );
-
-                    if (combination) {
-                      // Update images for each category
-                      const categories = ["sebum", "barrier", "melanin", "collagen"];
-                      categories.forEach(category => {
-                        const categoryQuestions = combination.questions[0][category];
-                        if (categoryQuestions) {
-                          categoryQuestions.forEach(q => {
-                            // Find all image containers with matching category and question number
-                            const imageContainers = document.querySelectorAll(
-                              `.image-container[data-category="${category}"][data-question-number="${q.questionNumber}"]`
-                            );
-                            
-                            // Find the image comparison container
-                            const imageComparisonContainer = imageContainers[0]?.closest(".image-comparison-container");
-                            
-                            if (imageComparisonContainer) {
-                              // Clear all existing images
-                              imageComparisonContainer.innerHTML = '';
-
-                              // Add new images from imageCombinations.json
-                              q.images.forEach(image => {
-                                if (image.src && image.alt) {
-                                  const container = document.createElement("div");
-                                  container.classList.add("image-container");
-                                  container.dataset.optionId = image.optionId || "";
-                                  container.dataset.category = category;
-                                  container.dataset.questionNumber = q.questionNumber;
-
-                                  const img = document.createElement("img");
-                                  img.src = image.src;
-                                  img.alt = image.alt;
-                                  img.classList.add("comparison-image");
-
-                                  // Add selection arrow
-                                  const selectionArrow = document.createElement("div");
-                                  selectionArrow.classList.add("selection-arrow");
-                                  container.appendChild(img);
-                                  container.appendChild(selectionArrow);
-
-                                  //Add click event listener
-                                  container.addEventListener("click", async function () {
-                                    imageComparisonContainer
-                                      .querySelectorAll(".image-container")
-                                      .forEach((opt) => {
-                                        opt.classList.remove("selected");
-                                      });
-
-                                    if (image.optionId) {
-                                      this.classList.add("selected");
-                                    }
-
-                                    const errorMessage = this.closest(".content").querySelector(".error-message");
-                                    if (errorMessage) {
-                                      errorMessage.style.display = "none";
-                                    }
-
-                                    if (image.optionId) {
-                                      try {
-                                        await saveAnswer({
-                                          category: category.toUpperCase(),
-                                          questionId: q.questionNumber,
-                                          answerId: this.dataset.optionId,
-                                        });
-                                      } catch (error) {
-                                        console.error("Error saving answer:", error);
-                                      }
-                                    }
-                                  });
-
-                                  imageComparisonContainer.appendChild(container);
-                                }
-                              });
-                            }
-                          });
-                        }
-                      });
-                    }
-                  }
                 } catch (error) {
                   console.error("Error saving answer:", error);
                 }
@@ -1567,6 +1475,98 @@ const SavedAnswers = await response.json();
                 errorMessage.style.display = "block";
               }
             } else {
+              if (question.pageNumber === 3) {
+                // Get selected gender from page 2
+                const genderPage = document.getElementById("page2");
+                const selectedGender = genderPage.querySelector(".option-button.selected");
+                const gender = selectedGender?.dataset.optionId;
+
+                // Get selected skin color
+                const skinColor = selectedOption?.dataset.optionId;
+
+                // Find matching combination from the combinations array
+                const combination = imageCombinationsData.combinations.find(
+                  combo => combo.genderPage === gender && combo.skinColorPage === skinColor
+                );
+
+                if (combination) {
+                  // Update images for each category
+                  const categories = ["sebum", "barrier", "melanin", "collagen"];
+                  categories.forEach(category => {
+                    const categoryQuestions = combination.questions[0][category];
+                    if (categoryQuestions) {
+                      categoryQuestions.forEach(q => {
+                        // Find all image containers with matching category and question number
+                        const imageContainers = document.querySelectorAll(
+                          `.image-container[data-category="${category}"][data-question-number="${q.questionNumber}"]`
+                        );
+                        
+                        // Find the image comparison container
+                        const imageComparisonContainer = imageContainers[0]?.closest(".image-comparison-container");
+                        
+                        if (imageComparisonContainer) {
+                          // Clear all existing images
+                          imageComparisonContainer.innerHTML = '';
+
+                          // Add new images from imageCombinations.json
+                          q.images.forEach(image => {
+                            if (image.src && image.alt) {
+                              const container = document.createElement("div");
+                              container.classList.add("image-container");
+                              container.dataset.optionId = image.optionId || "";
+                              container.dataset.category = category;
+                              container.dataset.questionNumber = q.questionNumber;
+
+                              const img = document.createElement("img");
+                              img.src = image.src;
+                              img.alt = image.alt;
+                              img.classList.add("comparison-image");
+
+                              // Add selection arrow
+                              const selectionArrow = document.createElement("div");
+                              selectionArrow.classList.add("selection-arrow");
+                              container.appendChild(img);
+                              container.appendChild(selectionArrow);
+
+                              //Add click event listener
+                              container.addEventListener("click", async function () {
+                                imageComparisonContainer
+                                  .querySelectorAll(".image-container")
+                                  .forEach((opt) => {
+                                    opt.classList.remove("selected");
+                                  });
+
+                                if (image.optionId) {
+                                  this.classList.add("selected");
+                                }
+
+                                const errorMessage = this.closest(".content").querySelector(".error-message");
+                                if (errorMessage) {
+                                  errorMessage.style.display = "none";
+                                }
+
+                                if (image.optionId) {
+                                  try {
+                                    await saveAnswer({
+                                      category: category.toUpperCase(),
+                                      questionId: q.questionNumber,
+                                      answerId: this.dataset.optionId,
+                                    });
+                                  } catch (error) {
+                                    console.error("Error saving answer:", error);
+                                  }
+                                }
+                              });
+
+                              imageComparisonContainer.appendChild(container);
+                            }
+                          });
+                        }
+                      });
+                    }
+                  });
+                }
+              }
 
               if (question.pageNumber === 14) {
                 tenAOption = document
