@@ -1147,7 +1147,7 @@ const SavedAnswers = await response.json();
             comparisonOption.dataset.category = category.title.toLowerCase();
             comparisonOption.dataset.questionNumber = question.number;
 
-            // Check for saved answer and mark as selected if found
+            // saving answers for skin color selection and barrier question 12
             if (SavedAnswers?.data?.answers?.[category.title]) {
               const savedAnswer = SavedAnswers.data.answers[
                 category.title
