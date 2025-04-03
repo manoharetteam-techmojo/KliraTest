@@ -1512,6 +1512,14 @@ const SavedAnswers = await response.json();
                 errorMessage.style.display = "none";
               }
 
+              // Show save progress button on page 2 after option is selected
+              if (question.pageNumber === 2) {
+                const saveProgressContainer = document.querySelector(".save-progress-container");
+                if (saveProgressContainer) {
+                  saveProgressContainer.style.display = "flex";
+                }
+              }
+
               // Save answer immediately when an option is selected
               try {
                 await saveAnswer({
@@ -1674,6 +1682,12 @@ const SavedAnswers = await response.json();
           const saveProgressButton = document.createElement("button");
           saveProgressButton.classList.add("save-progress-button");
           saveProgressButton.textContent = "Save Progress";
+          
+          // Hide save progress button on page 2 initially
+          if (question.pageNumber === 2) {
+            saveProgressContainer.style.display = "none";
+          }
+
           saveProgressButton.onclick = async () => {
             const saveResult = await saveAnswer({
               category: "SAVE_PROGRESS",
