@@ -1034,7 +1034,7 @@ const SavedAnswers = await response.json();
       );
       const result = await handleApiResponse(response);
       if (result.shouldPreventNavigation) return null;
-      const responseData = await result.response.json();
+      const responseData = await result.response;
       console.log(responseData);
       return responseData;
     } catch (error) {
