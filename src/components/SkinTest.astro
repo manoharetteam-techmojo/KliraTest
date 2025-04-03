@@ -874,12 +874,19 @@ const SavedAnswers = await response.json();
       if (errorMessage) {
         errorMessage.textContent = "Your session has expired. Please refresh the page to continue.";
         errorMessage.style.display = "block";
-        // Hide the message after 5 seconds and reload the page
-        setTimeout(() => {
-          errorMessage.style.display = "none";
-          window.location.reload();
-        }, 5000);
       }
+
+      // Disable the next button
+      const nextButton = currentPageElement.querySelector(".nav-button.next");
+      if (nextButton) {
+        nextButton.disabled = true;
+      }
+
+      // Hide the message after 5 seconds and reload the page
+      setTimeout(() => {
+        errorMessage.style.display = "none";
+        window.location.reload();
+      }, 5000);
       return { shouldPreventNavigation: true };
     } else if (response.status === 500) {
       // Show error message in the current page's error message element
@@ -888,11 +895,20 @@ const SavedAnswers = await response.json();
       if (errorMessage) {
         errorMessage.textContent = "Please try again later.";
         errorMessage.style.display = "block";
-        // Hide the message after 5 seconds
-        setTimeout(() => {
-          errorMessage.style.display = "none";
-        }, 5000);
       }
+
+      // Disable the next button
+      const nextButton = currentPageElement.querySelector(".nav-button.next");
+      if (nextButton) {
+        nextButton.disabled = true;
+        nextButton.style.opacity = "0.5";
+        nextButton.style.cursor = "not-allowed";
+      }
+
+      // Hide the message after 5 seconds
+      setTimeout(() => {
+        errorMessage.style.display = "none";
+      }, 5000);
       return { shouldPreventNavigation: true };
     }
     return { shouldPreventNavigation: false, response };
