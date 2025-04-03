@@ -1364,34 +1364,31 @@ const SavedAnswers = await response.json();
                 const responseCalculateData = await calCulateResults();
                 if (responseCalculateData.success) {
                   // Remove the token cookie as the test is now complete
-                  document.cookie =
-                    "user_jwt_token=; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT;";
+                 
 
                   // Hide all pages
                   const pages = document.querySelectorAll(".page");
                   pages.forEach((page) => {
                     page.style.display = "none";
                   });
+                  finishPageUrl = responseCalculateData.data.redirectionLink;
+                  window.location.href  = finishPageUrl;
 
                   // Show finish page and update skin size
-                  const finishPage = document.getElementById("finishPage");
-                  const skinSizeNumber =
-                    finishPage.querySelector(".skin-size-number");
-                  skinSizeNumber.textContent =
-                    responseCalculateData.data.finalScore;
-                  finishPage.style.display = "flex";
+                  // const finishPage = document.getElementById("finishPage");
+                  // const skinSizeNumber =
+                  //   finishPage.querySelector(".skin-size-number");
+                  // skinSizeNumber.textContent =
+                  //   responseCalculateData.data.finalScore;
+                  // finishPage.style.display = "flex";
 
-                  // Set background to white for finish page
-                  document.body.classList.remove("black-bg");
-                  document.body.classList.add("white-bg");
-                } else {
-                  alert("Failed to calculate results. Please try again.");
-                }
+                  // // Set background to white for finish page
+                  // document.body.classList.remove("black-bg");
+                  // document.body.classList.add("white-bg");
+                } 
               } catch (error) {
                 console.error("Error calculating results:", error);
-                alert(
-                  "An error occurred while calculating results. Please try again."
-                );
+                
               }
             }
           };
