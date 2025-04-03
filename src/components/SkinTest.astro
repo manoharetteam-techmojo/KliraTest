@@ -1513,7 +1513,7 @@ const SavedAnswers = await response.json();
               questionId: "1",
               answerId: "a",
             });
-            if(saveResult?.status === 204){
+            if(saveResult?.status === 200){
                window.top.location.href =  "https://stg.klira.skin/online-test/saved/";
                console.log("saveResult", saveResult.status);
             }
@@ -1544,7 +1544,7 @@ const SavedAnswers = await response.json();
               questionId: "1",
               answerId: "a",
             });
-            if(saveResult?.status === 204){
+            if(saveResult?.status === 200){
               window.top.location.href =  "https://stg.klira.skin/online-test/saved/";
               console.log("saveResult", saveResult?.status);
             } 
