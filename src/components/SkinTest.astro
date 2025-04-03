@@ -885,12 +885,22 @@ const SavedAnswers = await response.json();
   }
 
   @media (max-width: 576px) {
-    ..option-button{
+    .option-button {
       padding: 12px 35px;
+    }
+
+    .option-btn-check-icon {
+      right: 5px;
     }
     .image-comparison-container {
       display: grid;
       justify-items: center;
+      gap: 10px;
+    }
+
+    .image-comparison-container .image-container {
+      width: 100px;
+      height: 100px;
     }
 
     .image-comparison-container:has(.image-container:nth-child(1)) {
@@ -930,7 +940,7 @@ const SavedAnswers = await response.json();
       width: auto;
     }
 
-     /* .image-comparison-container:has(.image-container:nth-child(4))
+    /* .image-comparison-container:has(.image-container:nth-child(4))
       .image-container {
       height: 100px;
       width: 100px;
@@ -949,6 +959,16 @@ const SavedAnswers = await response.json();
 
     .category-tab {
       font-size: 14px;
+      padding: 0 5px;
+    }
+  }
+
+  @media (max-width: 320px) {
+    .separator {
+      margin: 0 5px;
+    }
+    .category-tab {
+      font-size: 11px;
     }
   }
 </style>
