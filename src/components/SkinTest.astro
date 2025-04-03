@@ -1298,6 +1298,11 @@ const SavedAnswers = await response.json();
               comparisonOption.appendChild(selectionArrow);
 
               comparisonOption.addEventListener("click", async function () {
+                // Check if the container is already selected
+                if (this.classList.contains("selected")) {
+                  return; // Exit early if already selected
+                }
+
                 imageComparisonContainer
                   .querySelectorAll(".image-container")
                   .forEach((opt) => {
@@ -1367,6 +1372,11 @@ const SavedAnswers = await response.json();
             questionOptions.appendChild(optionButton);
 
             optionButton.addEventListener("click", async function () {
+              // Check if the option is already selected
+              if (this.classList.contains("selected")) {
+                return; // Exit early if already selected
+              }
+
               const parentOptions = this.closest(".options");
               if (parentOptions) {
                 parentOptions
@@ -1463,6 +1473,10 @@ const SavedAnswers = await response.json();
                 errorMessage.style.display = "block";
               }
             } else {
+              // Disable the button to prevent multiple clicks
+              calculateResultsButton.disabled = true;
+              calculateResultsButton.style.opacity = "0.5";
+
               try {
                 const responseCalculateData = await calCulateResults();
                 if (responseCalculateData.success) {
@@ -1490,6 +1504,9 @@ const SavedAnswers = await response.json();
                 }
               } catch (error) {
                 console.error("Error calculating results:", error);
+                // Re-enable the button if there's an error
+                calculateResultsButton.disabled = false;
+                calculateResultsButton.style.opacity = "1";
               }
             }
           };
@@ -1639,6 +1656,11 @@ const SavedAnswers = await response.json();
                               container.addEventListener(
                                 "click",
                                 async function () {
+                                  // Check if the container is already selected
+                                  if (this.classList.contains("selected")) {
+                                    return; // Exit early if already selected
+                                  }
+
                                   imageComparisonContainer
                                     .querySelectorAll(".image-container")
                                     .forEach((opt) => {
@@ -1915,6 +1937,11 @@ const SavedAnswers = await response.json();
 
                     // Add click event listener
                     container.addEventListener("click", async function () {
+                      // Check if the container is already selected
+                      if (this.classList.contains("selected")) {
+                        return; // Exit early if already selected
+                      }
+
                       imageComparisonContainer
                         .querySelectorAll(".image-container")
                         .forEach((opt) => opt.classList.remove("selected"));
