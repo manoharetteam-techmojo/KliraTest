@@ -1057,7 +1057,7 @@ const SavedAnswers = await response.json();
       );
       const result = await handleApiResponse(response);
       if (result.shouldPreventNavigation) return null;
-      const responseData = await result.response.json();
+      const responseData = await result.response;
       console.log(responseData);
       return responseData;
     } catch (error) {
@@ -1543,11 +1543,10 @@ const SavedAnswers = await response.json();
               questionId: "1",
               answerId: "a",
             });
-
-            if (!saveResult) {
-              return;
+            if(saveResult?.status === 200){
+               window.top.location.href =  "https://stg.klira.skin/online-test/saved/";
+               console.log("saveResult", saveResult.status);
             }
-            saveProgressButton.textContent = "Progress Saved ";
           };
 
           saveProgressContainer.appendChild(saveProgressButton);
@@ -1575,10 +1574,10 @@ const SavedAnswers = await response.json();
               questionId: "1",
               answerId: "a",
             });
-            if (!saveResult) {
-              return;
-            }
-            saveProgressButton.textContent = "Progress Saved ";
+            if(saveResult?.status === 200){
+              window.top.location.href =  "https://stg.klira.skin/online-test/saved/";
+              console.log("saveResult", saveResult?.status);
+            } 
           };
 
           saveProgressContainer.appendChild(saveProgressButton);
@@ -2051,7 +2050,7 @@ const SavedAnswers = await response.json();
               currentPage = question.pageNumber + 1;
             }
           } else {
-            currentPage = question.pageNumber + 1;
+              currentPage = question.pageNumber + 1;
           }
         }
       }
