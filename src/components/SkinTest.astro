@@ -1471,7 +1471,7 @@ const SavedAnswers = await response.json();
                     page.style.display = "none";
                   });
                   finishPageUrl = responseCalculateData.data.redirectionLink;
-                  window.location.href = finishPageUrl;
+                  window.top.location.href = finishPageUrl;
 
                   // Show finish page and update skin size
                   // const finishPage = document.getElementById("finishPage");
