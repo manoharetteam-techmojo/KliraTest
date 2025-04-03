@@ -44,7 +44,7 @@ const SavedAnswers = await response.json();
 </div>
 
 <style is:inline>
-  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap');
+  @import url("https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap");
 
   @font-face {
     font-family: "Monaco";
@@ -114,7 +114,6 @@ const SavedAnswers = await response.json();
     color: #fff;
     opacity: 1;
   }
-
 
   .arrow-img {
     width: 16px;
@@ -860,19 +859,70 @@ const SavedAnswers = await response.json();
     object-fit: contain;
     display: block;
   }
-
 </style>
 
 <script define:vars={{ skinTestData, SavedAnswers, imageCombinationsData }}>
   // Add tracking for last selected options
 
+  // async function handleApiResponse(response) {
+  //   if (response.status === 401) {
+  //     // Show error message in the current page's error message element
+  //     const currentPageElement = document.getElementById(`page${currentPage}`);
+  //     const errorMessage = currentPageElement.querySelector(".error-message");
+  //     if (errorMessage) {
+  //       errorMessage.textContent = "Your session has expired. Please refresh the page to continue.";
+  //       errorMessage.style.display = "block";
+  //     }
+
+  //     // Disable the next button
+  //     const nextButton = currentPageElement.querySelector(".nav-button.next");
+  //     if (nextButton) {
+  //       nextButton.disabled = true;
+  //     }
+
+  //     // Hide the message after 5 seconds and reload the page
+  //     setTimeout(() => {
+  //       errorMessage.style.display = "none";
+  //       window.location.reload();
+  //     }, 5000);
+  //     return { shouldPreventNavigation: true };
+  //   } else if (response.status === 500) {
+  //     // Show error message in the current page's error message element
+  //     const currentPageElement = document.getElementById(`page${currentPage}`);
+  //     const errorMessage = currentPageElement.querySelector(".error-message");
+  //     if (errorMessage) {
+  //       errorMessage.textContent = "Please try again later.";
+  //       errorMessage.style.display = "block";
+  //     }
+
+  //     // Disable the next button
+  //     // const nextButton = currentPageElement.querySelector(".nav-button.next");
+  //     // if (nextButton) {
+  //       // nextButton.disabled = true;
+  //       // nextButton.style.opacity = "0.5";
+  //       // nextButton.style.cursor = "not-allowed";
+  //     // }
+
+  //     // Hide the message after 5 seconds
+  //     setTimeout(() => {
+  //       errorMessage.style.display = "none";
+  //     }, 5000);
+  //     return { shouldPreventNavigation: true };
+  //   }
+  //   return { shouldPreventNavigation: false, response };
+  // }
+
   async function handleApiResponse(response) {
-    if (response.status === 401) {
+    if (response.status >= 200 && response.status <= 300) {
+      console.log("response ok", reponse.status);
+      // return;
+    } else if (response.status === 401) {
       // Show error message in the current page's error message element
       const currentPageElement = document.getElementById(`page${currentPage}`);
       const errorMessage = currentPageElement.querySelector(".error-message");
       if (errorMessage) {
-        errorMessage.textContent = "Your session has expired. Please refresh the page to continue.";
+        errorMessage.textContent =
+          "Your session has expired. Please refresh the page to continue.";
         errorMessage.style.display = "block";
       }
 
@@ -881,15 +931,19 @@ const SavedAnswers = await response.json();
       if (nextButton) {
         nextButton.disabled = true;
       }
-
       // Hide the message after 5 seconds and reload the page
+
       setTimeout(() => {
         errorMessage.style.display = "none";
         window.location.reload();
       }, 5000);
-      return { shouldPreventNavigation: true };
+
+      return {
+        shouldPreventNavigation: true,
+      };
     } else if (response.status === 500) {
       // Show error message in the current page's error message element
+
       const currentPageElement = document.getElementById(`page${currentPage}`);
       const errorMessage = currentPageElement.querySelector(".error-message");
       if (errorMessage) {
@@ -900,18 +954,66 @@ const SavedAnswers = await response.json();
       // Disable the next button
       // const nextButton = currentPageElement.querySelector(".nav-button.next");
       // if (nextButton) {
-        // nextButton.disabled = true;
-        // nextButton.style.opacity = "0.5";
-        // nextButton.style.cursor = "not-allowed";
+      // nextButton.disabled = true;
+      // nextButton.style.opacity = "0.5";
+      // nextButton.style.cursor = "not-allowed";
       // }
-
       // Hide the message after 5 seconds
+
       setTimeout(() => {
         errorMessage.style.display = "none";
       }, 5000);
-      return { shouldPreventNavigation: true };
+
+      return {
+        shouldPreventNavigation: true,
+      };
     }
-    return { shouldPreventNavigation: false, response };
+
+    // if (response.status === 401) {
+    //   // Show error message in the current page's error message element
+    //   const currentPageElement = document.getElementById(`page${currentPage}`);
+    //   const errorMessage = currentPageElement.querySelector(".error-message");
+    //   if (errorMessage) {
+    //     errorMessage.textContent =
+    //       "Your session has expired. Please refresh the page to continue.";
+    //     errorMessage.style.display = "block";
+    //   }
+    //   // Disable the next button
+    //   const nextButton = currentPageElement.querySelector(".nav-button.next");
+    //   if (nextButton) {
+    //     nextButton.disabled = true;
+    //   }
+    //   // Hide the message after 5 seconds and reload the page
+    //   setTimeout(() => {
+    //     errorMessage.style.display = "none";
+    //     window.location.reload();
+    //   }, 5000);
+    //   return { shouldPreventNavigation: true };
+    // } else if (response.status === 500) {
+    //   // Show error message in the current page's error message element
+    //   const currentPageElement = document.getElementById(`page${currentPage}`);
+    //   const errorMessage = currentPageElement.querySelector(".error-message");
+    //   if (errorMessage) {
+    //     errorMessage.textContent = "Please try again later.";
+    //     errorMessage.style.display = "block";
+    //   }
+    //   // Disable the next button
+    //   // const nextButton = currentPageElement.querySelector(".nav-button.next");
+    //   // if (nextButton) {
+    //   // nextButton.disabled = true;
+    //   // nextButton.style.opacity = "0.5";
+    //   // nextButton.style.cursor = "not-allowed";
+    //   // }
+    //   // Hide the message after 5 seconds
+    //   setTimeout(() => {
+    //     errorMessage.style.display = "none";
+    //   }, 5000);
+    //   return { shouldPreventNavigation: true };
+    // }
+    return {
+      shouldPreventNavigation: false,
+      response,
+    };
   }
 
   async function saveAnswer(formattedAnswer) {
@@ -1179,11 +1281,11 @@ const SavedAnswers = await response.json();
             }
 
             const imageElement = document.createElement("img");
-              imageElement.src = image.src;
-              imageElement.alt = image.alt;
+            imageElement.src = image.src;
+            imageElement.alt = image.alt;
             imageElement.classList.add("comparison-image");
 
-              comparisonOption.appendChild(imageElement);
+            comparisonOption.appendChild(imageElement);
 
             imageComparisonContainer.appendChild(comparisonOption);
 
@@ -1199,7 +1301,7 @@ const SavedAnswers = await response.json();
                     opt.classList.remove("selected");
                   });
 
-                  this.classList.add("selected");
+                this.classList.add("selected");
 
                 const errorMessage =
                   questionPageContent.querySelector(".error-message");
@@ -1214,8 +1316,6 @@ const SavedAnswers = await response.json();
                     answerId: this.dataset.optionId,
                   });
                   //------
-                  
-
                 } catch (error) {
                   console.error("Error saving answer:", error);
                 }
@@ -1313,7 +1413,7 @@ const SavedAnswers = await response.json();
         questionPrevButton.classList.add("prev");
 
         questionPrevButton.onclick = () => {
-            //Barrier Page 10a Handling
+          //Barrier Page 10a Handling
 
           if (question.pageNumber === 19) {
             tenAOption = document
@@ -1364,7 +1464,6 @@ const SavedAnswers = await response.json();
                 const responseCalculateData = await calCulateResults();
                 if (responseCalculateData.success) {
                   // Remove the token cookie as the test is now complete
-                 
 
                   // Hide all pages
                   const pages = document.querySelectorAll(".page");
@@ -1372,7 +1471,7 @@ const SavedAnswers = await response.json();
                     page.style.display = "none";
                   });
                   finishPageUrl = responseCalculateData.data.redirectionLink;
-                  window.location.href  = finishPageUrl;
+                  window.location.href = finishPageUrl;
 
                   // Show finish page and update skin size
                   // const finishPage = document.getElementById("finishPage");
@@ -1385,10 +1484,9 @@ const SavedAnswers = await response.json();
                   // // Set background to white for finish page
                   // document.body.classList.remove("black-bg");
                   // document.body.classList.add("white-bg");
-                } 
+                }
               } catch (error) {
                 console.error("Error calculating results:", error);
-                
               }
             }
           };
@@ -1406,21 +1504,17 @@ const SavedAnswers = await response.json();
           saveProgressButton.textContent = "Save Progress";
           saveProgressButton.onclick = async () => {
             // Get the selected option
-            
-            const saveResult = await saveAnswer({
-                  category: "SAVE_PROGRESS",
-                  questionId: "1",
-                  answerId: "a",
-                }); 
 
-                if (!saveResult) {
-                  return;
-                }
-          saveProgressButton.textContent = "Progress Saved ";
-             
-                
-               
-                
+            const saveResult = await saveAnswer({
+              category: "SAVE_PROGRESS",
+              questionId: "1",
+              answerId: "a",
+            });
+
+            if (!saveResult) {
+              return;
+            }
+            saveProgressButton.textContent = "Progress Saved ";
           };
 
           saveProgressContainer.appendChild(saveProgressButton);
@@ -1444,18 +1538,17 @@ const SavedAnswers = await response.json();
           saveProgressButton.textContent = "Save Progress";
           saveProgressButton.onclick = async () => {
             const saveResult = await saveAnswer({
-                  category: "SAVE_PROGRESS",
-                  questionId: "1",
-                  answerId: "a",
-                }); 
-                if (!saveResult) {
-                  return;
-                }
-          saveProgressButton.textContent = "Progress Saved ";
-              
+              category: "SAVE_PROGRESS",
+              questionId: "1",
+              answerId: "a",
+            });
+            if (!saveResult) {
+              return;
+            }
+            saveProgressButton.textContent = "Progress Saved ";
           };
 
-            saveProgressContainer.appendChild(saveProgressButton);
+          saveProgressContainer.appendChild(saveProgressButton);
 
           questionNextButton.onclick = async () => {
             // Check if an option is selected
@@ -1475,7 +1568,9 @@ const SavedAnswers = await response.json();
               if (question.pageNumber === 3) {
                 // Get selected gender from page 2
                 const genderPage = document.getElementById("page2");
-                const selectedGender = genderPage.querySelector(".option-button.selected");
+                const selectedGender = genderPage.querySelector(
+                  ".option-button.selected"
+                );
                 const gender = selectedGender?.dataset.optionId;
 
                 // Get selected skin color
@@ -1483,36 +1578,48 @@ const SavedAnswers = await response.json();
 
                 // Find matching combination from the combinations array
                 const combination = imageCombinationsData.combinations.find(
-                  combo => combo.genderPage === gender && combo.skinColorPage === skinColor
+                  (combo) =>
+                    combo.genderPage === gender &&
+                    combo.skinColorPage === skinColor
                 );
 
                 if (combination) {
                   // Update images for each category
-                  const categories = ["sebum", "barrier", "melanin", "collagen"];
-                  categories.forEach(category => {
-                    const categoryQuestions = combination.questions[0][category];
+                  const categories = [
+                    "sebum",
+                    "barrier",
+                    "melanin",
+                    "collagen",
+                  ];
+                  categories.forEach((category) => {
+                    const categoryQuestions =
+                      combination.questions[0][category];
                     if (categoryQuestions) {
-                      categoryQuestions.forEach(q => {
+                      categoryQuestions.forEach((q) => {
                         // Find all image containers with matching category and question number
                         const imageContainers = document.querySelectorAll(
                           `.image-container[data-category="${category}"][data-question-number="${q.questionNumber}"]`
                         );
-                        
+
                         // Find the image comparison container
-                        const imageComparisonContainer = imageContainers[0]?.closest(".image-comparison-container");
-                        
+                        const imageComparisonContainer =
+                          imageContainers[0]?.closest(
+                            ".image-comparison-container"
+                          );
+
                         if (imageComparisonContainer) {
                           // Clear all existing images
-                          imageComparisonContainer.innerHTML = '';
+                          imageComparisonContainer.innerHTML = "";
 
                           // Add new images from imageCombinations.json
-                          q.images.forEach(image => {
+                          q.images.forEach((image) => {
                             if (image.src && image.alt) {
                               const container = document.createElement("div");
                               container.classList.add("image-container");
                               container.dataset.optionId = image.optionId || "";
                               container.dataset.category = category;
-                              container.dataset.questionNumber = q.questionNumber;
+                              container.dataset.questionNumber =
+                                q.questionNumber;
 
                               const img = document.createElement("img");
                               img.src = image.src;
@@ -1520,40 +1627,50 @@ const SavedAnswers = await response.json();
                               img.classList.add("comparison-image");
 
                               // Add selection arrow
-                              const selectionArrow = document.createElement("div");
+                              const selectionArrow =
+                                document.createElement("div");
                               selectionArrow.classList.add("selection-arrow");
                               container.appendChild(img);
                               container.appendChild(selectionArrow);
 
                               //Add click event listener
-                              container.addEventListener("click", async function () {
-                                imageComparisonContainer
-                                  .querySelectorAll(".image-container")
-                                  .forEach((opt) => {
-                                    opt.classList.remove("selected");
-                                  });
-
-                                if (image.optionId) {
-                                  this.classList.add("selected");
-                                }
-
-                                const errorMessage = this.closest(".content").querySelector(".error-message");
-                                if (errorMessage) {
-                                  errorMessage.style.display = "none";
-                                }
-
-                                if (image.optionId) {
-                                  try {
-                                    await saveAnswer({
-                                      category: category.toUpperCase(),
-                                      questionId: q.questionNumber,
-                                      answerId: this.dataset.optionId,
+                              container.addEventListener(
+                                "click",
+                                async function () {
+                                  imageComparisonContainer
+                                    .querySelectorAll(".image-container")
+                                    .forEach((opt) => {
+                                      opt.classList.remove("selected");
                                     });
-                                  } catch (error) {
-                                    console.error("Error saving answer:", error);
+
+                                  if (image.optionId) {
+                                    this.classList.add("selected");
+                                  }
+
+                                  const errorMessage =
+                                    this.closest(".content").querySelector(
+                                      ".error-message"
+                                    );
+                                  if (errorMessage) {
+                                    errorMessage.style.display = "none";
+                                  }
+
+                                  if (image.optionId) {
+                                    try {
+                                      await saveAnswer({
+                                        category: category.toUpperCase(),
+                                        questionId: q.questionNumber,
+                                        answerId: this.dataset.optionId,
+                                      });
+                                    } catch (error) {
+                                      console.error(
+                                        "Error saving answer:",
+                                        error
+                                      );
+                                    }
                                   }
                                 }
-                              });
+                              );
 
                               imageComparisonContainer.appendChild(container);
                             }
@@ -1640,8 +1757,6 @@ const SavedAnswers = await response.json();
     window.scrollTo(0, 0);
   }
 
-
-
   // if (!document.cookie.includes("user_jwt_token=")) {
   //   tokenN =
   //     "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE3NDI4MDkyODEsImV4cCI6MTc0NDAxODg4MSwidXNlcklkIjozNTIwMX0.BZVaBD8xP__1sFIeW8iNqbzD80ZfQXVl5CKqK64hsyA";
@@ -1652,42 +1767,46 @@ const SavedAnswers = await response.json();
   //   );
   // }
 
-
   let currentPage = 1;
 
   buildQuestionaire();
 
   // Add keyboard navigation
-  document.addEventListener('keydown', function(event) {
+  document.addEventListener("keydown", function (event) {
     const currentPageElement = document.getElementById(`page${currentPage}`);
     if (!currentPageElement) return;
 
-    switch(event.key) {
-      case 'ArrowLeft':
+    switch (event.key) {
+      case "ArrowLeft":
         // Navigate to previous page
-        const prevButton = currentPageElement.querySelector('.nav-button.prev');
+        const prevButton = currentPageElement.querySelector(".nav-button.prev");
         if (prevButton) {
           prevButton.click();
         }
         break;
 
-      case 'ArrowRight':
+      case "ArrowRight":
         // Navigate to next page
-        const nextButton = currentPageElement.querySelector('.nav-button.next');
+        const nextButton = currentPageElement.querySelector(".nav-button.next");
         if (nextButton) {
           nextButton.click();
         }
         break;
 
-      case 'ArrowUp':
+      case "ArrowUp":
         // Select previous option
-        const options = currentPageElement.querySelectorAll('.option-button, .image-container');
-        const selectedOption = currentPageElement.querySelector('.option-button.selected, .image-container.selected');
-        
+        const options = currentPageElement.querySelectorAll(
+          ".option-button, .image-container"
+        );
+        const selectedOption = currentPageElement.querySelector(
+          ".option-button.selected, .image-container.selected"
+        );
+
         if (options.length > 0) {
           if (selectedOption) {
             const currentIndex = Array.from(options).indexOf(selectedOption);
-            const prevIndex = (currentIndex - 1 + options.length) % options.length;
+            const prevIndex =
+              (currentIndex - 1 + options.length) % options.length;
             options[prevIndex].click();
           } else {
             options[0].click();
@@ -1695,14 +1814,19 @@ const SavedAnswers = await response.json();
         }
         break;
 
-      case 'ArrowDown':
+      case "ArrowDown":
         // Select next option
-        const allOptions = currentPageElement.querySelectorAll('.option-button, .image-container');
-        const currentlySelected = currentPageElement.querySelector('.option-button.selected, .image-container.selected');
-        
+        const allOptions = currentPageElement.querySelectorAll(
+          ".option-button, .image-container"
+        );
+        const currentlySelected = currentPageElement.querySelector(
+          ".option-button.selected, .image-container.selected"
+        );
+
         if (allOptions.length > 0) {
           if (currentlySelected) {
-            const currentIndex = Array.from(allOptions).indexOf(currentlySelected);
+            const currentIndex =
+              Array.from(allOptions).indexOf(currentlySelected);
             const nextIndex = (currentIndex + 1) % allOptions.length;
             allOptions[nextIndex].click();
           } else {
@@ -1720,38 +1844,41 @@ const SavedAnswers = await response.json();
 
     // Get saved gender and skin color answers
     const welcomeAnswers = answers["WELCOME"];
-    const genderAnswer = welcomeAnswers?.find(a => a.questionId === "1");
-    const skinColorAnswer = welcomeAnswers?.find(a => a.questionId === "2");
+    const genderAnswer = welcomeAnswers?.find((a) => a.questionId === "1");
+    const skinColorAnswer = welcomeAnswers?.find((a) => a.questionId === "2");
 
     // If both gender and skin color are saved, update images
     if (genderAnswer && skinColorAnswer) {
       // Find matching combination from the combinations array
       const combination = imageCombinationsData.combinations.find(
-        combo => combo.genderPage === genderAnswer.answerId && 
-                combo.skinColorPage === skinColorAnswer.answerId
+        (combo) =>
+          combo.genderPage === genderAnswer.answerId &&
+          combo.skinColorPage === skinColorAnswer.answerId
       );
 
       if (combination) {
         // Update images for each category
         const categories = ["sebum", "barrier", "melanin", "collagen"];
-        categories.forEach(category => {
+        categories.forEach((category) => {
           const categoryQuestions = combination.questions[0][category];
           if (categoryQuestions) {
-            categoryQuestions.forEach(q => {
+            categoryQuestions.forEach((q) => {
               // Find all image containers with matching category and question number
               const imageContainers = document.querySelectorAll(
                 `.image-container[data-category="${category}"][data-question-number="${q.questionNumber}"]`
               );
-              
+
               // Find the image comparison container
-              const imageComparisonContainer = imageContainers[0]?.closest(".image-comparison-container");
-              
+              const imageComparisonContainer = imageContainers[0]?.closest(
+                ".image-comparison-container"
+              );
+
               if (imageComparisonContainer) {
                 // Clear all existing images
-                imageComparisonContainer.innerHTML = '';
+                imageComparisonContainer.innerHTML = "";
 
                 // Add new images from imageCombinations.json
-                q.images.forEach(image => {
+                q.images.forEach((image) => {
                   if (image.src && image.alt) {
                     const container = document.createElement("div");
                     container.classList.add("image-container");
@@ -1773,8 +1900,9 @@ const SavedAnswers = await response.json();
                     // Check for saved answer and mark as selected if found
                     if (answers[category.toUpperCase()]) {
                       const savedAnswer = answers[category.toUpperCase()].find(
-                        answer => answer.questionId === q.questionNumber && 
-                                 answer.answerId === image.optionId
+                        (answer) =>
+                          answer.questionId === q.questionNumber &&
+                          answer.answerId === image.optionId
                       );
                       if (savedAnswer && image.optionId) {
                         container.classList.add("selected");
@@ -1791,7 +1919,10 @@ const SavedAnswers = await response.json();
                         this.classList.add("selected");
                       }
 
-                      const errorMessage = this.closest(".content").querySelector(".error-message");
+                      const errorMessage =
+                        this.closest(".content").querySelector(
+                          ".error-message"
+                        );
                       if (errorMessage) {
                         errorMessage.style.display = "none";
                       }
@@ -1882,8 +2013,7 @@ const SavedAnswers = await response.json();
             } else {
               currentPage = question.pageNumber + 1;
             }
-          }      
-          else {
+          } else {
             currentPage = question.pageNumber + 1;
           }
         }
@@ -1892,6 +2022,4 @@ const SavedAnswers = await response.json();
   }
 
   showPage(currentPage);
-
-  
 </script>
