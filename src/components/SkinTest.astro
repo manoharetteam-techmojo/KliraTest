@@ -886,7 +886,7 @@ const SavedAnswers = await response.json();
       const currentPageElement = document.getElementById(`page${currentPage}`);
       const errorMessage = currentPageElement.querySelector(".error-message");
       if (errorMessage) {
-        errorMessage.textContent = "An internal server error occurred. Please try again later.";
+        errorMessage.textContent = "Please try again later.";
         errorMessage.style.display = "block";
         // Hide the message after 5 seconds
         setTimeout(() => {
@@ -1198,7 +1198,7 @@ const SavedAnswers = await response.json();
                     answerId: this.dataset.optionId,
                   });
                   //------
-
+                  
 
                 } catch (error) {
                   console.error("Error saving answer:", error);
@@ -1393,26 +1393,21 @@ const SavedAnswers = await response.json();
           saveProgressButton.textContent = "Save Progress";
           saveProgressButton.onclick = async () => {
             // Get the selected option
-            const selectedOption =
-              questionPage.querySelector(".option-button.selected") ||
-              questionPage.querySelector(".image-container.selected");
+            
+            const saveResult = await saveAnswer({
+                  category: "SAVE_PROGRESS",
+                  questionId: "1",
+                  answerId: "a",
+                }); 
 
-            if (selectedOption) {
-              try {
-                await saveAnswer({
-                  category: category.title,
-                  questionId: question.number,
-                  answerId: selectedOption.dataset.optionId,
-                });
-
-                saveProgressButton.textContent = "Progress Saved ";
-              } catch (error) {
-                console.error("Error saving progress:", error);
-                alert("Failed to save progress. Please try again.");
-              }
-            } else {
-              saveProgressButton.textContent = "Progress Saved ";
-            }
+                if (!saveResult) {
+                  return;
+                }
+          saveProgressButton.textContent = "Progress Saved ";
+             
+                
+               
+                
           };
 
           saveProgressContainer.appendChild(saveProgressButton);
@@ -1435,30 +1430,19 @@ const SavedAnswers = await response.json();
           saveProgressButton.classList.add("save-progress-button");
           saveProgressButton.textContent = "Save Progress";
           saveProgressButton.onclick = async () => {
-            // Get the selected option
-            const selectedOption =
-              questionPage.querySelector(".option-button.selected") ||
-              questionPage.querySelector(".image-container.selected");
-
-            if (selectedOption) {
-              try {
-                await saveAnswer({
-                  category: category.title,
-                  questionId: question.number,
-                  answerId: selectedOption.dataset.optionId,
-                });
-
-                saveProgressButton.textContent = "Progress Saved ";
-              } catch (error) {
-                console.error("Error saving progress:", error);
-                alert("Failed to save progress. Please try again.");
-              }
-            } else {
-              saveProgressButton.textContent = "Progress Saved ";
-            }
+            const saveResult = await saveAnswer({
+                  category: "SAVE_PROGRESS",
+                  questionId: "1",
+                  answerId: "a",
+                }); 
+                if (!saveResult) {
+                  return;
+                }
+          saveProgressButton.textContent = "Progress Saved ";
+              
           };
 
-          saveProgressContainer.appendChild(saveProgressButton);
+            saveProgressContainer.appendChild(saveProgressButton);
 
           questionNextButton.onclick = async () => {
             // Check if an option is selected
@@ -1644,12 +1628,6 @@ const SavedAnswers = await response.json();
   }
 
 
-  function getConnection() {
-        fetch("https://stg-api.klira.skin/api/v1/skin-test/get-connection")
-                .then(response => response.text())
-                .then(data => console.log("API Response:", data))
-                .catch(error => console.error("Error:", error));
-  }
 
   // if (!document.cookie.includes("user_jwt_token=")) {
   //   tokenN =
@@ -1661,7 +1639,6 @@ const SavedAnswers = await response.json();
   //   );
   // }
 
-  getConnection();
 
   let currentPage = 1;
 
