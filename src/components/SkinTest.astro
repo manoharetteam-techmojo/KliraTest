@@ -914,7 +914,7 @@ const SavedAnswers = await response.json();
 
   async function handleApiResponse(response) {
     if (response.status >= 200 && response.status <= 300) {
-      console.log("response ok", reponse.status);
+      console.log("response ok", response.status);
       // return;
     } else if (response.status === 401) {
       // Show error message in the current page's error message element
