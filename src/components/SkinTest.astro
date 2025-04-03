@@ -1048,9 +1048,9 @@ const SavedAnswers = await response.json();
       }
       // Hide the message after 5 seconds and reload the page
 
-      setTimeout(() => {
-        errorMessage.style.display = "none";
-      }, 5000);
+      // setTimeout(() => {
+      //   errorMessage.style.display = "none";
+      // }, 5000);
 
       return {
         shouldPreventNavigation: true,
@@ -1634,31 +1634,31 @@ const SavedAnswers = await response.json();
           navigationWithSave.classList.add("navigation-with-save");
 
           // Add Save Progress button to the last page
-          const saveProgressContainer = document.createElement("div");
-          saveProgressContainer.classList.add("save-progress-container");
+          // const saveProgressContainer = document.createElement("div");
+          // saveProgressContainer.classList.add("save-progress-container");
 
-          const saveProgressButton = document.createElement("button");
-          saveProgressButton.classList.add("save-progress-button");
-          saveProgressButton.textContent = "Save Progress";
-          saveProgressButton.onclick = async () => {
-            // Get the selected option
+          // const saveProgressButton = document.createElement("button");
+          // saveProgressButton.classList.add("save-progress-button");
+          // saveProgressButton.textContent = "Save Progress";
+          // saveProgressButton.onclick = async () => {
+          //   // Get the selected option
 
-            const saveResult = await saveAnswer({
-              category: "SAVE_PROGRESS",
-              questionId: "1",
-              answerId: "a",
-            });
-            if (saveResult?.status === 200) {
-              window.top.location.href =
-                "https://stg.klira.skin/online-test/saved/";
-              console.log("saveResult", saveResult.status);
-            }
-          };
+          //   const saveResult = await saveAnswer({
+          //     category: "SAVE_PROGRESS",
+          //     questionId: "1",
+          //     answerId: "a",
+          //   });
+          //   if (saveResult?.status === 200) {
+          //     window.top.location.href =
+          //       "https://stg.klira.skin/online-test/saved/";
+          //     console.log("saveResult", saveResult.status);
+          //   }
+          // };
 
-          saveProgressContainer.appendChild(saveProgressButton);
+          // saveProgressContainer.appendChild(saveProgressButton);
 
           navigationWithSave.appendChild(questionPrevButton);
-          navigationWithSave.appendChild(saveProgressContainer);
+          // navigationWithSave.appendChild(saveProgressContainer);
           navigationWithSave.appendChild(calculateResultsButton);
 
           questionNavigation.appendChild(navigationWithSave);
