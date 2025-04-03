@@ -239,7 +239,7 @@ const SavedAnswers = await response.json();
   }
 
   .option-button {
-    padding: 12px 30px; /* Slightly smaller padding for mobile */
+    padding: 12px 35px; /* Slightly smaller padding for mobile */
     background-color: #f0f0f0;
     border: none;
     color: #000;
@@ -873,6 +873,7 @@ const SavedAnswers = await response.json();
   }
   .option-button span {
     display: block;
+    font-family: "Inter", sans-serif;
   }
   .option-btn-check-icon {
     position: absolute;
@@ -881,6 +882,74 @@ const SavedAnswers = await response.json();
     transform: translate(-50%, -50%);
     object-fit: contain;
     display: none;
+  }
+
+  @media (max-width: 576px) {
+    ..option-button{
+      padding: 12px 35px;
+    }
+    .image-comparison-container {
+      display: grid;
+      justify-items: center;
+    }
+
+    .image-comparison-container:has(.image-container:nth-child(1)) {
+      grid-template-columns: 1fr;
+    }
+    /* .image-comparison-container:has(.image-container:nth-child(1))
+      .image-container {
+      height: 120px;
+      width: 120px;
+      height: 95px;
+      width: 95px;
+    } */
+    .image-comparison-container:has(.image-container:nth-child(2)) {
+      grid-template-columns: 1fr 1fr;
+      width: auto;
+    }
+    /* .image-comparison-container:has(.image-container:nth-child(2))
+      .image-container {
+      height: 120px;
+      width: 120px;
+      height: 95px;
+      width: 95px;
+    } */
+    .image-comparison-container:has(.image-container:nth-child(3)) {
+      grid-template-columns: 1fr 1fr 1fr;
+      width: auto;
+    }
+    /* .image-comparison-container:has(.image-container:nth-child(3))
+      .image-container {
+      height: 120px;
+      width: 120px;
+      height: 95px;
+      width: 95px;
+    } */
+    .image-comparison-container:has(.image-container:nth-child(4)) {
+      grid-template-columns: 1fr 1fr;
+      width: auto;
+    }
+
+     /* .image-comparison-container:has(.image-container:nth-child(4))
+      .image-container {
+      height: 100px;
+      width: 100px;
+      height: 95px;
+      width: 95px;
+    }   */
+    .image-comparison-container:has(.image-container:nth-child(6)) {
+      grid-template-columns: 1fr 1fr 1fr;
+      width: auto;
+    }
+    /* .image-comparison-container:has(.image-container:nth-child(6))
+      .image-container {
+      height: 95px;
+      width: 95px;
+    } */
+
+    .category-tab {
+      font-size: 14px;
+    }
   }
 </style>
 
@@ -1560,9 +1629,10 @@ const SavedAnswers = await response.json();
               questionId: "1",
               answerId: "a",
             });
-            if(saveResult?.status === 200){
-               window.top.location.href =  "https://stg.klira.skin/online-test/saved/";
-               console.log("saveResult", saveResult.status);
+            if (saveResult?.status === 200) {
+              window.top.location.href =
+                "https://stg.klira.skin/online-test/saved/";
+              console.log("saveResult", saveResult.status);
             }
           };
 
@@ -1591,10 +1661,11 @@ const SavedAnswers = await response.json();
               questionId: "1",
               answerId: "a",
             });
-            if(saveResult?.status === 200){
-              window.top.location.href =  "https://stg.klira.skin/online-test/saved/";
+            if (saveResult?.status === 200) {
+              window.top.location.href =
+                "https://stg.klira.skin/online-test/saved/";
               console.log("saveResult", saveResult?.status);
-            } 
+            }
           };
 
           saveProgressContainer.appendChild(saveProgressButton);
@@ -2077,7 +2148,7 @@ const SavedAnswers = await response.json();
               currentPage = question.pageNumber + 1;
             }
           } else {
-              currentPage = question.pageNumber + 1;
+            currentPage = question.pageNumber + 1;
           }
         }
       }
