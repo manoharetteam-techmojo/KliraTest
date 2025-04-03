@@ -239,7 +239,7 @@ const SavedAnswers = await response.json();
   }
 
   .option-button {
-    padding: 12px; /* Slightly smaller padding for mobile */
+    padding: 12px 30px; /* Slightly smaller padding for mobile */
     background-color: #f0f0f0;
     border: none;
     color: #000;
@@ -249,6 +249,10 @@ const SavedAnswers = await response.json();
     width: 100%;
     position: relative;
     font-family: "Inter";
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
   }
 
   .option-button:hover {
@@ -271,6 +275,8 @@ const SavedAnswers = await response.json();
     height: 18px;
     background-color: white;
     border-radius: 50%;
+
+    display: none;
   }
 
   .option-button.selected::before {
@@ -284,6 +290,8 @@ const SavedAnswers = await response.json();
     border-right: 2px solid black;
     border-bottom: 2px solid black;
     z-index: 1;
+
+    display: none;
   }
 
   .option-button:hover {
@@ -859,6 +867,21 @@ const SavedAnswers = await response.json();
     object-fit: contain;
     display: block;
   }
+
+  .option-button.selected .option-btn-check-icon {
+    display: block;
+  }
+  .option-button span {
+    display: block;
+  }
+  .option-btn-check-icon {
+    position: absolute;
+    top: 50%;
+    right: 10px;
+    transform: translate(-50%, -50%);
+    object-fit: contain;
+    display: none;
+  }
 </style>
 
 <script define:vars={{ skinTestData, SavedAnswers, imageCombinationsData }}>
@@ -1345,9 +1368,14 @@ const SavedAnswers = await response.json();
 
           question.options.forEach((option) => {
             const optionButton = document.createElement("button");
+            const optionButtonSpan = document.createElement("span");
+            const optionButtonCheckSvg = document.createElement("img");
+            optionButtonCheckSvg.classList.add("option-btn-check-icon");
+            optionButtonCheckSvg.src = "/assets/check-icon.svg";
+
             optionButton.classList.add("option-button");
 
-            optionButton.textContent = option.text;
+            optionButtonSpan.textContent = option.text;
             optionButton.dataset.optionId = option?.optionId;
 
             // Check for saved answer and mark as selected if found
@@ -1365,6 +1393,8 @@ const SavedAnswers = await response.json();
             }
 
             questionOptions.appendChild(optionButton);
+            optionButton.appendChild(optionButtonSpan);
+            optionButton.appendChild(optionButtonCheckSvg);
 
             optionButton.addEventListener("click", async function () {
               const parentOptions = this.closest(".options");
@@ -1776,27 +1806,29 @@ const SavedAnswers = await response.json();
 
   // Add keyboard navigation
   document.addEventListener("keydown", function (event) {
-    if(successNextPage){
+    if (successNextPage) {
       const currentPageElement = document.getElementById(`page${currentPage}`);
       if (!currentPageElement) return;
-  
+
       switch (event.key) {
         case "ArrowLeft":
           // Navigate to previous page
-          const prevButton = currentPageElement.querySelector(".nav-button.prev");
+          const prevButton =
+            currentPageElement.querySelector(".nav-button.prev");
           if (prevButton) {
             prevButton.click();
           }
           break;
-  
+
         case "ArrowRight":
           // Navigate to next page
-          const nextButton = currentPageElement.querySelector(".nav-button.next");
+          const nextButton =
+            currentPageElement.querySelector(".nav-button.next");
           if (nextButton) {
             nextButton.click();
           }
           break;
-  
+
         case "ArrowUp":
           // Select previous option
           const options = currentPageElement.querySelectorAll(
@@ -1805,7 +1837,7 @@ const SavedAnswers = await response.json();
           const selectedOption = currentPageElement.querySelector(
             ".option-button.selected, .image-container.selected"
           );
-  
+
           if (options.length > 0) {
             if (selectedOption) {
               const currentIndex = Array.from(options).indexOf(selectedOption);
@@ -1817,7 +1849,7 @@ const SavedAnswers = await response.json();
             }
           }
           break;
-  
+
         case "ArrowDown":
           // Select next option
           const allOptions = currentPageElement.querySelectorAll(
@@ -1826,7 +1858,7 @@ const SavedAnswers = await response.json();
           const currentlySelected = currentPageElement.querySelector(
             ".option-button.selected, .image-container.selected"
           );
-  
+
           if (allOptions.length > 0) {
             if (currentlySelected) {
               const currentIndex =
