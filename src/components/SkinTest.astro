@@ -912,12 +912,15 @@ const SavedAnswers = await response.json();
   //   return { shouldPreventNavigation: false, response };
   // }
 
+  let successNextPage = false;
   async function handleApiResponse(response) {
     if (response.status >= 200 && response.status <= 300) {
       console.log("response ok", response.status);
+      successNextPage = true;
       // return;
     } else if (response.status === 401) {
       // Show error message in the current page's error message element
+      successNextPage = false;
       const currentPageElement = document.getElementById(`page${currentPage}`);
       const errorMessage = currentPageElement.querySelector(".error-message");
       if (errorMessage) {
@@ -943,7 +946,7 @@ const SavedAnswers = await response.json();
       };
     } else if (response.status === 500) {
       // Show error message in the current page's error message element
-
+      successNextPage = false;
       const currentPageElement = document.getElementById(`page${currentPage}`);
       const errorMessage = currentPageElement.querySelector(".error-message");
       if (errorMessage) {
@@ -1773,67 +1776,69 @@ const SavedAnswers = await response.json();
 
   // Add keyboard navigation
   document.addEventListener("keydown", function (event) {
-    const currentPageElement = document.getElementById(`page${currentPage}`);
-    if (!currentPageElement) return;
-
-    switch (event.key) {
-      case "ArrowLeft":
-        // Navigate to previous page
-        const prevButton = currentPageElement.querySelector(".nav-button.prev");
-        if (prevButton) {
-          prevButton.click();
-        }
-        break;
-
-      case "ArrowRight":
-        // Navigate to next page
-        const nextButton = currentPageElement.querySelector(".nav-button.next");
-        if (nextButton) {
-          nextButton.click();
-        }
-        break;
-
-      case "ArrowUp":
-        // Select previous option
-        const options = currentPageElement.querySelectorAll(
-          ".option-button, .image-container"
-        );
-        const selectedOption = currentPageElement.querySelector(
-          ".option-button.selected, .image-container.selected"
-        );
-
-        if (options.length > 0) {
-          if (selectedOption) {
-            const currentIndex = Array.from(options).indexOf(selectedOption);
-            const prevIndex =
-              (currentIndex - 1 + options.length) % options.length;
-            options[prevIndex].click();
-          } else {
-            options[0].click();
+    if(successNextPage){
+      const currentPageElement = document.getElementById(`page${currentPage}`);
+      if (!currentPageElement) return;
+  
+      switch (event.key) {
+        case "ArrowLeft":
+          // Navigate to previous page
+          const prevButton = currentPageElement.querySelector(".nav-button.prev");
+          if (prevButton) {
+            prevButton.click();
           }
-        }
-        break;
-
-      case "ArrowDown":
-        // Select next option
-        const allOptions = currentPageElement.querySelectorAll(
-          ".option-button, .image-container"
-        );
-        const currentlySelected = currentPageElement.querySelector(
-          ".option-button.selected, .image-container.selected"
-        );
-
-        if (allOptions.length > 0) {
-          if (currentlySelected) {
-            const currentIndex =
-              Array.from(allOptions).indexOf(currentlySelected);
-            const nextIndex = (currentIndex + 1) % allOptions.length;
-            allOptions[nextIndex].click();
-          } else {
-            allOptions[0].click();
+          break;
+  
+        case "ArrowRight":
+          // Navigate to next page
+          const nextButton = currentPageElement.querySelector(".nav-button.next");
+          if (nextButton) {
+            nextButton.click();
           }
-        }
-        break;
+          break;
+  
+        case "ArrowUp":
+          // Select previous option
+          const options = currentPageElement.querySelectorAll(
+            ".option-button, .image-container"
+          );
+          const selectedOption = currentPageElement.querySelector(
+            ".option-button.selected, .image-container.selected"
+          );
+  
+          if (options.length > 0) {
+            if (selectedOption) {
+              const currentIndex = Array.from(options).indexOf(selectedOption);
+              const prevIndex =
+                (currentIndex - 1 + options.length) % options.length;
+              options[prevIndex].click();
+            } else {
+              options[0].click();
+            }
+          }
+          break;
+  
+        case "ArrowDown":
+          // Select next option
+          const allOptions = currentPageElement.querySelectorAll(
+            ".option-button, .image-container"
+          );
+          const currentlySelected = currentPageElement.querySelector(
+            ".option-button.selected, .image-container.selected"
+          );
+  
+          if (allOptions.length > 0) {
+            if (currentlySelected) {
+              const currentIndex =
+                Array.from(allOptions).indexOf(currentlySelected);
+              const nextIndex = (currentIndex + 1) % allOptions.length;
+              allOptions[nextIndex].click();
+            } else {
+              allOptions[0].click();
+            }
+          }
+          break;
+      }
     }
   });
 
