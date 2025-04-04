@@ -1027,17 +1027,27 @@ const SavedAnswers = await response.json();
   let successNextPage = false;
   async function handleApiResponse(response) {
     if (response.status >= 200 && response.status <= 300) {
-      console.log("response ok", response.status);
+      const currentPageElement = document.getElementById(`page${currentPage}`);
+      const nextButton = currentPageElement.querySelector(".nav-button.next");
+      if (nextButton) {
+        nextButton.disabled = false;
+      }
       successNextPage = true;
       // return;
-    } else if (response.status === 401) {
+    } else if (response.status === 401 || response.status === 400) {
       // Show error message in the current page's error message element
       successNextPage = false;
       const currentPageElement = document.getElementById(`page${currentPage}`);
       const errorMessage = currentPageElement.querySelector(".error-message");
-      if (errorMessage) {
+
+      if (errorMessage && response.status === 401) {
         errorMessage.textContent =
           "Your session has expired. Please refresh the page to continue.";
+        errorMessage.style.display = "block";
+      }
+      else if (errorMessage && response.status === 400) {
+        errorMessage.textContent =
+          "Please refresh the page to continue.";
         errorMessage.style.display = "block";
       }
 
@@ -1066,12 +1076,12 @@ const SavedAnswers = await response.json();
       }
 
       // Disable the next button
-      // const nextButton = currentPageElement.querySelector(".nav-button.next");
-      // if (nextButton) {
-      // nextButton.disabled = true;
+      const nextButton = currentPageElement.querySelector(".nav-button.next");
+      if (nextButton) {
+      nextButton.disabled = true;
       // nextButton.style.opacity = "0.5";
       // nextButton.style.cursor = "not-allowed";
-      // }
+      }
       // Hide the message after 5 seconds
 
       setTimeout(() => {
@@ -1149,7 +1159,17 @@ const SavedAnswers = await response.json();
       console.log(responseData);
       return responseData;
     } catch (error) {
-      console.error("Error saving answer:", error);
+      successNextPage = false;
+      const currentPageElement = document.getElementById(`page${currentPage}`);
+      const errorMessage = currentPageElement.querySelector(".error-message");
+      if (errorMessage) {
+        errorMessage.textContent = "Please refresh the page to continue.";
+        errorMessage.style.display = "block";
+      }
+      const nextButton = currentPageElement.querySelector(".nav-button.next");
+      if (nextButton) {
+        nextButton.disabled = true;
+      }
     }
   }
 
@@ -1873,6 +1893,7 @@ const SavedAnswers = await response.json();
                 showPage(question.pageNumber + 1);
               }
             }
+            window.scrollTo(0, 0);
           };
           questionNextButton.innerHTML =
             '<img src="/assets/white-rightarrow.png" alt="Next" class="arrow-img">';
