@@ -1691,16 +1691,16 @@ const SavedAnswers = await response.json();
           }
 
           saveProgressButton.onclick = async () => {
-            const saveResult = await saveAnswer({
-              category: "SAVE_PROGRESS",
-              questionId: "1",
-              answerId: "a",
-            });
-            if (saveResult?.status === 200) {
+            // const saveResult = await saveAnswer({
+            //   category: "SAVE_PROGRESS",
+            //   questionId: "1",
+            //   answerId: "a",
+            // });
+            // if (saveResult?.status === 200) {
               window.top.location.href =
                 "https://stg.klira.skin/online-test/saved/";
-              console.log("saveResult", saveResult?.status);
-            }
+            //   console.log("saveResult", saveResult?.status);
+            // }
           };
 
           saveProgressContainer.appendChild(saveProgressButton);
@@ -2190,7 +2190,12 @@ const SavedAnswers = await response.json();
               currentPage = question.pageNumber + 1;
             }
           } else {
-            currentPage = question.pageNumber + 1;
+            if(question.pageNumber === 59){
+              currentPage = 59;
+            }
+            else{
+              currentPage = question.pageNumber + 1;
+            }
           }
         }
       }
