@@ -30,32 +30,32 @@
           "images": [
             {
              "src": "./assets/1.png",
-          "alt": "Image 1",
+          "alt": "Type 1",
           "optionId": "a"
             },
             {
                 "src": "./assets/2.png",
-          "alt": "Image 2",
+          "alt": "Type 2",
               "optionId": "b"
             },
             {
               "src": "./assets/3.png",
-          "alt": "Image 3",
+          "alt": "Type 3",
               "optionId": "c"
             },
             {
               "src": "./assets/4.png",
-          "alt": "Image 3",
+          "alt": "Type 4",
               "optionId": "d"
             },
             {
              "src": "./assets/5.png",
-          "alt": "Image 5",
+          "alt": "Type 5",
               "optionId": "e"
             },
             {
              "src": "./assets/6.png",
-          "alt": "Image 6",
+          "alt": "Type 6",
               "optionId": "f"
             }
           ],
@@ -681,22 +681,22 @@
           "images": [
             {
               "src": "/assets/q21-none.png",
-              "alt": "age1",
+              "alt": "None",
               "optionId": "a"
             },
             {
               "src": "/assets/q21-few.png",
-              "alt": "age4",
+              "alt": "Few",
               "optionId": "b"
             },
             {
               "src": "/assets/q21-sometimes.png",
-              "alt": "age1",
+              "alt": "Sometimes",
               "optionId": "c"
             },
             {
               "src": "/assets/q21-many.png",
-              "alt": "age4",
+              "alt": "Many",
               "optionId": "d"
             }
           ],

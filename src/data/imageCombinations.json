@@ -10,12 +10,10 @@
               "questionNumber": "7",
               "images": [
                 {
-                  "src": "/assets/Q7_All_Unisex_Whiteheads.jpg",
-                  "alt": "Male Fair Skin Option A"
+                  "src": "/assets/Q7_All_Unisex_Whiteheads.jpg"
                 },
                 {
-                  "src": "/assets/Q7_Light_Unisex_Blackheads.jpg",
-                  "alt": "Male Fair Skin Option B"
+                  "src": "/assets/Q7_Light_Unisex_Blackheads.jpg"
                 }
               ]
             },
@@ -24,12 +22,12 @@
               "images": [
                 {
                   "src": "/assets/Q10a_Light_Unisex_Acne.jpg",
-                  "alt": "Male Fair Skin Option A",
+                  "alt": "Acne",
                   "optionId": "a"
                 },
                 {
                   "src": "/assets/Q10a_Light_Male_Seb-Derm.jpg",
-                  "alt": "Male Fair Skin Option B",
+                  "alt": "Seb-Derm",
                   "optionId": "b"
                 }
               ]
@@ -41,12 +39,12 @@
               "images": [
                 {
                   "src": "/assets/Q10b_Light_Male_Rosacea.jpg",
-                  "alt": "Male Fair Skin Option A",
+                  "alt": "Rosacea",
                   "optionId": "a"
                 },
                 {
                   "src": "assets/Q10b_Light_Male_Perioral-Derm.jpg",
-                  "alt": "Male Fair Skin Option B",
+                  "alt": "Perioral",
                   "optionId": "b"
                 }
               ]
@@ -57,8 +55,7 @@
               "questionNumber": "1",
               "images": [
                 {
-                  "src": "/assets/Q24_Light_Female_Post-Inflam-Pigmentation-at-corner.png",
-                  "alt": "Male Fair Skin Reference"
+                  "src": "/assets/Q24_Light_Female_Post-Inflam-Pigmentation-at-corner.png"
                 }
               ]
             },
@@ -66,12 +63,10 @@
               "questionNumber": "4",
               "images": [
                 {
-                  "src": "/assets/Q27_Light_Female_Melasma2.jpg",
-                  "alt": "Male Fair Skin Reference 1"
+                  "src": "/assets/Q27_Light_Female_Melasma2.jpg"
                 },
                 {
-                  "src": "/assets/Q27_Light_Female_Melasma.jpg",
-                  "alt": "Male Fair Skin Reference 1"
+                  "src": "/assets/Q27_Light_Female_Melasma.jpg"
                 }
               ]
             }
@@ -82,22 +77,22 @@
               "images": [
                 {
                   "src": "/assets/Q35_Light_Female_Ageing-1.png",
-                  "alt": "Male Fair Skin Option A",
+                  "alt": "No,-not-even-with-movement",
                   "optionId": "a"
                 },
                 {
                   "src": "/assets/Q35_Light_Female_Ageing-2.png",
-                  "alt": "Male Fair Skin Option B",
+                  "alt": "Only when I move my face, smiling and frowning",
                   "optionId": "b"
                 },
                 {
                   "src": "/assets/Q35_Light_Female_Ageing-3.png",
-                  "alt": "Male Fair Skin Option C",
+                  "alt": "Yes, with movement and a few at rest",
                   "optionId": "c"
                 },
                 {
                   "src": "/assets/Q35_Light_Female_Ageing-4.png",
-                  "alt": "Male Fair Skin Option D",
+                  "alt": "Yes, wrinkles are present without movement",
                   "optionId": "d"
                 }
               ]
@@ -116,12 +111,10 @@
               "questionNumber": "7",
               "images": [
                 {
-                  "src": "/assets/Q7_All_Unisex_Whiteheads.jpg",
-                  "alt": "Male Fair Skin Option A"
+                  "src": "/assets/Q7_All_Unisex_Whiteheads.jpg"
                 },
                 {
-                  "src": "/assets/Q7_Light_Unisex_Blackheads.jpg",
-                  "alt": "Male Fair Skin Option B"
+                  "src": "/assets/Q7_Light_Unisex_Blackheads.jpg"
                 }
               ]
             },
@@ -130,12 +123,12 @@
               "images": [
                 {
                   "src": "/assets/Q10a_Light_Unisex_Acne.jpg",
-                  "alt": "Male Fair Skin Option A",
+                  "alt": "Acne",
                   "optionId": "a"
                 },
                 {
                   "src": "/assets/Q10a_Light_Male_Seb-Derm.jpg",
-                  "alt": "Male Fair Skin Option B",
+                  "alt": "Seb-Derm",
                   "optionId": "b"
                 }
               ]
@@ -146,14 +139,14 @@
               "questionNumber": "1a",
               "images": [
                 {
-                  "src": "/assets/Q10b_Light_Male_Perioral-Derm.jpg",
-                  "alt": "Male Fair Skin Option A",
-                  "optionId": "a"
+                  "src": "/assets/Q10b_Light_Male_Rosacea.jpg",
+                  "alt": "Rosacea",
+                  "optionId": "b"
                 },
                 {
-                  "src": "/assets/Q10b_Light_Male_Rosacea.jpg",
-                  "alt": "Male Fair Skin Option B",
-                  "optionId": "b"
+                  "src": "/assets/Q10b_Light_Male_Perioral-Derm.jpg",
+                  "alt": "Perioral",
+                  "optionId": "a"
                 }
               ]
             }
@@ -163,8 +156,7 @@
               "questionNumber": "1",
               "images": [
                 {
-                  "src": "/assets/Q24_Light_Female_Post-Inflam-Pigmentation-at-corner.png",
-                  "alt": "Male Fair Skin Reference"
+                  "src": "/assets/Q24_Light_Female_Post-Inflam-Pigmentation-at-corner.png"
                 }
               ]
             },
@@ -172,12 +164,10 @@
               "questionNumber": "4",
               "images": [
                 {
-                  "src": "/assets/Q27_Light_Female_Melasma2.jpg",
-                  "alt": "Male Fair Skin Reference 1"
+                  "src": "/assets/Q27_Light_Female_Melasma2.jpg"
                 },
                 {
-                  "src": "/assets/Q27_Light_Female_Melasma.jpg",
-                  "alt": "Male Fair Skin Reference 1"
+                  "src": "/assets/Q27_Light_Female_Melasma.jpg"
                 }
               ]
             }
@@ -188,22 +178,22 @@
               "images": [
                 {
                   "src": "/assets/Q35_Light_Female_Ageing-1.png",
-                  "alt": "Male Fair Skin Option A",
+                  "alt": "No, not even with movement",
                   "optionId": "a"
                 },
                 {
                   "src": "/assets/Q35_Light_Female_Ageing-2.png",
-                  "alt": "Male Fair Skin Option B",
+                  "alt": "Only when I move my face, smiling and frowning",
                   "optionId": "b"
                 },
                 {
                   "src": "/assets/Q35_Light_Female_Ageing-3.png",
-                  "alt": "Male Fair Skin Option C",
+                  "alt": "Yes, with movement and a few at rest",
                   "optionId": "c"
                 },
                 {
                   "src": "/assets/Q35_Light_Female_Ageing-4.png",
-                  "alt": "Male Fair Skin Option D",
+                  "alt": "Yes, wrinkles are present without movement",
                   "optionId": "d"
                 }
               ]
@@ -222,12 +212,10 @@
               "questionNumber": "7",
               "images": [
                 {
-                  "src": "/assets/Q7_All_Unisex_Whiteheads.jpg",
-                  "alt": "Male Fair Skin Option A"
+                  "src": "/assets/Q7_All_Unisex_Whiteheads.jpg"
                 },
                 {
-                  "src": "/assets/Q7_Light_Unisex_Blackheads.jpg",
-                  "alt": "Male Fair Skin Option B"
+                  "src": "/assets/Q7_Light_Unisex_Blackheads.jpg"
                 }
               ]
             },
@@ -236,12 +224,12 @@
               "images": [
                 {
                   "src": "/assets/Q10a_Medium_Female_Acne1.jpg",
-                  "alt": "Male Fair Skin Option A",
+                  "alt": "Acne",
                   "optionId": "a"
                 },
                 {
                   "src": "/assets/Q10a_Medium_Unisex_SebDerm.jpg",
-                  "alt": "Male Fair Skin Option B",
+                  "alt": "Seb-Derm",
                   "optionId": "b"
                 }
               ]
@@ -253,12 +241,12 @@
               "images": [
                 {
                   "src": "/assets/Q10b_Medium_Unisex_Rosacea.jpg",
-                  "alt": "Male Fair Skin Option A",
+                  "alt": "Rosacea",
                   "optionId": "a"
                 },
                 {
                   "src": "/assets/Q10b_Dark_Unisex_Perioral-Derm-e1710388355603.jpg",
-                  "alt": "Male Fair Skin Option B",
+                  "alt": "Perioral",
                   "optionId": "b"
                 }
               ]
@@ -269,8 +257,7 @@
               "questionNumber": "1",
               "images": [
                 {
-                  "src": "/assets/Q24_Medium_Female_Pigmentation.jpg",
-                  "alt": "Male Fair Skin Reference"
+                  "src": "/assets/Q24_Medium_Female_Pigmentation.jpg"
                 }
               ]
             },
@@ -278,8 +265,7 @@
               "questionNumber": "4",
               "images": [
                 {
-                  "src": "/assets/Q27_Medium_Female_Melasma.jpg",
-                  "alt": "Male Fair Skin Reference 1"
+                  "src": "/assets/Q27_Medium_Female_Melasma.jpg"
                 }
               ]
             }
@@ -290,22 +276,22 @@
               "images": [
                 {
                   "src": "/assets/Q35_Medium_Male_Ageing-1.png",
-                  "alt": "Male Fair Skin Option A",
+                  "alt": "No, not even with movement",
                   "optionId": "a"
                 },
                 {
                   "src": "/assets/Q35_Medium_Male_Ageing-2.png",
-                  "alt": "Male Fair Skin Option B",
+                  "alt": "Only when I move my face, smiling and frowning",
                   "optionId": "b"
                 },
                 {
                   "src": "/assets/Q35_Medium_Male_Ageing-3.png",
-                  "alt": "Male Fair Skin Option C",
+                  "alt": "Yes, with movement and a few at rest",
                   "optionId": "c"
                 },
                 {
                   "src": "/assets/Q35_Medium_Male_Ageing-4.png",
-                  "alt": "Male Fair Skin Option D",
+                  "alt": "Yes, wrinkles are present without movement",
                   "optionId": "d"
                 }
               ]
@@ -324,12 +310,10 @@
               "questionNumber": "7",
               "images": [
                 {
-                  "src": "/assets/Q7_All_Unisex_Whiteheads.jpg",
-                  "alt": "Male Fair Skin Option A"
+                  "src": "/assets/Q7_All_Unisex_Whiteheads.jpg"
                 },
                 {
-                  "src": "/assets/Q7_Medium_Unisex_Blackheads.jpg",
-                  "alt": "Male Fair Skin Option B"
+                  "src": "/assets/Q7_Medium_Unisex_Blackheads.jpg"
                 }
               ]
             },
@@ -338,12 +322,12 @@
               "images": [
                 {
                   "src": "/assets/Q10a_Medium_Female_Acne1.jpg",
-                  "alt": "Male Fair Skin Option A",
+                  "alt": "Acne",
                   "optionId": "a"
                 },
                 {
                   "src": "/assets/Q10a_Medium_Unisex_SebDerm.jpg",
-                  "alt": "Male Fair Skin Option B",
+                  "alt": "Seb-Derm",
                   "optionId": "b"
                 }
               ]
@@ -355,7 +339,7 @@
               "images": [
                 {
                   "src": "/assets/Q10b_Medium_Unisex_Rosacea.jpg",
-                  "alt": "Male Fair Skin Option A",
+                  "alt": "Rosacea",
                   "optionId": "a"
                 },
                 {
@@ -371,8 +355,7 @@
               "questionNumber": "1",
               "images": [
                 {
-                  "src": "/assets/Q24_Medium_Female_Pigmentation.jpg",
-                  "alt": "Male Fair Skin Reference"
+                  "src": "/assets/Q24_Medium_Female_Pigmentation.jpg"
                 }
               ]
             },
@@ -380,8 +363,7 @@
               "questionNumber": "4",
               "images": [
                 {
-                  "src": "/assets/Q27_Medium_Female_Melasma.jpg",
-                  "alt": "Male Fair Skin Reference 1"
+                  "src": "/assets/Q27_Medium_Female_Melasma.jpg"
                 }
               ]
             }
@@ -392,22 +374,22 @@
               "images": [
                 {
                   "src": "/assets/Q35_Medium_Male_Ageing-1.png",
-                  "alt": "Male Fair Skin Option A",
+                  "alt": "No, not even with movement",
                   "optionId": "a"
                 },
                 {
                   "src": "/assets/Q35_Medium_Male_Ageing-2.png",
-                  "alt": "Male Fair Skin Option B",
+                  "alt": "Only when I move my face, smiling and frowning",
                   "optionId": "b"
                 },
                 {
                   "src": "/assets/Q35_Medium_Male_Ageing-3.png",
-                  "alt": "Male Fair Skin Option C",
+                  "alt": "Yes, with movement and a few at rest",
                   "optionId": "c"
                 },
                 {
                   "src": "/assets/Q35_Medium_Male_Ageing-4.png",
-                  "alt": "Male Fair Skin Option D",
+                  "alt": "Yes, wrinkles are present without movement",
                   "optionId": "d"
                 }
               ]
@@ -426,12 +408,10 @@
               "questionNumber": "7",
               "images": [
                 {
-                  "src": "/assets/Q7_All_Unisex_Whiteheads.jpg",
-                  "alt": "Male Fair Skin Option A"
+                  "src": "/assets/Q7_All_Unisex_Whiteheads.jpg" 
                 },
                 {
-                  "src": "/assets/Q7_Medium_Unisex_Blackheads.jpg",
-                  "alt": "Male Fair Skin Option B"
+                  "src": "/assets/Q7_Medium_Unisex_Blackheads.jpg"
                 }
               ]
             },
@@ -440,12 +420,12 @@
               "images": [
                 {
                   "src": "/assets/Q10a_Dark_Female_Severe-Acne2.jpg",
-                  "alt": "Male Fair Skin Option A",
+                  "alt": "Acne",
                   "optionId": "a"
                 },
                 {
                   "src": "/assets/Q10a_Medium_Unisex_SebDerm.jpg",
-                  "alt": "Male Fair Skin Option B",
+                  "alt": "Seb-Derm",
                   "optionId": "b"
                 }
               ]
@@ -457,12 +437,12 @@
               "images": [
                 {
                   "src": "/assets/Q10b_Dark_Rosacea.jpg",
-                  "alt": "Male Fair Skin Option A",
+                  "alt": "Rosacea",
                   "optionId": "a"
                 },
                 {
                   "src": "/assets/Q10b_Dark_Unisex_Perioral-Derm-e1710388355603.jpg",
-                  "alt": "Male Fair Skin Option B",
+                  "alt": "Perioral",
                   "optionId": "b"
                 }
               ]
@@ -473,8 +453,7 @@
               "questionNumber": "1",
               "images": [
                 {
-                  "src": "/assets/Q24_Dark_Unisex_Post-inflammatory-pigmentation.jpg",
-                  "alt": "Male Fair Skin Reference"
+                  "src": "/assets/Q24_Dark_Unisex_Post-inflammatory-pigmentation.jpg"
                 }
               ]
             },
@@ -482,8 +461,7 @@
               "questionNumber": "4",
               "images": [
                 {
-                  "src": "/assets/Q27_Medium_Female_Melasma.jpg",
-                  "alt": "Male Fair Skin Reference 1"
+                  "src": "/assets/Q27_Medium_Female_Melasma.jpg"
                 }
               ]
             }
@@ -494,22 +472,22 @@
               "images": [
                 {
                   "src": "/assets/Q35_Dark_Ageing_1.jpg",
-                  "alt": "Male Fair Skin Option A",
+                  "alt": "No, not even with movement",
                   "optionId": "a"
                 },
                 {
                   "src": "/assets/Q35_Dark_Ageing_2.jpg",
-                  "alt": "Male Fair Skin Option B",
+                  "alt": "Only when I move my face, smiling and frowning",
                   "optionId": "b"
                 },
                 {
                   "src": "/assets/Q35_Dark_Ageing_3.jpg",
-                  "alt": "Male Fair Skin Option C",
+                  "alt": "Yes, with movement and a few at rest",
                   "optionId": "c"
                 },
                 {
                   "src": "/assets/Q35_Dark_Ageing_4.jpg",
-                  "alt": "Male Fair Skin Option D",
+                  "alt": "Yes, wrinkles are present without movement",
                   "optionId": "d"
                 }
               ]
@@ -528,12 +506,10 @@
               "questionNumber": "7",
               "images": [
                 {
-                  "src": "/assets/Q7_All_Unisex_Whiteheads.jpg",
-                  "alt": "Male Fair Skin Option A"
+                  "src": "/assets/Q7_All_Unisex_Whiteheads.jpg"
                 },
                 {
-                  "src": "/assets/Q7_Medium_Unisex_Blackheads.jpg",
-                  "alt": "Male Fair Skin Option B"
+                  "src": "/assets/Q7_Medium_Unisex_Blackheads.jpg"
                 }
               ]
             },
@@ -542,12 +518,12 @@
               "images": [
                 {
                   "src": "/assets/Q10a_Dark_Female_Severe-Acne2.jpg",
-                  "alt": "Male Fair Skin Option A",
+                  "alt": "Acne",
                   "optionId": "a"
                 },
                 {
                   "src": "/assets/Q10a_Medium_Unisex_SebDerm.jpg",
-                  "alt": "Male Fair Skin Option B",
+                  "alt": "Seb-Derm",
                   "optionId": "b"
                 }
               ]
@@ -559,12 +535,12 @@
               "images": [
                 {
                   "src": "/assets/Q10b_Dark_Rosacea.jpg",
-                  "alt": "Male Fair Skin Option A",
+                  "alt": "Rosacea",
                   "optionId": "a"
                 },
                 {
                   "src": "/assets/Q10b_Dark_Unisex_Perioral-Derm-e1710388355603.jpg",
-                  "alt": "Male Fair Skin Option B",
+                  "alt": "Perioral",
                   "optionId": "b"
                 }
               ]
@@ -575,8 +551,7 @@
               "questionNumber": "1",
               "images": [
                 {
-                  "src": "/assets/Q24_Dark_Unisex_Post-inflammatory-pigmentation.jpg",
-                  "alt": "Male Fair Skin Reference"
+                  "src": "/assets/Q24_Dark_Unisex_Post-inflammatory-pigmentation.jpg"
                 }
               ]
             },
@@ -584,8 +559,7 @@
               "questionNumber": "4",
               "images": [
                 {
-                  "src": "/assets/Q27_Medium_Female_Melasma.jpg",
-                  "alt": "Male Fair Skin Reference 1"
+                  "src": "/assets/Q27_Medium_Female_Melasma.jpg"
                 }
               ]
             }
@@ -596,22 +570,22 @@
               "images": [
                 {
                   "src": "/assets/Q35_Dark_Ageing_1.jpg",
-                  "alt": "Male Fair Skin Option A",
+                  "alt": "No, not even with movement",
                   "optionId": "a"
                 },
                 {
                   "src": "/assets/Q35_Dark_Ageing_2.jpg",
-                  "alt": "Male Fair Skin Option B",
+                  "alt": "Only when I move my face, smiling and frowning",
                   "optionId": "b"
                 },
                 {
                   "src": "/assets/Q35_Dark_Ageing_3.jpg",
-                  "alt": "Male Fair Skin Option C",
+                  "alt": "Yes, with movement and a few at rest",
                   "optionId": "c"
                 },
                 {
                   "src": "/assets/Q35_Dark_Ageing_4.jpg",
-                  "alt": "Male Fair Skin Option D",
+                  "alt": "Yes, wrinkles are present without movement",
                   "optionId": "d"
                 }
               ]
@@ -630,12 +604,10 @@
               "questionNumber": "7",
               "images": [
                 {
-                  "src": "/assets/Q7_All_Unisex_Whiteheads.jpg",
-                  "alt": "Male Fair Skin Option A"
+                  "src": "/assets/Q7_All_Unisex_Whiteheads.jpg"
                 },
                 {
-                  "src": "/assets/Q7_Light_Unisex_Blackheads.jpg",
-                  "alt": "Male Fair Skin Option B"
+                  "src": "/assets/Q7_Light_Unisex_Blackheads.jpg"
                 }
               ]
             },
@@ -644,12 +616,12 @@
               "images": [
                 {
                   "src": "/assets/Q10a_Light_Unisex_Acne.jpg",
-                  "alt": "Male Fair Skin Option A",
+                  "alt": "Acne",
                   "optionId": "a"
                 },
                 {
                   "src": "/assets/Q10a_Light_Unisex_SebDerm.jpg",
-                  "alt": "Male Fair Skin Option B",
+                  "alt": "Seb-Derm",
                   "optionId": "b"
                 }
               ]
@@ -661,12 +633,12 @@
               "images": [
                 {
                   "src": "/assets/Q10b_Light_Female_Rosacea.jpg",
-                  "alt": "Male Fair Skin Option A",
+                  "alt": "Rosacea",
                   "optionId": "a"
                 },
                 {
                   "src": "/assets/Q10b_Light_Female_Perioral-Derm.jpg",
-                  "alt": "Male Fair Skin Option B",
+                  "alt": "Perioral",
                   "optionId": "b"
                 }
               ]
@@ -677,8 +649,7 @@
               "questionNumber": "1",
               "images": [
                 {
-                  "src": "/assets/Q24_Light_Female_Post-Inflam-Pigmentation-at-corner.png",
-                  "alt": "Male Fair Skin Reference"
+                  "src": "/assets/Q24_Light_Female_Post-Inflam-Pigmentation-at-corner.png"
                 }
               ]
             },
@@ -686,12 +657,10 @@
               "questionNumber": "4",
               "images": [
                 {
-                  "src": "/assets/Q27_Light_Female_Melasma2.jpg",
-                  "alt": "Male Fair Skin Reference 1"
+                  "src": "/assets/Q27_Light_Female_Melasma2.jpg"
                 },
                 {
-                  "src": "/assets/Q27_Light_Female_Melasma.jpg",
-                  "alt": "Male Fair Skin Reference 1"
+                  "src": "/assets/Q27_Light_Female_Melasma.jpg"
                 }
               ]
             }
@@ -702,22 +671,22 @@
               "images": [
                 {
                   "src": "/assets/Q35_Light_Female_Ageing-1.png",
-                  "alt": "Male Fair Skin Option A",
+                  "alt": "No, not even with movement",
                   "optionId": "a"
                 },
                 {
                   "src": "/assets/Q35_Light_Female_Ageing-2.png",
-                  "alt": "Male Fair Skin Option B",
+                  "alt": "Only when I move my face, smiling and frowning",
                   "optionId": "b"
                 },
                 {
                   "src": "/assets/Q35_Light_Female_Ageing-3.png",
-                  "alt": "Male Fair Skin Option C",
+                  "alt": "Yes, with movement and a few at rest",
                   "optionId": "c"
                 },
                 {
                   "src": "/assets/Q35_Light_Female_Ageing-4.png",
-                  "alt": "Male Fair Skin Option D",
+                  "alt": "Yes, wrinkles are present without movement",
                   "optionId": "d"
                 }
               ]
@@ -736,12 +705,10 @@
               "questionNumber": "7",
               "images": [
                 {
-                  "src": "/assets/Q7_All_Unisex_Whiteheads.jpg",
-                  "alt": "Male Fair Skin Option A"
+                  "src": "/assets/Q7_All_Unisex_Whiteheads.jpg"
                 },
                 {
-                  "src": "/assets/Q7_Light_Unisex_Blackheads.jpg",
-                  "alt": "Male Fair Skin Option B"
+                  "src": "/assets/Q7_Light_Unisex_Blackheads.jpg"
                 }
               ]
             },
@@ -750,12 +717,12 @@
               "images": [
                 {
                   "src": "/assets/Q10a_Light_Unisex_Acne.jpg",
-                  "alt": "Male Fair Skin Option A",
+                  "alt": "Acne",
                   "optionId": "a"
                 },
                 {
                   "src": "/assets/Q10a_Light_Unisex_SebDerm.jpg",
-                  "alt": "Male Fair Skin Option B",
+                  "alt": "Seb-Derm",
                   "optionId": "b"
                 }
               ]
@@ -767,12 +734,12 @@
               "images": [
                 {
                   "src": "/assets/Q10b_Light_Female_Rosacea.jpg",
-                  "alt": "Male Fair Skin Option A",
+                  "alt": "Rosacea",
                   "optionId": "a"
                 },
                 {
                   "src": "/assets/Q10b_Light_Female_Perioral-Derm.jpg",
-                  "alt": "Male Fair Skin Option B",
+                  "alt": "Perioral",
                   "optionId": "b"
                 }
               ]
@@ -783,8 +750,7 @@
               "questionNumber": "1",
               "images": [
                 {
-                  "src": "/assets/Q24_Light_Female_Post-Inflam-Pigmentation-at-corner.png",
-                  "alt": "Male Fair Skin Reference"
+                  "src": "/assets/Q24_Light_Female_Post-Inflam-Pigmentation-at-corner.png"
                 }
               ]
             },
@@ -792,12 +758,10 @@
               "questionNumber": "4",
               "images": [
                 {
-                  "src": "/assets/Q27_Light_Female_Melasma2.jpg",
-                  "alt": "Male Fair Skin Reference 1"
+                  "src": "/assets/Q27_Light_Female_Melasma2.jpg"
                 },
                 {
-                  "src": "/assets/Q27_Light_Female_Melasma.jpg",
-                  "alt": "Male Fair Skin Reference 1"
+                  "src": "/assets/Q27_Light_Female_Melasma.jpg"
                 }
               ]
             }
@@ -808,22 +772,22 @@
               "images": [
                 {
                   "src": "/assets/Q35_Light_Female_Ageing-1.png",
-                  "alt": "Male Fair Skin Option A",
+                  "alt": "No, not even with movement",
                   "optionId": "a"
                 },
                 {
                   "src": "/assets/Q35_Light_Female_Ageing-2.png",
-                  "alt": "Male Fair Skin Option B",
+                  "alt": "Only when I move my face, smiling and frowning",
                   "optionId": "b"
                 },
                 {
                   "src": "/assets/Q35_Light_Female_Ageing-3.png",
-                  "alt": "Male Fair Skin Option C",
+                  "alt": "Yes, with movement and a few at rest",
                   "optionId": "c"
                 },
                 {
                   "src": "/assets/Q35_Light_Female_Ageing-4.png",
-                  "alt": "Male Fair Skin Option D",
+                  "alt": "Yes, wrinkles are present without movement",
                   "optionId": "d"
                 }
               ]
@@ -842,12 +806,10 @@
               "questionNumber": "7",
               "images": [
                 {
-                  "src": "/assets/Q7_All_Unisex_Whiteheads.jpg",
-                  "alt": "Male Fair Skin Option A"
+                  "src": "/assets/Q7_All_Unisex_Whiteheads.jpg"
                 },
                 {
-                  "src": "/assets/Q7_Light_Unisex_Blackheads.jpg",
-                  "alt": "Male Fair Skin Option B"
+                  "src": "/assets/Q7_Light_Unisex_Blackheads.jpg"
                 }
               ]
             },
@@ -856,12 +818,12 @@
               "images": [
                 {
                   "src": "/assets/Q10a_Medium_Female_Acne1.jpg",
-                  "alt": "Male Fair Skin Option A",
+                  "alt": "Acne",
                   "optionId": "a"
                 },
                 {
                   "src": "/assets/Q10a_Medium_Unisex_SebDerm.jpg",
-                  "alt": "Male Fair Skin Option B",
+                  "alt": "Seb-Derm",
                   "optionId": "b"
                 }
               ]
@@ -873,12 +835,12 @@
               "images": [
                 {
                   "src": "/assets/Q10b_Medium_Unisex_Rosacea.jpg",
-                  "alt": "Male Fair Skin Option A",
+                  "alt": "Rosacea",
                   "optionId": "a"
                 },
                 {
                   "src": "/assets/Q10b_Dark_Unisex_Perioral-Derm-e1710388355603.jpg ",
-                  "alt": "Male Fair Skin Option B",
+                  "alt": "Perioral",
                   "optionId": "b"
                 }
               ]
@@ -889,8 +851,7 @@
               "questionNumber": "1",
               "images": [
                 {
-                  "src": "/assets/Q24_Medium_Female_Pigmentation.jpg",
-                  "alt": "Male Fair Skin Reference"
+                  "src": "/assets/Q24_Medium_Female_Pigmentation.jpg"
                 }
               ]
             },
@@ -898,8 +859,7 @@
               "questionNumber": "4",
               "images": [
                 {
-                  "src": "/assets/Q27_Medium_Female_Melasma.jpg",
-                  "alt": "Male Fair Skin Reference 1"
+                  "src": "/assets/Q27_Medium_Female_Melasma.jpg"
                 }
               ]
             }
@@ -910,22 +870,22 @@
               "images": [
                 {
                   "src": "/assets/Q35_Medium_Female_Ageing-1.png",
-                  "alt": "Male Fair Skin Option A",
+                  "alt": "No, not even with movement",
                   "optionId": "a"
                 },
                 {
                   "src": "/assets/Q35_Medium_Female_Ageing-2.png",
-                  "alt": "Male Fair Skin Option B",
+                  "alt": "Only when I move my face, smiling and frowning",
                   "optionId": "b"
                 },
                 {
                   "src": "/assets/Q35_Medium_Female_Ageing-3.png",
-                  "alt": "Male Fair Skin Option C",
+                  "alt": "Yes, with movement and a few at rest",
                   "optionId": "c"
                 },
                 {
                   "src": "/assets/Q35_Medium_Female_Ageing-4.png",
-                  "alt": "Male Fair Skin Option D",
+                  "alt": "Yes, wrinkles are present without movement",
                   "optionId": "d"
                 }
               ]
@@ -944,12 +904,10 @@
               "questionNumber": "7",
               "images": [
                 {
-                  "src": "/assets/Q7_All_Unisex_Whiteheads.jpg",
-                  "alt": "Male Fair Skin Option A"
+                  "src": "/assets/Q7_All_Unisex_Whiteheads.jpg"
                 },
                 {
-                  "src": "/assets/Q7_Medium_Unisex_Blackheads.jpg",
-                  "alt": "Male Fair Skin Option B"
+                  "src": "/assets/Q7_Medium_Unisex_Blackheads.jpg"
                 }
               ]
             },
@@ -958,12 +916,12 @@
               "images": [
                 {
                   "src": "/assets/Q10a_Medium_Female_Acne1.jpg",
-                  "alt": "Male Fair Skin Option A",
+                  "alt": "Acne",
                   "optionId": "a"
                 },
                 {
                   "src": "/assets/Q10a_Medium_Unisex_SebDerm.jpg",
-                  "alt": "Male Fair Skin Option B",
+                  "alt": "Seb-Derm",
                   "optionId": "b"
                 }
               ]
@@ -975,12 +933,12 @@
               "images": [
                 {
                   "src": "/assets/Q10b_Medium_Unisex_Rosacea.jpg",
-                  "alt": "Male Fair Skin Option A",
+                  "alt": "Rosacea",
                   "optionId": "a"
                 },
                 {
                   "src": "/assets/Q10b_Dark_Unisex_Perioral-Derm-e1710388355603.jpg ",
-                  "alt": "Male Fair Skin Option B",
+                  "alt": "Perioral",
                   "optionId": "b"
                 }
               ]
@@ -991,8 +949,7 @@
               "questionNumber": "1",
               "images": [
                 {
-                  "src": "/assets/Q24_Medium_Female_Pigmentation.jpg",
-                  "alt": "Male Fair Skin Reference"
+                  "src": "/assets/Q24_Medium_Female_Pigmentation.jpg"
                 }
               ]
             },
@@ -1000,8 +957,7 @@
               "questionNumber": "4",
               "images": [
                 {
-                  "src": "/assets/Q27_Medium_Female_Melasma.jpg",
-                  "alt": "Male Fair Skin Reference 1"
+                  "src": "/assets/Q27_Medium_Female_Melasma.jpg"
                 }
               ]
             }
@@ -1012,22 +968,22 @@
               "images": [
                 {
                   "src": "/assets/Q35_Medium_Female_Ageing-1.png",
-                  "alt": "Male Fair Skin Option A",
+                  "alt": "No, not even with movement",
                   "optionId": "a"
                 },
                 {
                   "src": "/assets/Q35_Medium_Female_Ageing-2.png",
-                  "alt": "Male Fair Skin Option B",
+                  "alt": "Only when I move my face, smiling and frowning",
                   "optionId": "b"
                 },
                 {
                   "src": "/assets/Q35_Medium_Female_Ageing-3.png",
-                  "alt": "Male Fair Skin Option C",
+                  "alt": "Yes, with movement and a few at rest",
                   "optionId": "c"
                 },
                 {
                   "src": "/assets/Q35_Medium_Female_Ageing-4.png",
-                  "alt": "Male Fair Skin Option D",
+                  "alt": "Yes, wrinkles are present without movement",
                   "optionId": "d"
                 }
               ]
@@ -1046,12 +1002,10 @@
               "questionNumber": "7",
               "images": [
                 {
-                  "src": "/assets/Q7_All_Unisex_Whiteheads.jpg",
-                  "alt": "Male Fair Skin Option A"
+                  "src": "/assets/Q7_All_Unisex_Whiteheads.jpg"
                 },
                 {
-                  "src": "/assets/Q7_Medium_Unisex_Blackheads.jpg",
-                  "alt": "Male Fair Skin Option B"
+                  "src": "/assets/Q7_Medium_Unisex_Blackheads.jpg"
                 }
               ]
             },
@@ -1060,12 +1014,12 @@
               "images": [
                 {
                   "src": "/assets/Q10a_Dark_Female_Severe-Acne2.jpg",
-                  "alt": "Male Fair Skin Option A",
+                  "alt": "Acne",
                   "optionId": "a"
                 },
                 {
                   "src": "/assets/Q10a_Medium_Unisex_SebDerm.jpg",
-                  "alt": "Male Fair Skin Option B",
+                  "alt": "Seb-Derm",
                   "optionId": "b"
                 }
               ]
@@ -1077,12 +1031,12 @@
               "images": [
                 {
                   "src": "/assets/Q10b_Dark_Rosacea.jpg",
-                  "alt": "Male Fair Skin Option A",
+                  "alt": "Rosacea",
                   "optionId": "a"
                 },
                 {
                   "src": "/assets/Q10b_Dark_Unisex_Perioral-Derm-e1710388355603.jpg",
-                  "alt": "Male Fair Skin Option B",
+                  "alt": "Perioral",
                   "optionId": "b"
                 }
               ]
@@ -1093,8 +1047,7 @@
               "questionNumber": "1",
               "images": [
                 {
-                  "src": "/assets/Q24_Dark_Unisex_Post-inflammatory-pigmentation.jpg",
-                  "alt": "Male Fair Skin Reference"
+                  "src": "/assets/Q24_Dark_Unisex_Post-inflammatory-pigmentation.jpg"
                 }
               ]
             },
@@ -1102,8 +1055,7 @@
               "questionNumber": "4",
               "images": [
                 {
-                  "src": "/assets/Q27_Medium_Female_Melasma.jpg",
-                  "alt": "Male Fair Skin Reference 1"
+                  "src": "/assets/Q27_Medium_Female_Melasma.jpg"
                 }
               ]
             }
@@ -1114,22 +1066,22 @@
               "images": [
                 {
                   "src": "/assets/Q35_Dark_Ageing_1.jpg",
-                  "alt": "Male Fair Skin Option A",
+                  "alt": "No, not even with movement",
                   "optionId": "a"
                 },
                 {
                   "src": "/assets/Q35_Dark_Ageing_2.jpg",
-                  "alt": "Male Fair Skin Option B",
+                  "alt": "Only when I move my face, smiling and frowning",
                   "optionId": "b"
                 },
                 {
                   "src": "/assets/Q35_Dark_Ageing_3.jpg",
-                  "alt": "Male Fair Skin Option C",
+                  "alt": "Yes, with movement and a few at rest",
                   "optionId": "c"
                 },
                 {
                   "src": "/assets/Q35_Dark_Ageing_4.jpg",
-                  "alt": "Male Fair Skin Option D",
+                  "alt": "Yes, wrinkles are present without movement",
                   "optionId": "d"
                 }
               ]
@@ -1148,12 +1100,10 @@
               "questionNumber": "7",
               "images": [
                 {
-                  "src": "/assets/Q7_All_Unisex_Whiteheads.jpg",
-                  "alt": "Male Fair Skin Option A"
+                  "src": "/assets/Q7_All_Unisex_Whiteheads.jpg"
                 },
                 {
-                  "src": "/assets/Q7_Medium_Unisex_Blackheads.jpg",
-                  "alt": "Male Fair Skin Option B"
+                  "src": "/assets/Q7_Medium_Unisex_Blackheads.jpg"
                 }
               ]
             },
@@ -1162,12 +1112,12 @@
               "images": [
                 {
                   "src": "/assets/Q10a_Dark_Female_Severe-Acne2.jpg",
-                  "alt": "Male Fair Skin Option A",
+                  "alt": "Acne",
                   "optionId": "a"
                 },
                 {
                   "src": "/assets/Q10a_Medium_Unisex_SebDerm.jpg",
-                  "alt": "Male Fair Skin Option B",
+                  "alt": "Seb-Derm",
                   "optionId": "b"
                 }
               ]
@@ -1179,12 +1129,12 @@
               "images": [
                 {
                   "src": "/assets/Q10b_Dark_Rosacea.jpg",
-                  "alt": "Male Fair Skin Option A",
+                  "alt": "Rosacea",
                   "optionId": "a"
                 },
                 {
                   "src": "/assets/Q10b_Dark_Unisex_Perioral-Derm-e1710388355603.jpg",
-                  "alt": "Male Fair Skin Option B",
+                  "alt": "Perioral",
                   "optionId": "b"
                 }
               ]
@@ -1195,8 +1145,7 @@
               "questionNumber": "1",
               "images": [
                 {
-                  "src": "/assets/Q24_Dark_Unisex_Post-inflammatory-pigmentation.jpg",
-                  "alt": "Male Fair Skin Reference"
+                  "src": "/assets/Q24_Dark_Unisex_Post-inflammatory-pigmentation.jpg"
                 }
               ]
             },
@@ -1204,8 +1153,7 @@
               "questionNumber": "4",
               "images": [
                 {
-                  "src": "/assets/Q27_Medium_Female_Melasma.jpg",
-                  "alt": "Male Fair Skin Reference 1"
+                  "src": "/assets/Q27_Medium_Female_Melasma.jpg"
                 }
               ]
             }
@@ -1216,22 +1164,22 @@
               "images": [
                 {
                   "src": "/assets/Q35_Dark_Ageing_1.jpg",
-                  "alt": "Male Fair Skin Option A",
+                  "alt": "No, not even with movement",
                   "optionId": "a"
                 },
                 {
                   "src": "/assets/Q35_Dark_Ageing_2.jpg",
-                  "alt": "Male Fair Skin Option B",
+                  "alt": "Only when I move my face, smiling and frowning",
                   "optionId": "b"
                 },
                 {
                   "src": "/assets/Q35_Dark_Ageing_3.jpg",
-                  "alt": "Male Fair Skin Option C",
+                  "alt": "Yes, with movement and a few at rest",
                   "optionId": "c"
                 },
                 {
                   "src": "/assets/Q35_Dark_Ageing_4.jpg",
-                  "alt": "Male Fair Skin Option D",
+                  "alt": "Yes, wrinkles are present without movement",
                   "optionId": "d"
                 }
               ]

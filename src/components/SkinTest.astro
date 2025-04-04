@@ -1397,6 +1397,7 @@ const SavedAnswers = await response.json();
             const imageElement = document.createElement("img");
             imageElement.src = image.src;
             imageElement.alt = image.alt;
+            imageElement.title = image.alt;
             imageElement.classList.add("comparison-image");
 
             comparisonOption.appendChild(imageElement);
@@ -1467,6 +1468,7 @@ const SavedAnswers = await response.json();
             optionButtonCheckSvg.src = "/assets/check-icon.svg";
 
             optionButton.classList.add("option-button");
+            optionButton.title = option.text;
 
             optionButtonSpan.textContent = option.text;
             optionButton.dataset.optionId = option?.optionId;
@@ -1766,7 +1768,7 @@ const SavedAnswers = await response.json();
 
                           // Add new images from imageCombinations.json
                           q.images.forEach((image) => {
-                            if (image.src && image.alt) {
+                            if (image.src) {
                               const container = document.createElement("div");
                               container.classList.add("image-container");
                               container.dataset.optionId = image.optionId || "";
@@ -1776,7 +1778,10 @@ const SavedAnswers = await response.json();
 
                               const img = document.createElement("img");
                               img.src = image.src;
-                              img.alt = image.alt;
+                              if (image?.alt) {
+                                img.alt = image?.alt;
+                                img.title = image?.alt;
+                              }
                               img.classList.add("comparison-image");
 
                               // Add selection arrow
@@ -2041,7 +2046,7 @@ const SavedAnswers = await response.json();
 
                 // Add new images from imageCombinations.json
                 q.images.forEach((image) => {
-                  if (image.src && image.alt) {
+                  if (image.src) {
                     const container = document.createElement("div");
                     container.classList.add("image-container");
                     container.dataset.optionId = image.optionId || "";
@@ -2051,6 +2056,10 @@ const SavedAnswers = await response.json();
                     const img = document.createElement("img");
                     img.src = image.src;
                     img.alt = image.alt;
+                    if (image?.alt){
+                      img.alt = image?.alt;
+                      img.title = image?.alt;
+                    }
                     img.classList.add("comparison-image");
 
                     // Add selection arrow
